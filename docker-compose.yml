@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: portfolio-thalita-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: portfolio
+      POSTGRES_PASSWORD: portfolio
+      POSTGRES_DB: portfolio_thalita
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portfolio -d portfolio_thalita"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: portfolio-thalita-api
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: postgresql://portfolio:portfolio@postgres:5432/portfolio_thalita?schema=public
+      FRONTEND_URL: http://localhost:3000
+      BACKEND_URL: http://localhost:3001
+      GITHUB_USERNAME: thalitapaiva
+      EMAIL_PROVIDER: console
+      EMAIL_FROM: portfolio@example.com
+      EMAIL_TO: contact@example.com
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

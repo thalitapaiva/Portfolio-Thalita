@@ -1,0 +1,28 @@
+{
+  "name": "portfolio-thalita",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "typecheck": "turbo run typecheck",
+    "db:generate": "pnpm --filter @portfolio/api prisma:generate",
+    "db:migrate": "pnpm --filter @portfolio/api prisma:migrate",
+    "db:seed": "pnpm --filter @portfolio/api prisma:seed",
+    "db:studio": "pnpm --filter @portfolio/api prisma:studio",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

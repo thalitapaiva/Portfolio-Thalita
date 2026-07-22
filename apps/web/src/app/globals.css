@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --navy-900: #1c2b3e;
+    --blue-700: #3c678e;
+    --blue-600: #2181bd;
+    --blue-400: #6dadd8;
+    --blue-300: #80cbf3;
+    --background: #f7fafc;
+    --surface: #ffffff;
+    --border: #dce6ee;
+    --text-primary: #1c2b3e;
+    --text-secondary: #526477;
+    --font-sans: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "Roboto Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+    color-scheme: light;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+  }
+
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: rgb(33 129 189 / 0.25);
+    color: var(--text-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--blue-600);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    z-index: 100;
+    padding: 0.5rem 0.875rem;
+    background: var(--navy-900);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .skip-link:focus {
+    left: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
