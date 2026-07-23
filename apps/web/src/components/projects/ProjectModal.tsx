@@ -15,6 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ErrorState } from "@/components/shared/ErrorState";
+import { getFallbackProject } from "@/lib/fallback-data";
 
 interface ProjectModalProps {
   slug: string | null;
@@ -26,7 +27,11 @@ async function fetchProject(slug: string): Promise<ProjectDetailDto> {
     headers: { Accept: "application/json" },
     cache: "no-store",
   });
-  if (!res.ok) throw new Error("Falha ao carregar projeto");
+  if (!res.ok) {
+    const fallback = getFallbackProject(slug);
+    if (fallback) return fallback;
+    throw new Error("Falha ao carregar projeto");
+  }
   return (await res.json()) as ProjectDetailDto;
 }
 
@@ -56,6 +61,9 @@ export function ProjectModal({ slug, onOpenChange }: ProjectModalProps) {
     };
   }, [slug]);
 
+  const fallback = slug ? getFallbackProject(slug) : null;
+  const githubUrl = project?.repositoryUrl ?? fallback?.repositoryUrl ?? null;
+
   return (
     <Dialog open={!!slug} onOpenChange={onOpenChange}>
       <DialogContent aria-describedby="project-modal-desc">
@@ -73,13 +81,23 @@ export function ProjectModal({ slug, onOpenChange }: ProjectModalProps) {
         {status === "error" && (
           <ErrorState
             title="Projeto indisponível"
-            description="Não foi possível carregar este projeto agora. Tente abrir a página dedicada."
+            description="Não foi possível carregar este projeto agora. Abra o repositório no GitHub."
             action={
-              slug && (
-                <Button asChild variant="secondary" size="sm">
-                  <Link href={`/projetos/${slug}`}>Abrir página</Link>
-                </Button>
-              )
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {githubUrl && (
+                  <Button asChild variant="primary" size="sm">
+                    <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+                      <Github className="h-4 w-4" aria-hidden="true" />
+                      Ver no GitHub
+                    </a>
+                  </Button>
+                )}
+                {slug && (
+                  <Button asChild variant="secondary" size="sm">
+                    <Link href={`/projetos/${slug}`}>Abrir página</Link>
+                  </Button>
+                )}
+              </div>
             }
           />
         )}
@@ -120,22 +138,22 @@ export function ProjectModal({ slug, onOpenChange }: ProjectModalProps) {
               )}
 
               <div className="flex flex-wrap items-center gap-2 border-t border-[var(--border)] pt-4">
-                <Button asChild variant="secondary" size="sm">
-                  <Link href={`/projetos/${project.slug}`}>Página do projeto</Link>
-                </Button>
                 {project.repositoryUrl && (
-                  <Button asChild variant="ghost" size="sm">
+                  <Button asChild variant="primary" size="sm">
                     <a
                       href={project.repositoryUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <Github className="h-4 w-4" aria-hidden="true" />
-                      Repositório
+                      Ver no GitHub
                       <span className="sr-only">(nova aba)</span>
                     </a>
                   </Button>
                 )}
+                <Button asChild variant="secondary" size="sm">
+                  <Link href={`/projetos/${project.slug}`}>Página do projeto</Link>
+                </Button>
                 {project.liveUrl && (
                   <Button asChild variant="ghost" size="sm">
                     <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">

@@ -9,8 +9,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { contactDefaultValues, contactSchema, type ContactFormValues } from "@/schemas/contact";
+import {
+  contactDefaultValues,
+  createContactSchema,
+  type ContactFormValues,
+} from "@/schemas/contact";
 import { env } from "@/lib/env";
+import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 
 type SubmitState =
@@ -25,10 +30,11 @@ interface ContactFormProps {
 
 async function defaultSubmit(
   values: ContactFormValues,
+  errorDefault: string,
+  successFallback: string,
 ): Promise<{ success: boolean; message: string }> {
-  // Prefer same-origin Next.js route on Vercel; fall back to Nest API locally.
   const endpoints = ["/api/contact", `${env.apiUrl}/contact`];
-  let lastMessage = "Não foi possível enviar sua mensagem.";
+  let lastMessage = errorDefault;
 
   for (const endpoint of endpoints) {
     try {
@@ -52,14 +58,13 @@ async function defaultSubmit(
 
       const message = Array.isArray(data?.message)
         ? data.message.join(", ")
-        : data?.message ?? (res.ok ? "Mensagem enviada!" : lastMessage);
+        : data?.message ?? (res.ok ? successFallback : lastMessage);
 
       if (res.ok && data?.success !== false) {
         return { success: true, message };
       }
 
       lastMessage = message;
-      // If Nest is down, try the Next route (or vice-versa) once.
       if (res.status >= 500 || res.status === 404) continue;
       return { success: false, message };
     } catch {
@@ -71,7 +76,12 @@ async function defaultSubmit(
 }
 
 export function ContactForm({ onSubmit }: ContactFormProps) {
+  const { t, lang } = useLang();
   const [state, setState] = React.useState<SubmitState>({ status: "idle" });
+  const schema = React.useMemo(
+    () => createContactSchema(t.contact.validation),
+    [t.contact.validation],
+  );
 
   const {
     register,
@@ -79,7 +89,7 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
+    resolver: zodResolver(schema),
     defaultValues: contactDefaultValues,
     mode: "onBlur",
   });
@@ -88,32 +98,38 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
 
   const handler = handleSubmit(async (values) => {
     if (values.website && values.website.length > 0) {
-      setState({ status: "success", message: "Mensagem recebida." });
+      setState({ status: "success", message: t.contact.successHoneypot });
       return;
     }
 
     setState({ status: "submitting" });
     try {
-      const result = await (onSubmit ?? defaultSubmit)(values);
+      const result = await (onSubmit
+        ? onSubmit(values)
+        : defaultSubmit(values, t.contact.errorDefault, t.contact.successDefault));
       if (result.success) {
         setState({
           status: "success",
-          message: result.message || "Recebi sua mensagem. Obrigada!",
+          message: result.message || t.contact.successDefault,
         });
         reset(contactDefaultValues);
       } else {
         setState({
           status: "error",
-          message: result.message || "Não foi possível enviar sua mensagem.",
+          message: result.message || t.contact.errorDefault,
         });
       }
     } catch {
       setState({
         status: "error",
-        message: "Erro de conexão. Verifique sua internet e tente novamente.",
+        message: t.contact.errorConnection,
       });
     }
   });
+
+  React.useEffect(() => {
+    setState({ status: "idle" });
+  }, [lang]);
 
   return (
     <form
@@ -124,14 +140,14 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
     >
       <FormField
         id="name"
-        label="Nome"
+        label={t.contact.name}
         required
         error={errors.name?.message}
         input={
           <Input
             id="name"
             autoComplete="name"
-            placeholder="Nome"
+            placeholder={t.contact.namePlaceholder}
             invalid={!!errors.name}
             {...register("name")}
           />
@@ -140,13 +156,13 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
 
       <FormField
         id="message"
-        label="Mensagem"
+        label={t.contact.message}
         required
         error={errors.message?.message}
         input={
           <Textarea
             id="message"
-            placeholder="Sua mensagem"
+            placeholder={t.contact.messagePlaceholder}
             rows={5}
             invalid={!!errors.message}
             {...register("message")}
@@ -171,7 +187,7 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
           data-sitekey={env.turnstileSiteKey}
           data-callback="onTurnstileSuccess"
           data-theme="light"
-          aria-label="Verificação anti-spam"
+          aria-label={t.contact.antiSpam}
         />
       )}
 
@@ -180,12 +196,12 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
           {submitting ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-              Enviando…
+              {t.contact.sending}
             </>
           ) : (
             <>
               <Send className="h-4 w-4" aria-hidden="true" />
-              Enviar mensagem
+              {t.contact.send}
             </>
           )}
         </Button>

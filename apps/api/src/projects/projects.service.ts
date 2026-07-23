@@ -38,7 +38,9 @@ export class ProjectsService {
     let githubProjects: ProjectSummaryDto[] = [];
     try {
       const repos = await this.github.getAllPublicRepositories();
+      const excluded = new Set(["portfolio-thalita", "thalitapaiva"]);
       githubProjects = repos
+        .filter((repo) => !excluded.has(repo.name.toLowerCase()))
         .filter((repo) => !curatedUrls.has(repo.htmlUrl.toLowerCase()))
         .map((repo, index) => this.fromGitHubRepo(repo, curated.length + index + 1))
         .filter((p) => !curatedSlugs.has(p.slug));

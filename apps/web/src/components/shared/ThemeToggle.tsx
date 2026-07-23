@@ -5,6 +5,7 @@ import { Moon, Sun } from "lucide-react";
 
 import { cn } from "@/lib/cn";
 import { THEME_STORAGE_KEY } from "@/lib/theme-script";
+import { useLang } from "@/lib/i18n";
 
 type Theme = "light" | "dark";
 
@@ -35,6 +36,7 @@ export function ThemeToggle({ className }: { className?: string }) {
   const [theme, setTheme] = React.useState<Theme>("light");
   const [mounted, setMounted] = React.useState(false);
   const [spin, setSpin] = React.useState(false);
+  const { t } = useLang();
 
   React.useEffect(() => {
     setTheme(getPreferredTheme());
@@ -58,7 +60,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
-      aria-label={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
+      aria-label={isDark ? t.theme.light : t.theme.dark}
       aria-pressed={isDark}
       className={cn(
         "inline-flex h-10 w-10 items-center justify-center rounded-md text-[var(--text-secondary)] touch-manipulation",

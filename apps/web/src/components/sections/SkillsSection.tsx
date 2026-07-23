@@ -6,13 +6,13 @@ import type { SkillDto } from "@portfolio/types";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { DevIcon, resolveDevIcon, type DevIconName } from "@/components/shared/DevIcon";
+import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 
 interface SkillsSectionProps {
   skills: SkillDto[];
 }
 
-/** Tools she uses that may sit outside the condensed skill rows. */
 const EXTRA_TOOLS: { name: string; icon: DevIconName }[] = [
   { name: "Next.js", icon: "nextjs" },
   { name: "GitHub", icon: "github" },
@@ -26,43 +26,43 @@ type StackItem = {
   icon: DevIconName;
 };
 
-function buildStack(skills: SkillDto[]): StackItem[] {
-  const fromApi = skills
-    .slice()
-    .sort((a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name))
-    .map((s): StackItem | null => {
-      const icon =
-        resolveDevIcon(s.icon) ??
-        resolveDevIcon(s.name) ??
-        resolveDevIcon(s.name.replace(/gest[aã]o/gi, "gestao"));
-      if (!icon) return null;
-      const name =
-        icon === "projectmgmt" || /gest[aã]o de projetos/i.test(s.name)
-          ? "Gestão de projetos"
-          : s.name;
-      return {
-        id: s.id,
-        name,
-        icon: icon === "trello" ? "projectmgmt" : icon,
-      };
-    })
-    .filter((x): x is StackItem => x !== null);
-
-  const seen = new Set(fromApi.map((s) => s.icon));
-  const seenNames = new Set(fromApi.map((s) => s.name.toLowerCase()));
-  const extras = EXTRA_TOOLS.filter(
-    (t) => !seen.has(t.icon) && !seenNames.has(t.name.toLowerCase()),
-  ).map((t) => ({
-    id: `extra-${t.icon}`,
-    name: t.name,
-    icon: t.icon,
-  }));
-
-  return [...fromApi, ...extras];
-}
-
 export function SkillsSection({ skills }: SkillsSectionProps) {
-  const items = React.useMemo(() => buildStack(skills), [skills]);
+  const { t } = useLang();
+
+  const items = React.useMemo(() => {
+    const fromApi = skills
+      .slice()
+      .sort((a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name))
+      .map((s): StackItem | null => {
+        const icon =
+          resolveDevIcon(s.icon) ??
+          resolveDevIcon(s.name) ??
+          resolveDevIcon(s.name.replace(/gest[aã]o/gi, "gestao"));
+        if (!icon) return null;
+        const name =
+          icon === "projectmgmt" || /gest[aã]o de projetos|project management/i.test(s.name)
+            ? t.skills.projectManagement
+            : s.name;
+        return {
+          id: s.id,
+          name,
+          icon: icon === "trello" ? "projectmgmt" : icon,
+        };
+      })
+      .filter((x): x is StackItem => x !== null);
+
+    const seen = new Set(fromApi.map((s) => s.icon));
+    const seenNames = new Set(fromApi.map((s) => s.name.toLowerCase()));
+    const extras = EXTRA_TOOLS.filter(
+      (tool) => !seen.has(tool.icon) && !seenNames.has(tool.name.toLowerCase()),
+    ).map((tool) => ({
+      id: `extra-${tool.icon}`,
+      name: tool.name,
+      icon: tool.icon,
+    }));
+
+    return [...fromApi, ...extras];
+  }, [skills, t.skills.projectManagement]);
 
   return (
     <section id="competencias" aria-labelledby="skills-title" className="section-pad">
@@ -70,8 +70,8 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
         <ScrollReveal>
           <SectionHeading
             id="skills-title"
-            title="Stack"
-            description="Linguagens, ferramentas e práticas que uso no dia a dia."
+            title={t.skills.title}
+            description={t.skills.description}
           />
         </ScrollReveal>
 

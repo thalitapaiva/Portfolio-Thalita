@@ -7,6 +7,7 @@ import type { GitHubProfileDto, PortfolioProfileDto } from "@portfolio/types";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/shared/Magnetic";
 import { GeometricMark } from "@/components/shared/GeometricMark";
+import { useLang } from "@/lib/i18n";
 
 interface HeroSectionProps {
   profile: PortfolioProfileDto | null;
@@ -17,11 +18,12 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function HeroSection({ profile, github }: HeroSectionProps) {
   const prefersReduced = useReducedMotion();
+  const { t } = useLang();
   const fullName = profile?.fullName ?? "Thalita Paiva";
   const parts = fullName.trim().split(/\s+/);
   const first = parts[0] ?? "Thalita";
   const rest = parts.slice(1).join(" ") || "Paiva";
-  const headline = profile?.headline ?? "Programação, processos e projetos.";
+  const headline = t.hero.headline;
   const linkedInUrl = profile?.linkedIn?.profileUrl;
   const githubUrl = github?.htmlUrl ?? "https://github.com/thalitapaiva";
 
@@ -40,7 +42,6 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
       aria-labelledby="hero-title"
       className="relative flex min-h-[100svh] items-end overflow-x-clip pb-[max(5.5rem,env(safe-area-inset-bottom))] pt-[max(7rem,calc(env(safe-area-inset-top)+5rem))] sm:items-center sm:pb-28 sm:pt-28"
     >
-      {/* Editorial geometry — behind type */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
         <GeometricMark
           variant="keycap"
@@ -58,7 +59,7 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
         <div className="max-w-4xl">
           <motion.div className="mb-8 flex items-center gap-3 sm:mb-10" {...line(0)}>
             <span className="editorial-rule" aria-hidden="true" />
-            <span className="sr-only">Portfólio</span>
+            <span className="sr-only">{t.hero.portfolioSr}</span>
           </motion.div>
 
           <h1 id="hero-title" className="display-title text-[var(--text-primary)]">
@@ -90,7 +91,7 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
             <Magnetic>
               <Button asChild variant="primary" size="lg" className="min-h-12 w-full touch-manipulation sm:w-auto">
                 <a href="#projetos">
-                  Ver projetos
+                  {t.hero.viewProjects}
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </a>
               </Button>
@@ -116,7 +117,7 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
                 </a>
               ) : null}
               <a href="#contato" className="link-underline touch-manipulation hover:text-[var(--text-primary)]">
-                Contato
+                {t.hero.contact}
               </a>
             </div>
           </motion.div>
@@ -127,7 +128,7 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
         <a
           href="#sobre"
           className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-[var(--text-secondary)] sm:flex"
-          aria-label="Rolar para sobre"
+          aria-label={t.hero.scrollAbout}
         >
           <span className="scroll-cue" aria-hidden="true" />
         </a>

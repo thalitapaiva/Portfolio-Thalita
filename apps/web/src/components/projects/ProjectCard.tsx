@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { ProjectSummaryDto } from "@portfolio/types";
 
 import { cn } from "@/lib/cn";
+import { useLang } from "@/lib/i18n";
 import { ProjectPreview } from "@/components/projects/ProjectPreview";
 
 interface ProjectCardProps {
@@ -22,13 +23,27 @@ export function ProjectCard({
   compact = false,
   featured = false,
 }: ProjectCardProps) {
+  const { t } = useLang();
+  const localized = t.projectContent[project.slug];
+  const title = localized?.title ?? project.title;
+  const shortDescription = localized?.shortDescription ?? project.shortDescription;
+
   const techs = project.technologies
     .slice()
     .sort((a, b) => Number(b.isPrimary) - Number(a.isPrimary))
-    .map((t) => t.technology)
+    .map((tech) => tech.technology)
     .slice(0, compact ? 3 : 5);
 
+  const githubUrl = project.repositoryUrl?.trim() || null;
+  const internalHref = `/projetos/${project.slug}`;
+  const openLabel = githubUrl ? t.projects.openOnGithub(title) : title;
+  const ctaLabel = githubUrl ? t.projects.viewOnGithub : t.projects.view;
+
   const openProject = () => {
+    if (githubUrl) {
+      window.open(githubUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
     if (onOpen) onOpen(project.slug);
   };
 
@@ -42,7 +57,7 @@ export function ProjectCard({
     />
   ) : (
     <ProjectPreview
-      title={project.title}
+      title={title}
       slug={project.slug}
       className="absolute inset-0 transition-transform duration-700 ease-premium group-hover:scale-[1.04]"
     />
@@ -53,6 +68,131 @@ export function ProjectCard({
     featured ? "aspect-[16/9]" : "aspect-[16/10]",
   );
 
+  const coverOverlay = (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[color-mix(in_srgb,var(--navy-900)_28%,transparent)] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+    />
+  );
+
+  const renderCover = () => {
+    if (githubUrl) {
+      return (
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(coverClass, "project-cover")}
+          aria-label={openLabel}
+        >
+          {cover}
+          {coverOverlay}
+        </a>
+      );
+    }
+    if (onOpen) {
+      return (
+        <button
+          type="button"
+          onClick={openProject}
+          className={cn(
+            coverClass,
+            "project-cover text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]",
+          )}
+          aria-label={openLabel}
+        >
+          {cover}
+          {coverOverlay}
+        </button>
+      );
+    }
+    return (
+      <Link href={internalHref} className={cn(coverClass, "project-cover")} aria-label={title}>
+        {cover}
+      </Link>
+    );
+  };
+
+  const renderTitle = () => {
+    if (githubUrl) {
+      return (
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors duration-300 hover:text-[var(--blue-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+        >
+          {title}
+        </a>
+      );
+    }
+    if (onOpen) {
+      return (
+        <button
+          type="button"
+          onClick={openProject}
+          className="text-left transition-colors duration-300 hover:text-[var(--blue-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+        >
+          {title}
+        </button>
+      );
+    }
+    return (
+      <Link href={internalHref} className="transition-colors duration-300 hover:text-[var(--blue-600)]">
+        {title}
+      </Link>
+    );
+  };
+
+  const renderCta = () => {
+    if (githubUrl) {
+      return (
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline inline-flex min-h-10 items-center gap-1.5 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)] touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+          aria-label={`${ctaLabel}: ${title}`}
+        >
+          {ctaLabel}
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover:translate-x-0.5"
+          >
+            →
+          </span>
+        </a>
+      );
+    }
+    if (onOpen) {
+      return (
+        <button
+          type="button"
+          onClick={openProject}
+          className="link-underline inline-flex min-h-10 items-center gap-1.5 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)] touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+          aria-label={`${ctaLabel} ${title}`}
+        >
+          {ctaLabel}
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover:translate-x-0.5"
+          >
+            →
+          </span>
+        </button>
+      );
+    }
+    return (
+      <Link
+        href={internalHref}
+        className="link-underline inline-flex min-h-10 items-center gap-1.5 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)]"
+      >
+        {ctaLabel}
+        <span aria-hidden="true">→</span>
+      </Link>
+    );
+  };
+
   return (
     <article
       className={cn(
@@ -61,31 +201,7 @@ export function ProjectCard({
         className,
       )}
     >
-      {onOpen ? (
-        <button
-          type="button"
-          onClick={openProject}
-          className={cn(
-            coverClass,
-            "project-cover text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]",
-          )}
-          aria-label={`Abrir ${project.title}`}
-        >
-          {cover}
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[color-mix(in_srgb,var(--navy-900)_28%,transparent)] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          />
-        </button>
-      ) : (
-        <Link
-          href={`/projetos/${project.slug}`}
-          className={cn(coverClass, "project-cover")}
-          aria-label={project.title}
-        >
-          {cover}
-        </Link>
-      )}
+      {renderCover()}
 
       <div className="flex flex-1 flex-col gap-2.5">
         <div className="flex items-start justify-between gap-3">
@@ -95,22 +211,7 @@ export function ProjectCard({
               featured ? "text-[1.35rem] sm:text-[1.55rem]" : "text-[1.1rem] sm:text-[1.2rem]",
             )}
           >
-            {onOpen ? (
-              <button
-                type="button"
-                onClick={openProject}
-                className="text-left transition-colors duration-300 hover:text-[var(--blue-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
-              >
-                {project.title}
-              </button>
-            ) : (
-              <Link
-                href={`/projetos/${project.slug}`}
-                className="transition-colors duration-300 hover:text-[var(--blue-600)]"
-              >
-                {project.title}
-              </Link>
-            )}
+            {renderTitle()}
           </h3>
           <time
             className="shrink-0 pt-1 font-mono text-[11px] font-medium text-[var(--text-secondary)]"
@@ -120,52 +221,27 @@ export function ProjectCard({
           </time>
         </div>
 
-        {project.shortDescription ? (
+        {shortDescription ? (
           <p
             className={cn(
               "text-[0.95rem] leading-relaxed tracking-[-0.02em] text-[var(--text-secondary)]",
               compact ? "line-clamp-2" : "line-clamp-3",
             )}
           >
-            {project.shortDescription}
+            {shortDescription}
           </p>
         ) : null}
 
         {techs.length > 0 ? (
           <p
             className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--blue-700)]"
-            aria-label="Tecnologias"
+            aria-label={t.projects.technologies}
           >
-            {techs.map((t) => t.name).join(" · ")}
+            {techs.map((tech) => tech.name).join(" · ")}
           </p>
         ) : null}
 
-        <div className="mt-auto pt-1">
-          {onOpen ? (
-            <button
-              type="button"
-              onClick={openProject}
-              className="link-underline inline-flex min-h-10 items-center gap-1.5 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)] touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
-              aria-label={`Ver projeto ${project.title}`}
-            >
-              Ver
-              <span
-                aria-hidden="true"
-                className="transition-transform duration-300 group-hover:translate-x-0.5"
-              >
-                →
-              </span>
-            </button>
-          ) : (
-            <Link
-              href={`/projetos/${project.slug}`}
-              className="link-underline inline-flex min-h-10 items-center gap-1.5 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)]"
-            >
-              Ver
-              <span aria-hidden="true">→</span>
-            </Link>
-          )}
-        </div>
+        <div className="mt-auto pt-1">{renderCta()}</div>
       </div>
     </article>
   );

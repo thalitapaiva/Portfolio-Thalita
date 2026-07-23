@@ -85,20 +85,20 @@ export default async function ProjectPage({
             </p>
             <div className="flex flex-wrap items-center gap-2 pt-1">
               {project.repositoryUrl && (
-                <Button asChild variant="secondary" size="md">
+                <Button asChild variant="primary" size="md">
                   <a
                     href={project.repositoryUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <Github className="h-4 w-4" aria-hidden="true" />
-                    Repositório
+                    Ver no GitHub
                     <span className="sr-only">(nova aba)</span>
                   </a>
                 </Button>
               )}
               {project.liveUrl && (
-                <Button asChild variant="primary" size="md">
+                <Button asChild variant="secondary" size="md">
                   <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="h-4 w-4" aria-hidden="true" />
                     Ver ao vivo
@@ -145,7 +145,6 @@ export default async function ProjectPage({
       </main>
       <SiteFooter
         fullName={profile?.fullName}
-        shortPhrase={profile?.headline}
         socialLinks={socialLinks}
       />
     </>

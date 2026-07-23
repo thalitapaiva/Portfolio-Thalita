@@ -13,10 +13,11 @@ import { env } from "./env";
 import { REVALIDATE } from "./constants";
 import {
   FALLBACK_PROFILE,
-  FALLBACK_PROJECTS,
   FALLBACK_SKILLS,
   FALLBACK_SOCIAL,
+  getFallbackProject,
 } from "./fallback-data";
+import { getProjectsWithGitHub } from "./github-projects";
 
 type FetchOptions = {
   revalidate?: number | false;
@@ -130,15 +131,20 @@ export const api = {
       FALLBACK_SKILLS,
     ),
 
-  getProjects: (): Promise<ProjectSummaryDto[]> =>
-    safe(
-      () =>
-        apiFetch<ProjectSummaryDto[]>("/projects", {}, {
-          revalidate: REVALIDATE.projects,
-          tags: ["projects"],
-        }),
-      FALLBACK_PROJECTS,
-    ),
+  getProjects: async (): Promise<ProjectSummaryDto[]> => {
+    try {
+      return await apiFetch<ProjectSummaryDto[]>("/projects", {}, {
+        revalidate: REVALIDATE.projects,
+        tags: ["projects"],
+      });
+    } catch (err) {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn("[api] projects fetch failed:", (err as Error).message);
+      }
+      // Vercel / offline: curated seeds + live public GitHub repos.
+      return getProjectsWithGitHub();
+    }
+  },
 
   getProject: (slug: string): Promise<ProjectDetailDto | null> =>
     safe(
@@ -147,7 +153,7 @@ export const api = {
           revalidate: REVALIDATE.projects,
           tags: ["projects", `project:${slug}`],
         }),
-      null,
+      getFallbackProject(slug),
     ),
 
   getGithub: (): Promise<GitHubProfileDto | null> =>

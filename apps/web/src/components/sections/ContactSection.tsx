@@ -5,6 +5,7 @@ import type { PortfolioProfileDto, SocialLinkDto } from "@portfolio/types";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { ContactForm } from "@/components/forms/ContactForm";
+import { useLang } from "@/lib/i18n";
 
 interface ContactSectionProps {
   profile: PortfolioProfileDto | null;
@@ -17,6 +18,7 @@ export function ContactSection({
 }: ContactSectionProps) {
   void _profile;
   void _socialLinks;
+  const { t } = useLang();
 
   return (
     <section
@@ -27,7 +29,7 @@ export function ContactSection({
       <div className="section-shell">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:items-start lg:gap-24">
           <ScrollReveal>
-            <SectionHeading id="contact-title" title="Contato" />
+            <SectionHeading id="contact-title" title={t.contact.title} />
           </ScrollReveal>
 
           <ScrollReveal delay={0.08}>

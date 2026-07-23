@@ -6,8 +6,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { NAV_SECTIONS, SITE } from "@/lib/constants";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 
 interface SiteHeaderProps {
@@ -20,6 +22,15 @@ const SECTION_IDS = NAV_SECTIONS.map((s) => s.id);
 export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
   const [scrolled, setScrolled] = React.useState(false);
   const activeSection = useActiveSection(SECTION_IDS, 96);
+  const { t } = useLang();
+
+  const navLabels: Record<(typeof NAV_SECTIONS)[number]["id"], string> = {
+    inicio: t.nav.home,
+    sobre: t.nav.about,
+    competencias: t.nav.skills,
+    projetos: t.nav.projects,
+    contato: t.nav.contact,
+  };
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -36,13 +47,13 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
           ? "border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--background)_72%,transparent)] backdrop-blur-2xl"
           : "border-b border-transparent bg-transparent",
       )}
-      aria-label="Cabeçalho principal"
+      aria-label={t.nav.headerAria}
     >
       <div className="mx-auto flex h-14 max-w-wide items-center gap-6 px-5 sm:h-[4.25rem] sm:gap-8 sm:px-8 lg:px-12">
         <Link
           href="#inicio"
           className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
-          aria-label={`${fullName} — voltar ao início`}
+          aria-label={`${fullName} — ${t.nav.backHome}`}
         >
           <span className="text-[13px] font-bold tracking-[-0.03em] text-[var(--text-primary)] sm:text-[14px]">
             {fullName}
@@ -50,7 +61,7 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
         </Link>
 
         <nav
-          aria-label="Navegação principal"
+          aria-label={t.nav.mainAria}
           className="ml-auto hidden items-center gap-1 md:flex"
         >
           {NAV_SECTIONS.filter((s) => s.id !== "inicio").map((section) => {
@@ -68,7 +79,7 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]",
                 )}
               >
-                {section.label}
+                {navLabels[section.id]}
                 <span
                   aria-hidden="true"
                   className={cn(
@@ -82,9 +93,10 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
         </nav>
 
         <div className="flex items-center gap-1.5 md:ml-2">
+          <LanguageToggle />
           <ThemeToggle />
           <Button asChild variant="primary" size="sm" className="hidden md:inline-flex">
-            <a href="#contato">Contato</a>
+            <a href="#contato">{t.nav.contact}</a>
           </Button>
           <MobileNav activeSection={activeSection} />
         </div>

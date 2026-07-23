@@ -37,7 +37,6 @@ export default async function HomePage() {
       </main>
       <SiteFooter
         fullName={profile?.fullName}
-        shortPhrase={profile?.headline}
         socialLinks={socialLinks}
       />
     </>

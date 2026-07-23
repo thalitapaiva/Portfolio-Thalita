@@ -1,8 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { Github, Linkedin } from "lucide-react";
 import type { SocialLinkDto } from "@portfolio/types";
 
 import { SITE } from "@/lib/constants";
+import { useLang } from "@/lib/i18n";
 
 const PLATFORM_ICON: Record<string, React.ComponentType<{ className?: string }>> = {
   github: Github,
@@ -11,16 +14,15 @@ const PLATFORM_ICON: Record<string, React.ComponentType<{ className?: string }>>
 
 interface SiteFooterProps {
   fullName?: string;
-  shortPhrase?: string;
   email?: string;
   socialLinks?: SocialLinkDto[];
 }
 
 export function SiteFooter({
   fullName = SITE.name,
-  shortPhrase = "Programação, processos e projetos.",
   socialLinks = [],
 }: SiteFooterProps) {
+  const { t } = useLang();
   const year = new Date().getFullYear();
   const links = socialLinks.filter(
     (link) => !["email", "mail"].includes(link.platform.toLowerCase()),
@@ -34,7 +36,7 @@ export function SiteFooter({
             {fullName}
           </p>
           <p className="text-[12px] font-medium tracking-[-0.015em] text-[var(--text-secondary)]">
-            {shortPhrase}
+            {t.footer.phrase}
           </p>
         </div>
 

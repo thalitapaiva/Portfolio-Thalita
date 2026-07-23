@@ -64,7 +64,6 @@ export default async function PrivacyPage() {
       </main>
       <SiteFooter
         fullName={profile?.fullName}
-        shortPhrase={profile?.headline}
         socialLinks={socialLinks}
       />
     </>
