@@ -26,29 +26,48 @@ interface ContactFormProps {
 async function defaultSubmit(
   values: ContactFormValues,
 ): Promise<{ success: boolean; message: string }> {
-  const res = await fetch(`${env.apiUrl}/contact`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({
-      name: values.name.trim(),
-      message: values.message.trim(),
-      website: values.website?.trim() || undefined,
-      turnstileToken: values.turnstileToken || undefined,
-    }),
-  });
+  // Prefer same-origin Next.js route on Vercel; fall back to Nest API locally.
+  const endpoints = ["/api/contact", `${env.apiUrl}/contact`];
+  let lastMessage = "Não foi possível enviar sua mensagem.";
 
-  let data: { success?: boolean; message?: string | string[] } = {};
-  try {
-    data = await res.json();
-  } catch {
-    // ignore
+  for (const endpoint of endpoints) {
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          message: values.message.trim(),
+          website: values.website?.trim() || undefined,
+          turnstileToken: values.turnstileToken || undefined,
+        }),
+      });
+
+      let data: { success?: boolean; message?: string | string[] } = {};
+      try {
+        data = await res.json();
+      } catch {
+        // ignore
+      }
+
+      const message = Array.isArray(data?.message)
+        ? data.message.join(", ")
+        : data?.message ?? (res.ok ? "Mensagem enviada!" : lastMessage);
+
+      if (res.ok && data?.success !== false) {
+        return { success: true, message };
+      }
+
+      lastMessage = message;
+      // If Nest is down, try the Next route (or vice-versa) once.
+      if (res.status >= 500 || res.status === 404) continue;
+      return { success: false, message };
+    } catch {
+      continue;
+    }
   }
 
-  const message = Array.isArray(data?.message)
-    ? data.message.join(", ")
-    : data?.message ?? (res.ok ? "Mensagem enviada!" : "Não foi possível enviar sua mensagem.");
-
-  return { success: res.ok && data?.success !== false, message };
+  return { success: false, message: lastMessage };
 }
 
 export function ContactForm({ onSubmit }: ContactFormProps) {
