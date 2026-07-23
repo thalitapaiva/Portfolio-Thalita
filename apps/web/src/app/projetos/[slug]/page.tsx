@@ -57,11 +57,7 @@ export default async function ProjectPage({
 
   return (
     <>
-      <SiteHeader
-        monogram={profile?.monogram}
-        fullName={profile?.fullName}
-        githubUrl={github?.htmlUrl}
-      />
+      <SiteHeader fullName={profile?.fullName} githubUrl={github?.htmlUrl} />
       <main className="pt-28 pb-16 sm:pt-32">
         <article className="mx-auto max-w-content px-5 sm:px-8">
           <nav aria-label="Trilha de navegação" className="mb-6">
@@ -150,7 +146,6 @@ export default async function ProjectPage({
       <SiteFooter
         fullName={profile?.fullName}
         shortPhrase={profile?.headline}
-        email={profile?.email}
         socialLinks={socialLinks}
       />
     </>

@@ -1,15 +1,12 @@
 import * as React from "react";
-import Link from "next/link";
-import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 import type { SocialLinkDto } from "@portfolio/types";
 
-import { NAV_SECTIONS, SITE } from "@/lib/constants";
+import { SITE } from "@/lib/constants";
 
 const PLATFORM_ICON: Record<string, React.ComponentType<{ className?: string }>> = {
   github: Github,
   linkedin: Linkedin,
-  email: Mail,
-  mail: Mail,
 };
 
 interface SiteFooterProps {
@@ -21,94 +18,44 @@ interface SiteFooterProps {
 
 export function SiteFooter({
   fullName = SITE.name,
-  shortPhrase = "Software e produto com foco em pessoas.",
-  email,
+  shortPhrase = "Programação, processos e projetos.",
   socialLinks = [],
 }: SiteFooterProps) {
   const year = new Date().getFullYear();
+  const links = socialLinks.filter(
+    (link) => !["email", "mail"].includes(link.platform.toLowerCase()),
+  );
 
   return (
-    <footer
-      role="contentinfo"
-      className="border-t border-[var(--border)] bg-[var(--surface)]"
-    >
-      <div className="mx-auto grid max-w-wide gap-10 px-5 py-12 sm:px-8 md:grid-cols-3">
-        <div className="space-y-3">
-          <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--blue-700)]">
-            Portfolio
+    <footer role="contentinfo" className="border-t border-[var(--border)] pb-[env(safe-area-inset-bottom)]">
+      <div className="section-shell flex flex-col gap-8 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-14">
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <p className="text-[14px] font-bold tracking-[-0.03em] text-[var(--text-primary)]">
+            {fullName}
           </p>
-          <h2 className="text-xl font-semibold text-[var(--text-primary)]">{fullName}</h2>
-          <p className="max-w-xs text-sm text-[var(--text-secondary)]">{shortPhrase}</p>
+          <p className="text-[12px] font-medium tracking-[-0.015em] text-[var(--text-secondary)]">
+            {shortPhrase}
+          </p>
         </div>
 
-        <nav aria-label="Navegação do rodapé" className="space-y-3">
-          <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--text-secondary)]">
-            Navegação
-          </p>
-          <ul className="flex flex-col gap-2 text-sm">
-            {NAV_SECTIONS.map((s) => (
-              <li key={s.id}>
-                <a
-                  href={`#${s.id}`}
-                  className="text-[var(--text-primary)] transition-colors hover:text-[var(--blue-700)]"
-                >
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="space-y-3">
-          <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--text-secondary)]">
-            Contato & Redes
-          </p>
-          <ul className="flex flex-col gap-2 text-sm">
-            {email && (
-              <li>
-                <a
-                  href={`mailto:${email}`}
-                  className="inline-flex items-center gap-2 text-[var(--text-primary)] transition-colors hover:text-[var(--blue-700)]"
-                >
-                  <Mail className="h-4 w-4" aria-hidden="true" />
-                  {email}
-                </a>
-              </li>
-            )}
-            {socialLinks.map((link) => {
-              const key = link.platform.toLowerCase();
-              const Icon = PLATFORM_ICON[key] ?? ExternalLink;
-              return (
-                <li key={link.id}>
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[var(--text-primary)] transition-colors hover:text-[var(--blue-700)]"
-                  >
-                    <Icon className="h-4 w-4" aria-hidden="true" />
-                    {link.label}
-                    <ExternalLink className="h-3 w-3 opacity-60" aria-hidden="true" />
-                    <span className="sr-only">(abre em nova aba)</span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
-
-      <div className="border-t border-[var(--border)]">
-        <div className="mx-auto flex max-w-wide flex-col items-start justify-between gap-3 px-5 py-5 text-xs text-[var(--text-secondary)] sm:flex-row sm:items-center sm:px-8">
-          <p>
-            © {year} {fullName}. Todos os direitos reservados.
-          </p>
-          <p className="font-mono">
-            Feito com Next.js, TypeScript e Tailwind CSS ·{" "}
-            <Link href="#inicio" className="underline underline-offset-4 hover:text-[var(--blue-700)]">
-              voltar ao topo
-            </Link>
-          </p>
+        <div className="flex flex-wrap items-center gap-1 sm:gap-2">
+          {links.map((link) => {
+            const Icon = PLATFORM_ICON[link.platform.toLowerCase()] ?? Github;
+            return (
+              <a
+                key={link.id}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-10 min-w-10 items-center justify-center gap-2 px-2 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-secondary)] transition-colors duration-300 touch-manipulation hover:text-[var(--text-primary)]"
+                aria-label={link.label}
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" />
+                <span className="sr-only sm:not-sr-only">{link.label}</span>
+              </a>
+            );
+          })}
+          <span className="ml-2 font-mono text-[11px] text-[var(--text-secondary)]">© {year}</span>
         </div>
       </div>
     </footer>

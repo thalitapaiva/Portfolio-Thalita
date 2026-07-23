@@ -1,31 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Roboto, Roboto_Mono } from "next/font/google";
+import "@fontsource-variable/mona-sans";
 
 import "./globals.css";
 
 import { Providers } from "./providers";
 import { api } from "@/lib/api";
 import { buildMetadata } from "@/lib/seo";
-import { SITE } from "@/lib/constants";
 import { env } from "@/lib/env";
-
-const roboto = Roboto({
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "700"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const robotoMono = Roboto_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
-  display: "swap",
-});
+import { SiteBackdrop } from "@/components/shared/TechIconsField";
+import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 
 export const viewport: Viewport = {
-  themeColor: SITE.themeColor,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f8fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#060a12" },
+  ],
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -38,11 +28,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${roboto.variable} ${robotoMono.variable}`}>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body>
         <a href="#inicio" className="skip-link">
           Pular para o conteúdo
         </a>
+        <SiteBackdrop />
         <Providers>{children}</Providers>
         {env.turnstileSiteKey && (
           <Script

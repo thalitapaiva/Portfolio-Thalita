@@ -15,6 +15,7 @@
  */
 
 import {
+  Prisma,
   PrismaClient,
   SkillCategory,
   SkillLevel,
@@ -79,36 +80,30 @@ interface SocialLinkSeed {
 const workPrinciples: WorkPrincipleSeed[] = [
   {
     title: "Organização",
-    description:
-      "Planejo cada projeto em etapas claras, uso boards e checklists para acompanhar o progresso e mantenho o repositório com histórico limpo e commits descritivos.",
+    description: "Escopos claros e histórico limpo no Git.",
   },
   {
     title: "Comunicação",
-    description:
-      "Escrevo READMEs e comentários objetivos, documento decisões e busco alinhamento com colegas de curso antes de encerrar cada entrega.",
+    description: "Documentação objetiva e alinhamento constante.",
   },
   {
     title: "Execução",
-    description:
-      "Priorizo entregar versões funcionais o quanto antes, itero com base em feedback e sempre reservo tempo para revisão e refino visual.",
+    description: "Entregar cedo, iterar e fechar com qualidade.",
   },
 ];
 
 const linkedIn: LinkedInSeed = {
   name: "Thalita Paiva",
-  headline:
-    "UFES Information Systems student focused on continuous learning",
+  headline: "SI · UFES | Programação, processos e projetos",
   summary:
-    "Estudante de Sistemas de Informação na UFES apaixonada por construir interfaces limpas e código de qualidade. Aprendo em público através de projetos práticos de front-end, algoritmos e ferramentas do dia a dia de uma pessoa desenvolvedora.",
+    "Estudante de Sistemas de Informação com foco em software e organização de entregas.",
   skills: [
-    "HTML",
-    "CSS",
     "JavaScript",
     "TypeScript",
-    "C",
-    "Git & GitHub",
-    "Responsive Design",
-    "UI Prototyping",
+    "React",
+    "Node.js",
+    "Git",
+    "Gestão de projetos",
   ],
   profileUrl: "https://www.linkedin.com/in/thalita-paiva-1301a122b/",
 };
@@ -118,42 +113,29 @@ const technologies: TechnologySeed[] = [
   { name: "CSS3", slug: "css", icon: "css3" },
   { name: "JavaScript", slug: "javascript", icon: "javascript" },
   { name: "TypeScript", slug: "typescript", icon: "typescript" },
+  { name: "React", slug: "react", icon: "react" },
+  { name: "Next.js", slug: "nextjs", icon: "nextjs" },
+  { name: "Node.js", slug: "nodejs", icon: "nodejs" },
   { name: "C", slug: "c", icon: "c" },
+  { name: "PostgreSQL", slug: "postgresql", icon: "postgresql" },
   { name: "Git", slug: "git", icon: "git" },
-  { name: "GitHub Pages", slug: "github-pages", icon: "github" },
-  { name: "Responsive Design", slug: "responsive-design", icon: "layout" },
-  { name: "DOM API", slug: "dom-api", icon: "dom" },
+  { name: "GitHub", slug: "github", icon: "github" },
+  { name: "VS Code", slug: "vscode", icon: "vscode" },
+  { name: "Figma", slug: "figma", icon: "figma" },
+  { name: "Docker", slug: "docker", icon: "docker" },
 ];
 
 const skills: SkillSeed[] = [
-  // Frontend
-  { name: "HTML5", category: SkillCategory.FRONTEND, icon: "html5", level: SkillLevel.WORKING, displayOrder: 1 },
-  { name: "CSS3", category: SkillCategory.FRONTEND, icon: "css3", level: SkillLevel.WORKING, displayOrder: 2 },
-  { name: "JavaScript", category: SkillCategory.FRONTEND, icon: "javascript", level: SkillLevel.WORKING, displayOrder: 3 },
-  { name: "TypeScript", category: SkillCategory.FRONTEND, icon: "typescript", level: SkillLevel.FAMILIAR, displayOrder: 4 },
-  { name: "Responsive Design", category: SkillCategory.FRONTEND, icon: "layout", level: SkillLevel.WORKING, displayOrder: 5 },
-  { name: "DOM API", category: SkillCategory.FRONTEND, icon: "dom", level: SkillLevel.WORKING, displayOrder: 6 },
-
-  // Backend / Programming
-  { name: "C", category: SkillCategory.BACKEND, icon: "c", level: SkillLevel.FAMILIAR, displayOrder: 1 },
-  { name: "Node.js (aprendendo)", category: SkillCategory.BACKEND, icon: "nodejs", level: SkillLevel.FAMILIAR, displayOrder: 2 },
-  { name: "Fundamentos de POO", category: SkillCategory.BACKEND, icon: "code", level: SkillLevel.FAMILIAR, displayOrder: 3 },
-
-  // Database
-  { name: "SQL (fundamentos)", category: SkillCategory.DATABASE, icon: "database", level: SkillLevel.FAMILIAR, displayOrder: 1 },
-  { name: "Modelagem de dados", category: SkillCategory.DATABASE, icon: "schema", level: SkillLevel.FAMILIAR, displayOrder: 2 },
-
-  // DevOps / Tooling
-  { name: "Git", category: SkillCategory.DEVOPS, icon: "git", level: SkillLevel.WORKING, displayOrder: 1 },
-  { name: "GitHub", category: SkillCategory.DEVOPS, icon: "github", level: SkillLevel.WORKING, displayOrder: 2 },
-  { name: "GitHub Pages", category: SkillCategory.DEVOPS, icon: "github", level: SkillLevel.FAMILIAR, displayOrder: 3 },
-  { name: "VS Code", category: SkillCategory.DEVOPS, icon: "vscode", level: SkillLevel.WORKING, displayOrder: 4 },
-
-  // Product / Soft skills
-  { name: "Organização", category: SkillCategory.PRODUCT, icon: "check", level: SkillLevel.PROFICIENT, displayOrder: 1 },
-  { name: "Comunicação", category: SkillCategory.PRODUCT, icon: "chat", level: SkillLevel.PROFICIENT, displayOrder: 2 },
-  { name: "Trabalho em equipe", category: SkillCategory.PRODUCT, icon: "users", level: SkillLevel.PROFICIENT, displayOrder: 3 },
-  { name: "Aprendizado contínuo", category: SkillCategory.PRODUCT, icon: "book", level: SkillLevel.PROFICIENT, displayOrder: 4 },
+  { name: "JavaScript", category: SkillCategory.FRONTEND, icon: "javascript", level: SkillLevel.WORKING, displayOrder: 1 },
+  { name: "TypeScript", category: SkillCategory.FRONTEND, icon: "typescript", level: SkillLevel.FAMILIAR, displayOrder: 2 },
+  { name: "React", category: SkillCategory.FRONTEND, icon: "react", level: SkillLevel.FAMILIAR, displayOrder: 3 },
+  { name: "HTML/CSS", category: SkillCategory.FRONTEND, icon: "html5", level: SkillLevel.WORKING, displayOrder: 4 },
+  { name: "Node.js", category: SkillCategory.BACKEND, icon: "nodejs", level: SkillLevel.FAMILIAR, displayOrder: 5 },
+  { name: "C", category: SkillCategory.BACKEND, icon: "c", level: SkillLevel.WORKING, displayOrder: 6 },
+  { name: "PostgreSQL", category: SkillCategory.DATABASE, icon: "postgresql", level: SkillLevel.FAMILIAR, displayOrder: 7 },
+  { name: "Git", category: SkillCategory.DEVOPS, icon: "git", level: SkillLevel.WORKING, displayOrder: 8 },
+  { name: "Figma", category: SkillCategory.DEVOPS, icon: "figma", level: SkillLevel.FAMILIAR, displayOrder: 9 },
+  { name: "Gestão de projetos", category: SkillCategory.PRODUCT, icon: "projectmgmt", level: SkillLevel.WORKING, displayOrder: 10 },
 ];
 
 const projects: ProjectSeed[] = [
@@ -175,7 +157,7 @@ const projects: ProjectSeed[] = [
     technologies: [
       { slug: "html", isPrimary: true },
       { slug: "css", isPrimary: true },
-      { slug: "responsive-design" },
+      { slug: "css" },
     ],
   },
   {
@@ -197,7 +179,7 @@ const projects: ProjectSeed[] = [
       { slug: "html" },
       { slug: "css" },
       { slug: "javascript", isPrimary: true },
-      { slug: "dom-api" },
+      { slug: "javascript" },
     ],
   },
   {
@@ -240,7 +222,7 @@ const projects: ProjectSeed[] = [
       { slug: "html" },
       { slug: "css" },
       { slug: "javascript", isPrimary: true },
-      { slug: "dom-api" },
+      { slug: "javascript" },
     ],
   },
   {
@@ -282,7 +264,7 @@ const projects: ProjectSeed[] = [
     technologies: [
       { slug: "html", isPrimary: true },
       { slug: "css", isPrimary: true },
-      { slug: "responsive-design" },
+      { slug: "css" },
     ],
   },
 ];
@@ -331,28 +313,27 @@ async function seedProfile() {
   const data = {
     fullName: "Thalita Paiva",
     monogram: "TP",
-    heroLabel: "Estudante de Sistemas de Informação",
-    headline:
-      "Aprendendo continuamente para construir software com propósito.",
+    heroLabel: "SI · SOFTWARE · PROCESSOS",
+    headline: "Programação, processos e projetos.",
     shortBio:
-      "Information Systems Student na UFES apaixonada por front-end, boas práticas de código e projetos que resolvem problemas reais.",
+      "Estudante de Sistemas de Informação na UFES – Campus Alegre, com foco em desenvolvimento Full Stack.",
     aboutContent:
-      "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo (UFES). Uso meu tempo fora da sala de aula para construir projetos práticos de front-end e aprofundar meus conhecimentos em desenvolvimento web, sempre buscando aprender ferramentas e conceitos novos. Acredito que aprender em público — publicando o que faço no GitHub e compartilhando meu progresso — é a forma mais honesta e efetiva de evoluir como desenvolvedora.",
+      "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo (UFES) – Campus Alegre. Tenho grande interesse em Desenvolvimento Full Stack e na criação de softwares que sejam modernos, eficientes e capazes de solucionar problemas reais.",
     education:
-      "Bacharelado em Sistemas de Informação — Universidade Federal do Espírito Santo (UFES)",
+      "Sistemas de Informação — UFES (Campus Alegre)",
     interests:
-      "Front-end, design de interfaces, boas práticas de código, algoritmos e ferramentas do dia a dia de uma pessoa desenvolvedora.",
+      "Desenvolvimento Full Stack, softwares modernos e soluções para problemas reais.",
     workStyle:
-      "Organizada, comunicativa e focada em execução. Prefiro entregar cedo, iterar com base em feedback e manter o código legível e bem documentado.",
+      "Organizada, direta e orientada a entrega.",
     goals:
-      "Consolidar minha base em desenvolvimento web full-stack, contribuir com projetos open source e me preparar para minha primeira experiência profissional na área.",
-    email: "[PLACEHOLDER] contact@example.com",
-    location: "[PLACEHOLDER] Vitória — ES, Brasil",
-    workPrinciples,
-    linkedIn,
-    seoTitle: "Thalita Paiva — Portfólio",
+      "Base full-stack + processos para atuar em times de tecnologia.",
+    email: "thfonp@gmail.com",
+    location: "Espírito Santo, Brasil",
+    workPrinciples: workPrinciples as unknown as Prisma.InputJsonValue,
+    linkedIn: linkedIn as unknown as Prisma.InputJsonValue,
+    seoTitle: "Thalita Paiva — Programação, processos e projetos",
     seoDescription:
-      "Portfólio de Thalita Paiva, estudante de Sistemas de Informação na UFES. Projetos de front-end, algoritmos e ferramentas construídas em público.",
+      "Portfólio de Thalita Paiva, estudante de Sistemas de Informação na UFES. Projetos de programação sincronizados com o GitHub, com interesse em processos e gestão de projetos.",
   };
 
   const existing = await prisma.portfolioProfile.findFirst();
@@ -418,7 +399,10 @@ async function seedProjects() {
       where: { projectId: saved.id },
     });
 
+    const seenTech = new Set<string>();
     for (const t of project.technologies) {
+      if (seenTech.has(t.slug)) continue;
+      seenTech.add(t.slug);
       const technology = await prisma.technology.findUnique({
         where: { slug: t.slug },
       });

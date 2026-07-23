@@ -1,145 +1,137 @@
-import * as React from "react";
-import Link from "next/link";
-import { ArrowRight, Github, Linkedin, Star, GitFork } from "lucide-react";
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import type { GitHubProfileDto, PortfolioProfileDto } from "@portfolio/types";
 
 import { Button } from "@/components/ui/button";
-import { TechCanvas } from "@/components/shared/TechCanvas";
-import { formatNumber } from "@/lib/format";
+import { Magnetic } from "@/components/shared/Magnetic";
+import { GeometricMark } from "@/components/shared/GeometricMark";
 
 interface HeroSectionProps {
   profile: PortfolioProfileDto | null;
   github: GitHubProfileDto | null;
 }
 
-const FALLBACK = {
-  fullName: "[PLACEHOLDER — Nome completo]",
-  heroLabel: "PORTFOLIO / SOFTWARE / PRODUCT",
-  headline: "[PLACEHOLDER — Headline curta e direta]",
-  shortBio:
-    "[PLACEHOLDER — Bio curta descrevendo áreas de atuação, tipo de problema que gosta de resolver e valor entregue. Máximo 3 linhas.]",
-};
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function HeroSection({ profile, github }: HeroSectionProps) {
-  const heroLabel = profile?.heroLabel ?? FALLBACK.heroLabel;
-  const fullName = profile?.fullName ?? FALLBACK.fullName;
-  const headline = profile?.headline ?? FALLBACK.headline;
-  const shortBio = profile?.shortBio ?? FALLBACK.shortBio;
+  const prefersReduced = useReducedMotion();
+  const fullName = profile?.fullName ?? "Thalita Paiva";
+  const parts = fullName.trim().split(/\s+/);
+  const first = parts[0] ?? "Thalita";
+  const rest = parts.slice(1).join(" ") || "Paiva";
+  const headline = profile?.headline ?? "Programação, processos e projetos.";
   const linkedInUrl = profile?.linkedIn?.profileUrl;
-  const githubUrl = github?.htmlUrl;
+  const githubUrl = github?.htmlUrl ?? "https://github.com/thalitapaiva";
+
+  const line = (delay: number) =>
+    prefersReduced
+      ? undefined
+      : {
+          initial: { opacity: 0.9, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.8, ease: EASE, delay },
+        };
 
   return (
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="relative overflow-hidden pb-20 pt-32 sm:pt-36 lg:pt-40"
+      className="relative flex min-h-[100svh] items-end overflow-x-clip pb-[max(5.5rem,env(safe-area-inset-bottom))] pt-[max(7rem,calc(env(safe-area-inset-top)+5rem))] sm:items-center sm:pb-28 sm:pt-28"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[420px] bg-[radial-gradient(ellipse_at_top,rgba(128,203,243,0.25),transparent_60%)]"
-      />
-      <div className="mx-auto grid max-w-wide items-center gap-10 px-5 sm:px-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14">
-        <div className="flex flex-col gap-6">
-          <p className="font-mono text-xs uppercase tracking-[0.22em] text-[var(--blue-700)]">
-            {heroLabel}
-          </p>
-          <h1
-            id="hero-title"
-            className="text-[2.5rem] font-semibold leading-[1.05] tracking-tight text-[var(--text-primary)] sm:text-5xl lg:text-[4rem] lg:leading-[1.02]"
-          >
-            {fullName}
-          </h1>
-          <p className="max-w-2xl text-lg text-[var(--text-primary)] sm:text-xl">
-            {headline}
-          </p>
-          <p className="max-w-xl text-base leading-relaxed text-[var(--text-secondary)]">
-            {shortBio}
-          </p>
+      {/* Editorial geometry — behind type */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
+        <GeometricMark
+          variant="keycap"
+          className="absolute -right-6 top-[20%] size-[min(28vw,9.5rem)] opacity-60 sm:right-[5%] sm:top-[24%] sm:opacity-75"
+        />
+        <GeometricMark
+          variant="frame"
+          className="absolute right-[10%] top-[36%] hidden aspect-square w-[min(22vw,12rem)] rotate-6 opacity-50 lg:block"
+        />
+        <div className="absolute bottom-[18%] left-[6%] hidden h-24 w-px bg-gradient-to-b from-[var(--blue-600)] to-transparent opacity-50 sm:block" />
+        <GeometricMark className="absolute bottom-[22%] left-[4%] hidden size-12 sm:block" />
+      </div>
 
-          <div className="mt-2 flex flex-wrap items-center gap-3">
-            <Button asChild variant="primary" size="lg">
-              <a href="#projetos" aria-label="Ver projetos em destaque">
-                Ver projetos
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      <div className="section-shell relative z-10 w-full">
+        <div className="max-w-4xl">
+          <motion.div className="mb-8 flex items-center gap-3 sm:mb-10" {...line(0)}>
+            <span className="editorial-rule" aria-hidden="true" />
+            <span className="sr-only">Portfólio</span>
+          </motion.div>
+
+          <h1 id="hero-title" className="display-title text-[var(--text-primary)]">
+            <motion.span
+              className="block text-[clamp(3.5rem,14vw,8.75rem)]"
+              {...line(0.05)}
+            >
+              {first}
+            </motion.span>
+            <motion.span
+              className="mt-1 block text-[clamp(3.5rem,14vw,8.75rem)] text-[var(--blue-600)]"
+              {...line(0.12)}
+            >
+              {rest}
+            </motion.span>
+          </h1>
+
+          <motion.p
+            className="mt-8 max-w-[18rem] text-[1.05rem] font-medium leading-snug tracking-[-0.03em] text-[var(--text-secondary)] sm:mt-10 sm:max-w-xs sm:text-lg"
+            {...line(0.22)}
+          >
+            {headline}
+          </motion.p>
+
+          <motion.div
+            className="mt-10 flex flex-col gap-7 sm:mt-12 sm:flex-row sm:items-center sm:gap-10"
+            {...line(0.32)}
+          >
+            <Magnetic>
+              <Button asChild variant="primary" size="lg" className="min-h-12 w-full touch-manipulation sm:w-auto">
+                <a href="#projetos">
+                  Ver projetos
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </Button>
+            </Magnetic>
+
+            <div className="flex flex-wrap items-center gap-x-7 gap-y-3 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-secondary)]">
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline touch-manipulation hover:text-[var(--text-primary)]"
+              >
+                GitHub
               </a>
-            </Button>
-            {linkedInUrl && (
-              <Button asChild variant="outline" size="lg">
+              {linkedInUrl ? (
                 <a
                   href={linkedInUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Abrir LinkedIn (nova aba)"
+                  className="link-underline touch-manipulation hover:text-[var(--text-primary)]"
                 >
-                  <Linkedin className="h-4 w-4" aria-hidden="true" />
                   LinkedIn
                 </a>
-              </Button>
-            )}
-          </div>
-
-          {github && (
-            <GitHubIndicators github={github} githubUrl={githubUrl} />
-          )}
-        </div>
-
-        <div className="relative w-full lg:pl-4">
-          <TechCanvas />
+              ) : null}
+              <a href="#contato" className="link-underline touch-manipulation hover:text-[var(--text-primary)]">
+                Contato
+              </a>
+            </div>
+          </motion.div>
         </div>
       </div>
-    </section>
-  );
-}
 
-function GitHubIndicators({
-  github,
-  githubUrl,
-}: {
-  github: GitHubProfileDto;
-  githubUrl?: string;
-}) {
-  const totalForks = github.repositories.reduce((acc, r) => acc + r.forksCount, 0);
-  const items: Array<{ label: string; value: number; icon?: React.ReactNode }> = [
-    { label: "Repos", value: github.publicRepos },
-    { label: "Stars", value: github.totalStars, icon: <Star className="h-3 w-3" aria-hidden="true" /> },
-    { label: "Forks", value: totalForks, icon: <GitFork className="h-3 w-3" aria-hidden="true" /> },
-    { label: "Followers", value: github.followers },
-  ];
-
-  return (
-    <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-[16px] border border-[var(--border)] bg-[var(--surface)]/70 p-3 pl-4 backdrop-blur">
-      {githubUrl ? (
+      {!prefersReduced ? (
         <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text-primary)] hover:text-[var(--blue-700)]"
+          href="#sobre"
+          className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-[var(--text-secondary)] sm:flex"
+          aria-label="Rolar para sobre"
         >
-          <Github className="h-4 w-4" aria-hidden="true" />
-          @{github.login}
+          <span className="scroll-cue" aria-hidden="true" />
         </a>
-      ) : (
-        <span className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text-primary)]">
-          <Github className="h-4 w-4" aria-hidden="true" />@{github.login}
-        </span>
-      )}
-      <span className="hidden h-4 w-px bg-[var(--border)] sm:inline-block" aria-hidden="true" />
-      <dl className="flex flex-wrap items-center gap-x-4 gap-y-1">
-        {items.map((it) => (
-          <div key={it.label} className="flex items-center gap-1.5 font-mono text-xs">
-            <dt className="inline-flex items-center gap-1 uppercase tracking-wider text-[var(--text-secondary)]">
-              {it.icon}
-              <span className={it.icon ? "sr-only" : ""}>{it.label}</span>
-            </dt>
-            <dd className="text-[var(--text-primary)]">{formatNumber(it.value)}</dd>
-            {!it.icon && (
-              <span aria-hidden="true" className="text-[10px] text-[var(--text-secondary)]">
-                {it.label}
-              </span>
-            )}
-          </div>
-        ))}
-      </dl>
-    </div>
+      ) : null}
+    </section>
   );
 }

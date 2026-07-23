@@ -21,7 +21,6 @@ interface MobileNavProps {
 
 export function MobileNav({ activeSection, ctaHref = "#contato" }: MobileNavProps) {
   const [open, setOpen] = React.useState(false);
-
   const handleClick = React.useCallback(() => setOpen(false), []);
 
   return (
@@ -36,10 +35,12 @@ export function MobileNav({ activeSection, ctaHref = "#contato" }: MobileNavProp
           <Menu className="h-5 w-5" aria-hidden="true" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-sm">
-        <DialogTitle>Navegação</DialogTitle>
-        <nav aria-label="Navegação principal" className="mt-2">
-          <ul className="flex flex-col divide-y divide-[var(--border)]">
+      <DialogContent className="max-w-sm border-[var(--border)] bg-[var(--background)] pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+        <DialogTitle className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--text-secondary)]">
+          Menu
+        </DialogTitle>
+        <nav aria-label="Navegação principal" className="mt-5">
+          <ul className="flex flex-col">
             {NAV_SECTIONS.map((section) => {
               const active = section.id === activeSection;
               return (
@@ -48,30 +49,27 @@ export function MobileNav({ activeSection, ctaHref = "#contato" }: MobileNavProp
                     href={`#${section.id}`}
                     onClick={handleClick}
                     className={cn(
-                      "flex items-center justify-between px-1 py-3 text-base font-medium transition-colors",
+                      "flex min-h-12 items-center justify-between border-b border-[var(--border)] py-4 text-lg font-bold tracking-[-0.03em] transition-colors touch-manipulation",
                       active
-                        ? "text-[var(--blue-700)]"
-                        : "text-[var(--text-primary)] hover:text-[var(--blue-700)]",
+                        ? "text-[var(--blue-600)]"
+                        : "text-[var(--text-primary)] hover:text-[var(--blue-600)]",
                     )}
                     aria-current={active ? "true" : undefined}
                   >
                     <span>{section.label}</span>
-                    {active && (
-                      <span
-                        aria-hidden="true"
-                        className="h-1.5 w-1.5 rounded-full bg-[var(--blue-600)]"
-                      />
-                    )}
+                    {active ? (
+                      <span aria-hidden="true" className="size-1.5 rounded-full bg-[var(--blue-600)]" />
+                    ) : null}
                   </a>
                 </li>
               );
             })}
           </ul>
         </nav>
-        <div className="mt-2 flex flex-col gap-2">
+        <div className="mt-6">
           <DialogClose asChild>
-            <Button asChild variant="primary" size="lg">
-              <a href={ctaHref}>Entre em contato</a>
+            <Button asChild variant="primary" size="lg" className="min-h-12 w-full touch-manipulation">
+              <a href={ctaHref}>Contato</a>
             </Button>
           </DialogClose>
         </div>

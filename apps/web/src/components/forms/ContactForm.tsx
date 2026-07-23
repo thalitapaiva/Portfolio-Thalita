@@ -31,10 +31,7 @@ async function defaultSubmit(
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({
       name: values.name.trim(),
-      email: values.email.trim(),
-      subject: values.subject.trim(),
       message: values.message.trim(),
-      company: values.company?.trim() || undefined,
       website: values.website?.trim() || undefined,
       turnstileToken: values.turnstileToken || undefined,
     }),
@@ -82,7 +79,7 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
       if (result.success) {
         setState({
           status: "success",
-          message: result.message || "Recebi sua mensagem. Respondo em breve.",
+          message: result.message || "Recebi sua mensagem. Obrigada!",
         });
         reset(contactDefaultValues);
       } else {
@@ -104,69 +101,20 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
       onSubmit={handler}
       noValidate
       aria-describedby="contact-status"
-      className="grid gap-4"
+      className="grid gap-5"
     >
-      <div className="grid gap-4 sm:grid-cols-2">
-        <FormField
-          id="name"
-          label="Nome"
-          required
-          error={errors.name?.message}
-          input={
-            <Input
-              id="name"
-              autoComplete="name"
-              placeholder="Seu nome completo"
-              invalid={!!errors.name}
-              {...register("name")}
-            />
-          }
-        />
-        <FormField
-          id="email"
-          label="Email"
-          required
-          error={errors.email?.message}
-          input={
-            <Input
-              id="email"
-              type="email"
-              autoComplete="email"
-              placeholder="voce@email.com"
-              invalid={!!errors.email}
-              {...register("email")}
-            />
-          }
-        />
-      </div>
-
       <FormField
-        id="company"
-        label="Empresa"
-        hint="Opcional"
-        error={errors.company?.message}
-        input={
-          <Input
-            id="company"
-            autoComplete="organization"
-            placeholder="Nome da empresa (opcional)"
-            invalid={!!errors.company}
-            {...register("company")}
-          />
-        }
-      />
-
-      <FormField
-        id="subject"
-        label="Assunto"
+        id="name"
+        label="Nome"
         required
-        error={errors.subject?.message}
+        error={errors.name?.message}
         input={
           <Input
-            id="subject"
-            placeholder="Sobre o que você quer conversar?"
-            invalid={!!errors.subject}
-            {...register("subject")}
+            id="name"
+            autoComplete="name"
+            placeholder="Nome"
+            invalid={!!errors.name}
+            {...register("name")}
           />
         }
       />
@@ -179,8 +127,8 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
         input={
           <Textarea
             id="message"
-            placeholder="Conte um pouco sobre sua ideia, projeto ou dúvida."
-            rows={6}
+            placeholder="Sua mensagem"
+            rows={5}
             invalid={!!errors.message}
             {...register("message")}
           />
@@ -208,7 +156,7 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
         />
       )}
 
-      <div className="flex flex-wrap items-center gap-3 pt-1">
+      <div className="pt-1">
         <Button type="submit" variant="primary" size="lg" disabled={submitting}>
           {submitting ? (
             <>
@@ -222,9 +170,6 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
             </>
           )}
         </Button>
-        <p className="text-xs text-[var(--text-secondary)]">
-          Sua mensagem cai direto no meu email. Não uso rastreadores.
-        </p>
       </div>
 
       <div id="contact-status" role="status" aria-live="polite" className="min-h-[1.25rem]">
@@ -308,8 +253,8 @@ function StatusBanner({
       className={cn(
         "mt-1 inline-flex items-center gap-2 rounded-[10px] border px-3 py-2 text-sm",
         tone === "success"
-          ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-          : "border-red-200 bg-red-50 text-red-800",
+          ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200"
+          : "border-red-200 bg-red-50 text-red-800 dark:border-red-800 dark:bg-red-950/40 dark:text-red-200",
       )}
     >
       {icon}

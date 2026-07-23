@@ -18,3 +18,10 @@ test-results
 
 install.log
 pnpm-lock.yaml.bak
+apps/web/.verify-shots
+apps/web/public/thalita-photo-raw.png
+
+packages/types/src/*.js
+packages/types/src/*.js.map
+packages/types/src/*.d.ts
+packages/types/src/*.d.ts.map

@@ -5,8 +5,6 @@ import { CreateContactDto } from "./create-contact.dto";
 
 const base = {
   name: "Ada Lovelace",
-  email: "ada@example.com",
-  subject: "Hello",
   message: "This is a valid message with enough characters.",
 };
 
@@ -29,17 +27,9 @@ describe("CreateContactDto", () => {
     const { dto, errors } = await validateDto({
       ...base,
       name: "  Ada  ",
-      subject: "  Hello  ",
     });
     expect(errors).toHaveLength(0);
     expect(dto.name).toBe("Ada");
-    expect(dto.subject).toBe("Hello");
-  });
-
-  it("rejects when email is not a valid address", async () => {
-    const { errors } = await validateDto({ ...base, email: "not-an-email" });
-    expect(errors.length).toBeGreaterThan(0);
-    expect(errors.some((e) => e.property === "email")).toBe(true);
   });
 
   it("rejects when message is too short", async () => {
@@ -51,9 +41,7 @@ describe("CreateContactDto", () => {
   it("rejects when required fields are missing", async () => {
     const { errors } = await validateDto({});
     const props = errors.map((e) => e.property).sort();
-    expect(props).toEqual(
-      expect.arrayContaining(["email", "message", "name", "subject"]),
-    );
+    expect(props).toEqual(expect.arrayContaining(["message", "name"]));
   });
 
   it("allows the honeypot 'website' field to be present and captures it", async () => {

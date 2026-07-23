@@ -15,19 +15,15 @@ test.describe("Portfolio smoke", () => {
     await page.goto("/");
 
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.getByRole("region", { name: /projetos|trabalhos/i })).toBeVisible().catch(() => {
-      // The projects section uses aria-labelledby, not role region; fall back to id.
-      return expect(page.locator("#projetos")).toBeVisible();
-    });
+    await expect(page.locator("#projetos")).toBeVisible();
     await expect(page.locator("#contato")).toBeVisible();
+    await expect(page.locator("#contato").getByText(/@gmail\.com/i)).toHaveCount(0);
 
     const form = page.locator("#contato form");
     await form.getByRole("button", { name: /enviar mensagem/i }).click();
     await expect(form.getByText(/informe seu nome/i)).toBeVisible();
 
     await form.getByLabel(/nome/i).fill("Test User");
-    await form.getByLabel(/email/i).fill("test@example.com");
-    await form.getByLabel(/assunto/i).fill("Assunto de teste");
     await form
       .getByLabel(/mensagem/i)
       .fill("Mensagem de teste com tamanho suficiente para validar.");

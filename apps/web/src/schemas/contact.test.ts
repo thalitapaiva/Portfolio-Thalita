@@ -4,10 +4,7 @@ import { contactSchema } from "./contact";
 
 const baseValues = {
   name: "Thalita",
-  email: "thalita@example.com",
-  subject: "Olá!",
   message: "Gostaria de conversar sobre um projeto novo.",
-  company: "",
   website: "",
   turnstileToken: "",
 };
@@ -26,11 +23,6 @@ describe("contactSchema", () => {
     }
   });
 
-  it("rejects invalid email", () => {
-    const res = contactSchema.safeParse({ ...baseValues, email: "not-an-email" });
-    expect(res.success).toBe(false);
-  });
-
   it("rejects too-short messages", () => {
     const res = contactSchema.safeParse({ ...baseValues, message: "oi" });
     expect(res.success).toBe(false);
@@ -42,8 +34,7 @@ describe("contactSchema", () => {
   });
 
   it("allows omitted optional fields", () => {
-    const { company, website, turnstileToken, ...rest } = baseValues;
-    void company;
+    const { website, turnstileToken, ...rest } = baseValues;
     void website;
     void turnstileToken;
     const res = contactSchema.safeParse(rest);

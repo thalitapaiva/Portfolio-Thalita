@@ -4,11 +4,9 @@
     "baseUrl": ".",
     "outDir": "./dist",
     "rootDir": "./src",
-    "types": ["node", "jest"],
-    "paths": {
-      "@portfolio/types": ["../../packages/types/src/index.ts"]
-    }
+    "incremental": false,
+    "types": ["node", "jest"]
   },
-  "include": ["src/**/*", "prisma/**/*.ts", "test/**/*"],
-  "exclude": ["node_modules", "dist", "coverage"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "coverage", "prisma", "test"]
 }

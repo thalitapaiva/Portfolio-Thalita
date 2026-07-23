@@ -1,22 +1,23 @@
 export const SITE = {
   name: "Thalita Paiva",
   shortName: "TP",
-  role: "Software & Product",
+  role: "Programação, processos e projetos",
   locale: "pt-BR",
   defaultTitle: "Thalita Paiva — Portfólio",
   defaultDescription:
-    "Portfólio de Thalita Paiva — desenvolvimento de software e produto, com foco em interfaces claras, backends confiáveis e experiência do usuário.",
-  themeColor: "#2181BD",
+    "Portfólio de Thalita Paiva — estudante de Sistemas de Informação com foco em programação, processos e projetos. Repositórios sincronizados com o GitHub.",
+  themeColor: "#0071E3",
   keywords: [
     "Thalita Paiva",
     "portfólio",
-    "desenvolvedora",
-    "software",
-    "produto",
-    "frontend",
-    "backend",
-    "Next.js",
+    "programação",
+    "processos",
+    "projetos",
+    "Sistemas de Informação",
+    "UFES",
+    "JavaScript",
     "TypeScript",
+    "GitHub",
   ],
 } as const;
 
@@ -32,8 +33,8 @@ export type NavSection = (typeof NAV_SECTIONS)[number];
 
 export const REVALIDATE = {
   profile: 60 * 15,
-  projects: 60 * 15,
+  projects: 60 * 5,
   skills: 60 * 60,
-  github: 60 * 30,
+  github: 60 * 15,
   social: 60 * 60,
 } as const;

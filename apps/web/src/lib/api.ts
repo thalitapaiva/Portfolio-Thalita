@@ -80,7 +80,7 @@ export const api = {
   getProfile: (): Promise<PortfolioProfileDto | null> =>
     safe(
       () =>
-        apiFetch<PortfolioProfileDto>("/profile", {}, {
+        apiFetch<PortfolioProfileDto>("/portfolio", {}, {
           revalidate: REVALIDATE.profile,
           tags: ["profile"],
         }),
@@ -120,7 +120,7 @@ export const api = {
   getGithub: (): Promise<GitHubProfileDto | null> =>
     safe(
       () =>
-        apiFetch<GitHubProfileDto>("/github", {}, {
+        apiFetch<GitHubProfileDto>("/integrations/github/profile", {}, {
           revalidate: REVALIDATE.github,
           tags: ["github"],
         }),

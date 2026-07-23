@@ -1,7 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import {
-  IsEmail,
   IsOptional,
   IsString,
   Length,
@@ -19,30 +18,11 @@ export class CreateContactDto implements ContactRequestDto {
   @Length(2, 120)
   name!: string;
 
-  @ApiProperty({ format: "email", maxLength: 254 })
-  @Transform(trim)
-  @IsEmail({}, { message: "email must be a valid email address" })
-  @MaxLength(254)
-  email!: string;
-
-  @ApiProperty({ minLength: 3, maxLength: 200 })
-  @Transform(trim)
-  @IsString()
-  @Length(3, 200)
-  subject!: string;
-
   @ApiProperty({ minLength: 10, maxLength: 5000 })
   @Transform(trim)
   @IsString()
   @Length(10, 5000)
   message!: string;
-
-  @ApiPropertyOptional({ maxLength: 200 })
-  @IsOptional()
-  @Transform(trim)
-  @IsString()
-  @MaxLength(200)
-  company?: string;
 
   /**
    * Honeypot field. Real users never see this — if it is filled we silently

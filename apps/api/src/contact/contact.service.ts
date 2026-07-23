@@ -58,11 +58,8 @@ export class ContactService {
     }
 
     const cleanMessage = sanitizePlainText(dto.message, { maxLength: 5_000 });
-    const cleanSubject = sanitizePlainText(dto.subject, { maxLength: 200 });
     const cleanName = sanitizePlainText(dto.name, { maxLength: 120 });
-    const cleanCompany = dto.company
-      ? sanitizePlainText(dto.company, { maxLength: 200 })
-      : undefined;
+    const cleanSubject = `Mensagem de ${cleanName}`;
 
     if (cleanMessage.length < 10) {
       throw new BadRequestException(
@@ -74,10 +71,10 @@ export class ContactService {
       const saved = await this.prisma.contactMessage.create({
         data: {
           name: cleanName,
-          email: dto.email.toLowerCase(),
+          // Form no longer collects visitor email/subject — keep DB columns filled.
+          email: "formulario@portfolio.local",
           subject: cleanSubject,
           message: cleanMessage,
-          company: cleanCompany,
           ipHash: hashIp(meta.ip),
           userAgent: meta.userAgent ?? undefined,
         },
@@ -87,10 +84,8 @@ export class ContactService {
       await this.deliverEmail({
         id: saved.id,
         name: cleanName,
-        email: dto.email,
         subject: cleanSubject,
         message: cleanMessage,
-        company: cleanCompany,
       });
 
       this.logger.log(
@@ -99,8 +94,7 @@ export class ContactService {
 
       return {
         success: true,
-        message:
-          "Mensagem recebida com sucesso! Vou responder no e-mail informado assim que possível.",
+        message: "Mensagem recebida com sucesso! Obrigada pelo contato.",
       };
     } catch (err) {
       this.logger.error(
@@ -116,33 +110,31 @@ export class ContactService {
   private async deliverEmail(payload: {
     id: string;
     name: string;
-    email: string;
     subject: string;
     message: string;
-    company?: string;
   }): Promise<void> {
     const from =
       this.config.get<string>("EMAIL_FROM") ?? "portfolio@example.com";
-    const to = this.config.get<string>("EMAIL_TO") ?? "contact@example.com";
+    const to = this.config.get<string>("EMAIL_TO") ?? "thfonp@gmail.com";
 
     const lines = [
-      `Novo contato pelo portfólio (id: ${payload.id})`,
+      `Novo contato pelo portfólio de Thalita Paiva`,
+      `ID interno: ${payload.id}`,
       "",
-      `Nome:    ${payload.name}`,
-      `E-mail:  ${payload.email}`,
-      payload.company ? `Empresa: ${payload.company}` : undefined,
-      `Assunto: ${payload.subject}`,
+      `Nome: ${payload.name}`,
       "",
       "Mensagem:",
       payload.message,
-    ].filter(Boolean) as string[];
+      "",
+      "—",
+      "O visitante não informou email de retorno neste formulário.",
+    ];
 
     try {
       await this.email.send({
         from,
         to,
-        replyTo: payload.email,
-        subject: `[Portfólio] ${payload.subject}`,
+        subject: `[Portfólio Thalita] ${payload.subject}`,
         text: lines.join("\n"),
       });
     } catch (err) {

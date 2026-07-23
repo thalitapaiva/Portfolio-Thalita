@@ -132,10 +132,7 @@ export interface GitHubProfileDto {
 
 export interface ContactRequestDto {
   name: string;
-  email: string;
-  subject: string;
   message: string;
-  company?: string;
   website?: string; // honeypot
   turnstileToken?: string;
 }

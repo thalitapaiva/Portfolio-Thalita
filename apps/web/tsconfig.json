@@ -13,5 +13,16 @@
     "src/**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", ".next", "dist", "coverage", "playwright-report", "test-results", "e2e"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    "coverage",
+    "playwright-report",
+    "test-results",
+    "e2e",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
+  ]
 }
+

@@ -88,6 +88,31 @@ export class GitHubService {
     }
   }
 
+  /** All public non-fork/non-archived repos — used to auto-populate project cards. */
+  async getAllPublicRepositories(): Promise<GitHubRepoDto[]> {
+    const cacheKey = "github:repositories:all";
+    const cached = await this.cache.get<GitHubRepoDto[]>(cacheKey);
+    if (cached) return cached;
+
+    try {
+      const { repos } = await this.fetchProfileAndRepos();
+      const dtos = repos
+        .filter((r) => !r.fork && !r.archived)
+        .sort(
+          (a, b) =>
+            new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+        )
+        .map((r) => this.normalizeRepo(r));
+      await this.cache.set(cacheKey, dtos, this.cacheTtlMs());
+      return dtos;
+    } catch (err) {
+      this.logger.warn(
+        `GitHub all-repos fetch failed: ${(err as Error).message}`,
+      );
+      return [];
+    }
+  }
+
   // -------------------------------------------------------------------------
   // Normalisation (public for tests)
   // -------------------------------------------------------------------------

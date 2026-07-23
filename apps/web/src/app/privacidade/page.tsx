@@ -28,11 +28,7 @@ export default async function PrivacyPage() {
 
   return (
     <>
-      <SiteHeader
-        monogram={profile?.monogram}
-        fullName={profile?.fullName}
-        githubUrl={github?.htmlUrl}
-      />
+      <SiteHeader fullName={profile?.fullName} githubUrl={github?.htmlUrl} />
       <main className="mx-auto max-w-content px-5 pt-28 pb-16 sm:px-8 sm:pt-32">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--blue-700)]">
           Privacidade
@@ -69,7 +65,6 @@ export default async function PrivacyPage() {
       <SiteFooter
         fullName={profile?.fullName}
         shortPhrase={profile?.headline}
-        email={profile?.email}
         socialLinks={socialLinks}
       />
     </>

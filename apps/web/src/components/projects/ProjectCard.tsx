@@ -2,199 +2,160 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import type { ProjectSummaryDto } from "@portfolio/types";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
+import { ProjectPreview } from "@/components/projects/ProjectPreview";
 
 interface ProjectCardProps {
   project: ProjectSummaryDto;
   onOpen?: (slug: string) => void;
   className?: string;
+  compact?: boolean;
+  featured?: boolean;
 }
 
-export function ProjectCard({ project, onOpen, className }: ProjectCardProps) {
-  const primaryTechs = project.technologies
-    .filter((t) => t.isPrimary)
-    .map((t) => t.technology.name);
-  const secondaryTechs = project.technologies
-    .filter((t) => !t.isPrimary)
-    .map((t) => t.technology.name);
-  const techs = [...primaryTechs, ...secondaryTechs].slice(0, 5);
+export function ProjectCard({
+  project,
+  onOpen,
+  className,
+  compact = false,
+  featured = false,
+}: ProjectCardProps) {
+  const techs = project.technologies
+    .slice()
+    .sort((a, b) => Number(b.isPrimary) - Number(a.isPrimary))
+    .map((t) => t.technology)
+    .slice(0, compact ? 3 : 4);
+
+  const openProject = () => {
+    if (onOpen) onOpen(project.slug);
+  };
+
+  const cover = project.coverUrl ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={project.coverUrl}
+      alt=""
+      className="h-full w-full object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.04]"
+      loading="lazy"
+    />
+  ) : (
+    <ProjectPreview
+      title={project.title}
+      slug={project.slug}
+      className="transition-transform duration-700 ease-premium group-hover:scale-[1.04]"
+    />
+  );
+
+  const coverClass = cn(
+    "relative w-full overflow-hidden bg-[color-mix(in_srgb,var(--blue-600)_6%,var(--background))]",
+    featured ? "aspect-[16/9] sm:aspect-[21/9]" : "aspect-[16/10]",
+  );
 
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-[16px] border border-[var(--border)] bg-[var(--surface)] shadow-card transition-all duration-200 ease-smooth",
-        "hover:-translate-y-0.5 hover:border-[var(--blue-400)] hover:shadow-soft motion-reduce:transform-none",
+        "group flex h-full flex-col gap-5 transition-transform duration-500 ease-premium",
+        "motion-safe:hover:-translate-y-1",
         className,
       )}
     >
-      <div
-        aria-hidden="true"
-        className="relative aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-[var(--blue-300)]/20 via-[var(--surface)] to-[var(--blue-400)]/15"
-      >
-        <div className="absolute inset-0">
-          <ProjectVisual seed={project.slug} />
-        </div>
-        <div className="absolute right-3 top-3">
-          <Badge variant="muted" size="sm" className="bg-white/85 backdrop-blur">
-            {project.year}
-          </Badge>
-        </div>
-      </div>
-
-      <div className="flex flex-1 flex-col gap-3 p-5">
-        <header className="flex items-start justify-between gap-3">
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] group-hover:text-[var(--blue-700)]">
-            {project.title}
-          </h3>
-          {project.featured && (
-            <Badge variant="default" size="sm">
-              Destaque
-            </Badge>
+      {onOpen ? (
+        <button
+          type="button"
+          onClick={openProject}
+          className={cn(
+            coverClass,
+            "project-cover text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]",
           )}
-        </header>
+          aria-label={`Abrir ${project.title}`}
+        >
+          {cover}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[color-mix(in_srgb,var(--navy-900)_28%,transparent)] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          />
+        </button>
+      ) : (
+        <Link
+          href={`/projetos/${project.slug}`}
+          className={cn(coverClass, "project-cover")}
+          aria-label={project.title}
+        >
+          {cover}
+        </Link>
+      )}
 
-        <p className="line-clamp-3 flex-1 text-sm leading-relaxed text-[var(--text-secondary)]">
-          {project.shortDescription}
-        </p>
-
-        {techs.length > 0 && (
-          <ul className="flex flex-wrap gap-1.5 pt-1" aria-label="Tecnologias principais">
-            {techs.map((t) => (
-              <li key={t}>
-                <Badge variant="outline" size="sm">
-                  {t}
-                </Badge>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-[var(--border)] pt-4">
-          {onOpen ? (
-            <Button
-              type="button"
-              variant="secondary"
-              size="sm"
-              onClick={() => onOpen(project.slug)}
-              aria-label={`Ver detalhes do projeto ${project.title}`}
-            >
-              Detalhes
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </Button>
-          ) : (
-            <Button asChild variant="secondary" size="sm">
+      <div className="flex flex-1 flex-col gap-2">
+        <div className="flex items-baseline justify-between gap-4">
+          <h3
+            className={cn(
+              "min-w-0 font-bold tracking-[-0.04em] text-[var(--text-primary)]",
+              featured ? "text-[1.45rem] sm:text-[1.7rem]" : "text-[1.15rem] sm:text-[1.25rem]",
+            )}
+          >
+            {onOpen ? (
+              <button
+                type="button"
+                onClick={openProject}
+                className="text-left transition-colors duration-300 hover:text-[var(--blue-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+              >
+                {project.title}
+              </button>
+            ) : (
               <Link
                 href={`/projetos/${project.slug}`}
-                aria-label={`Abrir página do projeto ${project.title}`}
+                className="transition-colors duration-300 hover:text-[var(--blue-600)]"
               >
-                Detalhes
-                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                {project.title}
               </Link>
-            </Button>
+            )}
+          </h3>
+          <time
+            className="shrink-0 font-mono text-[11px] font-medium text-[var(--text-secondary)]"
+            dateTime={String(project.year)}
+          >
+            {project.year}
+          </time>
+        </div>
+
+        {techs.length > 0 && (
+          <p
+            className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--blue-700)]"
+            aria-label="Tecnologias"
+          >
+            {techs.map((t) => t.name).join(" · ")}
+          </p>
+        )}
+
+        <div className="mt-auto pt-3">
+          {onOpen ? (
+            <button
+              type="button"
+              onClick={openProject}
+              className="link-underline inline-flex min-h-10 items-center gap-1.5 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)] touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+              aria-label={`Ver projeto ${project.title}`}
+            >
+              Ver
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-0.5"
+              >
+                →
+              </span>
+            </button>
+          ) : (
+            <Link
+              href={`/projetos/${project.slug}`}
+              className="link-underline inline-flex min-h-10 items-center gap-1.5 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)]"
+            >
+              Ver
+              <span aria-hidden="true">→</span>
+            </Link>
           )}
-          <Button asChild variant="ghost" size="sm">
-            <Link href={`/projetos/${project.slug}`}>Página do projeto</Link>
-          </Button>
-          <span className="ml-auto flex items-center gap-1">
-            {project.repositoryUrl && (
-              <Button
-                asChild
-                variant="ghost"
-                size="icon"
-                aria-label={`Repositório de ${project.title} (nova aba)`}
-              >
-                <a
-                  href={project.repositoryUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Github className="h-4 w-4" aria-hidden="true" />
-                </a>
-              </Button>
-            )}
-            {project.liveUrl && (
-              <Button
-                asChild
-                variant="ghost"
-                size="icon"
-                aria-label={`Site do projeto ${project.title} (nova aba)`}
-              >
-                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                </a>
-              </Button>
-            )}
-          </span>
         </div>
       </div>
     </article>
-  );
-}
-
-function ProjectVisual({ seed }: { seed: string }) {
-  const hash = React.useMemo(() => {
-    let h = 0;
-    for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
-    return Math.abs(h);
-  }, [seed]);
-
-  const lines = React.useMemo(() => {
-    const arr: Array<{ w: number; y: number; opacity: number }> = [];
-    for (let i = 0; i < 10; i++) {
-      const w = 20 + ((hash >> (i * 2)) & 0x3f) * 1.5;
-      arr.push({
-        w: Math.min(220, Math.max(30, w)),
-        y: 16 + i * 12,
-        opacity: 0.35 + (((hash >> (i * 3)) & 0x7) / 7) * 0.6,
-      });
-    }
-    return arr;
-  }, [hash]);
-
-  return (
-    <svg
-      viewBox="0 0 320 180"
-      className="h-full w-full"
-      role="presentation"
-      aria-hidden="true"
-    >
-      <defs>
-        <pattern id={`p-${seed}`} width="16" height="16" patternUnits="userSpaceOnUse">
-          <path d="M 16 0 L 0 0 0 16" stroke="rgba(28,43,62,0.06)" fill="none" />
-        </pattern>
-      </defs>
-      <rect width="320" height="180" fill={`url(#p-${seed})`} />
-      <g transform="translate(20 20)">
-        <rect
-          width="280"
-          height="140"
-          rx="10"
-          fill="rgba(255,255,255,0.85)"
-          stroke="rgba(220,230,238,0.9)"
-        />
-        <g transform="translate(14 14)">
-          <circle cx="6" cy="6" r="4" fill="#EF476F" opacity="0.7" />
-          <circle cx="20" cy="6" r="4" fill="#FFD166" opacity="0.7" />
-          <circle cx="34" cy="6" r="4" fill="#06D6A0" opacity="0.7" />
-        </g>
-        {lines.map((l, i) => (
-          <rect
-            key={i}
-            x={14}
-            y={l.y + 20}
-            width={l.w}
-            height={4}
-            rx={2}
-            fill="var(--blue-700)"
-            opacity={l.opacity * 0.6}
-          />
-        ))}
-      </g>
-    </svg>
   );
 }

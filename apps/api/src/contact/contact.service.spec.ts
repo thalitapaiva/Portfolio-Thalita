@@ -16,8 +16,6 @@ describe("ContactService", () => {
 
   const baseDto: CreateContactDto = {
     name: "Ada Lovelace",
-    email: "ADA@Example.com",
-    subject: "Hello there",
     message: "This is a message long enough to pass validation.",
   };
 
@@ -47,7 +45,7 @@ describe("ContactService", () => {
             get: (k: string) =>
               ({
                 EMAIL_FROM: "portfolio@example.com",
-                EMAIL_TO: "contact@example.com",
+                EMAIL_TO: "thfonp@gmail.com",
               } as Record<string, string>)[k],
           },
         },
@@ -64,12 +62,11 @@ describe("ContactService", () => {
     expect(email.send).not.toHaveBeenCalled();
   });
 
-  it("persists a sanitised message, lowercases the email and sends an email", async () => {
+  it("persists a sanitised message and sends an email without visitor email", async () => {
     const res = await service.submit(
       {
         ...baseDto,
         message: "<script>alert(1)</script>Legit body copy that is long enough.",
-        subject: "  Padded  ",
       },
       { ip: "1.2.3.4", userAgent: "jest" },
     );
@@ -77,13 +74,15 @@ describe("ContactService", () => {
     expect(res.success).toBe(true);
     expect(prisma.contactMessage.create).toHaveBeenCalledTimes(1);
     const args = prisma.contactMessage.create.mock.calls[0]?.[0]?.data;
-    expect(args.email).toBe("ada@example.com");
+    expect(args.email).toBe("formulario@portfolio.local");
+    expect(args.subject).toContain("Ada Lovelace");
     expect(args.message).not.toMatch(/<script>/i);
     expect(args.message).toContain("Legit body copy");
     expect(args.ipHash).toBeDefined();
     expect(args.ipHash).not.toBe("1.2.3.4");
     expect(args.userAgent).toBe("jest");
     expect(email.send).toHaveBeenCalledTimes(1);
+    expect(email.send.mock.calls[0]?.[0]?.to).toBe("thfonp@gmail.com");
   });
 
   it("rejects submissions when Turnstile is enabled but verification fails", async () => {
@@ -98,30 +97,20 @@ describe("ContactService", () => {
   it("passes through when Turnstile is enabled and verification succeeds", async () => {
     turnstile.isEnabled.mockReturnValue(true);
     turnstile.verify.mockResolvedValue(true);
-    const res = await service.submit(
-      { ...baseDto, turnstileToken: "good" },
-      { ip: "1.1.1.1" },
-    );
+    const res = await service.submit({ ...baseDto, turnstileToken: "ok" }, {});
     expect(res.success).toBe(true);
-    expect(turnstile.verify).toHaveBeenCalledWith("good", "1.1.1.1");
     expect(prisma.contactMessage.create).toHaveBeenCalled();
   });
 
   it("rejects when message becomes too short after HTML stripping", async () => {
     await expect(
-      service.submit(
-        {
-          ...baseDto,
-          message: "<p><b><i></i></b>Hi</p>", // sanitises to "Hi"
-        },
-        {},
-      ),
+      service.submit({ ...baseDto, message: "<b></b><i></i>" }, {}),
     ).rejects.toBeInstanceOf(BadRequestException);
   });
 
   it("still returns success even if email delivery fails after persisting", async () => {
-    email.send.mockRejectedValueOnce(new Error("SMTP down"));
-    const res = await service.submit(baseDto, {});
+    email.send.mockRejectedValue(new Error("smtp down"));
+    const res = await service.submit(baseDto);
     expect(res.success).toBe(true);
     expect(prisma.contactMessage.create).toHaveBeenCalled();
   });

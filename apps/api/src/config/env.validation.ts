@@ -1,4 +1,4 @@
-import { plainToInstance } from "class-transformer";
+import { plainToInstance, Transform, Type } from "class-transformer";
 import {
   IsEnum,
   IsInt,
@@ -22,23 +22,31 @@ export enum EmailProvider {
   Smtp = "smtp",
 }
 
+function toOptionalInt({ value }: { value: unknown }): number | undefined {
+  if (value === "" || value === undefined || value === null) return undefined;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : undefined;
+}
+
 export class EnvSchema {
   @IsEnum(NodeEnv)
   @IsOptional()
   NODE_ENV: NodeEnv = NodeEnv.Development;
 
+  @Transform(toOptionalInt)
+  @Type(() => Number)
   @IsInt()
   @Min(1)
   @Max(65_535)
   @IsOptional()
-  PORT = 3001;
+  PORT: number = 3001;
 
   @IsString()
   DATABASE_URL!: string;
 
   @IsString()
   @IsOptional()
-  FRONTEND_URL = "http://localhost:3000";
+  FRONTEND_URL: string = "http://localhost:3000";
 
   @IsString()
   @IsOptional()
@@ -46,16 +54,18 @@ export class EnvSchema {
 
   @IsString()
   @IsOptional()
-  GITHUB_USERNAME = "thalitapaiva";
+  GITHUB_USERNAME: string = "thalitapaiva";
 
   @IsString()
   @IsOptional()
   GITHUB_TOKEN?: string;
 
+  @Transform(toOptionalInt)
+  @Type(() => Number)
   @IsInt()
   @Min(60)
   @IsOptional()
-  GITHUB_CACHE_TTL_SECONDS = 2700;
+  GITHUB_CACHE_TTL_SECONDS: number = 2700;
 
   @IsEnum(EmailProvider)
   @IsOptional()
@@ -63,11 +73,11 @@ export class EnvSchema {
 
   @IsString()
   @IsOptional()
-  EMAIL_FROM = "portfolio@example.com";
+  EMAIL_FROM: string = "portfolio@example.com";
 
   @IsString()
   @IsOptional()
-  EMAIL_TO = "contact@example.com";
+  EMAIL_TO: string = "contact@example.com";
 
   @IsString()
   @IsOptional()
@@ -77,6 +87,8 @@ export class EnvSchema {
   @IsOptional()
   SMTP_HOST?: string;
 
+  @Transform(toOptionalInt)
+  @Type(() => Number)
   @IsInt()
   @IsOptional()
   SMTP_PORT?: number;
@@ -93,15 +105,19 @@ export class EnvSchema {
   @IsOptional()
   TURNSTILE_SECRET_KEY?: string;
 
+  @Transform(toOptionalInt)
+  @Type(() => Number)
   @IsInt()
   @Min(1_000)
   @IsOptional()
-  CONTACT_RATE_LIMIT_TTL_MS = 60_000;
+  CONTACT_RATE_LIMIT_TTL_MS: number = 60_000;
 
+  @Transform(toOptionalInt)
+  @Type(() => Number)
   @IsInt()
   @Min(1)
   @IsOptional()
-  CONTACT_RATE_LIMIT_MAX = 5;
+  CONTACT_RATE_LIMIT_MAX: number = 5;
 
   @IsString()
   @IsOptional()
@@ -113,11 +129,18 @@ export class EnvSchema {
 }
 
 export function validateEnv(raw: Record<string, unknown>): EnvSchema {
-  const config = plainToInstance(EnvSchema, raw, {
+  const normalized: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(raw)) {
+    if (value === "" || value === undefined || value === null) continue;
+    normalized[key] = value;
+  }
+
+  const config = plainToInstance(EnvSchema, normalized, {
     enableImplicitConversion: true,
+    exposeDefaultValues: true,
   });
   const errors = validateSync(config, {
-    skipMissingProperties: false,
+    skipMissingProperties: true,
     whitelist: false,
   });
   if (errors.length > 0) {

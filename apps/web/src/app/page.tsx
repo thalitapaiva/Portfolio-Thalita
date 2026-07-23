@@ -8,8 +8,6 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
-import { GitHubSection } from "@/components/sections/GitHubSection";
-import { LinkedInSection } from "@/components/sections/LinkedInSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 
 export const revalidate = 900;
@@ -29,24 +27,17 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(profile)) }}
       />
-      <SiteHeader
-        monogram={profile?.monogram}
-        fullName={profile?.fullName}
-        githubUrl={github?.htmlUrl}
-      />
-      <main id="main">
+      <SiteHeader fullName={profile?.fullName} />
+      <main id="main" className="relative">
         <HeroSection profile={profile} github={github} />
         <AboutSection profile={profile} />
         <SkillsSection skills={skills} />
         <ProjectsSection projects={projects} />
-        <GitHubSection github={github} />
-        <LinkedInSection profile={profile} />
         <ContactSection profile={profile} socialLinks={socialLinks} />
       </main>
       <SiteFooter
         fullName={profile?.fullName}
         shortPhrase={profile?.headline}
-        email={profile?.email}
         socialLinks={socialLinks}
       />
     </>
