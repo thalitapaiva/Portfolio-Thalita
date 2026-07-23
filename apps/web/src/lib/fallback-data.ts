@@ -158,11 +158,20 @@ export const FALLBACK_PROJECTS: ProjectSummaryDto[] = [
       "Landing page temática do Batman construída com HTML e CSS como exercício de layout e identidade visual.",
     year: 2023,
     coverUrl: null,
-    repositoryUrl: "https://github.com/thalitapaiva",
+    repositoryUrl: "https://github.com/thalitapaiva/page-batman",
     liveUrl: null,
     featured: true,
     displayOrder: 1,
-    technologies: [],
+    technologies: [
+      {
+        isPrimary: true,
+        technology: { id: "t1", name: "HTML5", slug: "html", icon: "html5" },
+      },
+      {
+        isPrimary: true,
+        technology: { id: "t2", name: "CSS3", slug: "css", icon: "css3" },
+      },
+    ],
   },
   {
     id: "p2",
@@ -172,11 +181,24 @@ export const FALLBACK_PROJECTS: ProjectSummaryDto[] = [
       "Relógio digital em JavaScript puro que atualiza horas, minutos e segundos em tempo real.",
     year: 2023,
     coverUrl: null,
-    repositoryUrl: "https://github.com/thalitapaiva",
+    repositoryUrl: "https://github.com/thalitapaiva/clocks",
     liveUrl: null,
     featured: true,
     displayOrder: 2,
-    technologies: [],
+    technologies: [
+      {
+        isPrimary: true,
+        technology: { id: "t3", name: "JavaScript", slug: "javascript", icon: "javascript" },
+      },
+      {
+        isPrimary: false,
+        technology: { id: "t1b", name: "HTML5", slug: "html", icon: "html5" },
+      },
+      {
+        isPrimary: false,
+        technology: { id: "t2b", name: "CSS3", slug: "css", icon: "css3" },
+      },
+    ],
   },
   {
     id: "p3",
@@ -186,10 +208,23 @@ export const FALLBACK_PROJECTS: ProjectSummaryDto[] = [
       "Interface de previsão do tempo construída como exercício de consumo de API e design de UI.",
     year: 2023,
     coverUrl: null,
-    repositoryUrl: "https://github.com/thalitapaiva",
+    repositoryUrl: "https://github.com/thalitapaiva/weather",
     liveUrl: null,
     featured: true,
     displayOrder: 3,
-    technologies: [],
+    technologies: [
+      {
+        isPrimary: true,
+        technology: { id: "t3b", name: "JavaScript", slug: "javascript", icon: "javascript" },
+      },
+      {
+        isPrimary: false,
+        technology: { id: "t1c", name: "HTML5", slug: "html", icon: "html5" },
+      },
+      {
+        isPrimary: false,
+        technology: { id: "t2c", name: "CSS3", slug: "css", icon: "css3" },
+      },
+    ],
   },
 ];

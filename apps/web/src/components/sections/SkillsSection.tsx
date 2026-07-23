@@ -68,11 +68,15 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
     <section id="competencias" aria-labelledby="skills-title" className="section-pad">
       <div className="section-shell">
         <ScrollReveal>
-          <SectionHeading id="skills-title" title="Stack" />
+          <SectionHeading
+            id="skills-title"
+            title="Stack"
+            description="Linguagens, ferramentas e práticas que uso no dia a dia."
+          />
         </ScrollReveal>
 
         <ScrollReveal delay={0.06}>
-          <ul className="mt-12 grid grid-cols-2 border-l border-t border-[var(--border)] sm:mt-16 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <ul className="mt-12 grid grid-cols-2 border-l border-t border-[var(--border)] sm:mt-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {items.map((s, index) => (
               <li key={s.id} className="border-b border-r border-[var(--border)]">
                 <div

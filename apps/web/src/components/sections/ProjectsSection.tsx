@@ -16,17 +16,19 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [activeSlug, setActiveSlug] = React.useState<string | null>(null);
   const [showAll, setShowAll] = React.useState(false);
 
-  const featured = projects[0];
-  const rest = projects.slice(1);
-  const visibleRest = showAll ? rest : rest.slice(0, 5);
-  const hasMore = rest.length > 5;
+  const visible = showAll ? projects : projects.slice(0, 6);
+  const hasMore = projects.length > 6;
 
   return (
     <section id="projetos" aria-labelledby="projects-title" className="section-pad">
       <div className="section-shell">
         <ScrollReveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
-            <SectionHeading id="projects-title" title="Projetos" />
+            <SectionHeading
+              id="projects-title"
+              title="Projetos"
+              description="Trabalhos selecionados — landing pages, UIs e exercícios de front-end."
+            />
 
             {hasMore ? (
               <button
@@ -40,26 +42,19 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           </div>
         </ScrollReveal>
 
-        {featured ? (
-          <ScrollReveal delay={0.05} className="mt-12 sm:mt-16">
-            <ProjectCard
-              project={featured}
-              onOpen={setActiveSlug}
-              featured
-              className="pb-2"
-            />
-          </ScrollReveal>
-        ) : null}
-
-        {visibleRest.length > 0 ? (
-          <ul className="mt-12 grid gap-10 sm:mt-16 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-14 lg:grid-cols-3">
-            {visibleRest.map((project, i) => (
+        {visible.length > 0 ? (
+          <ul className="mt-12 grid gap-10 sm:mt-14 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-3">
+            {visible.map((project, i) => (
               <ScrollReveal as="li" key={project.id} delay={(i % 3) * 0.05} y={24}>
                 <ProjectCard project={project} onOpen={setActiveSlug} compact />
               </ScrollReveal>
             ))}
           </ul>
-        ) : null}
+        ) : (
+          <p className="mt-12 text-[1rem] text-[var(--text-secondary)]">
+            Projetos em breve.
+          </p>
+        )}
       </div>
 
       <ProjectModal slug={activeSlug} onOpenChange={(open) => !open && setActiveSlug(null)} />
