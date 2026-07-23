@@ -27,23 +27,26 @@ type StackItem = {
 };
 
 function buildStack(skills: SkillDto[]): StackItem[] {
-  const fromApi: StackItem[] = skills
+  const fromApi = skills
     .slice()
     .sort((a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name))
-    .map((s) => {
+    .map((s): StackItem | null => {
       const icon =
         resolveDevIcon(s.icon) ??
         resolveDevIcon(s.name) ??
         resolveDevIcon(s.name.replace(/gest[aã]o/gi, "gestao"));
       if (!icon) return null;
-      // Prefer friendly label for project management
       const name =
         icon === "projectmgmt" || /gest[aã]o de projetos/i.test(s.name)
           ? "Gestão de projetos"
           : s.name;
-      return { id: s.id, name, icon: icon === "trello" ? "projectmgmt" : icon };
+      return {
+        id: s.id,
+        name,
+        icon: icon === "trello" ? "projectmgmt" : icon,
+      };
     })
-    .filter((x): x is StackItem => Boolean(x));
+    .filter((x): x is StackItem => x !== null);
 
   const seen = new Set(fromApi.map((s) => s.icon));
   const seenNames = new Set(fromApi.map((s) => s.name.toLowerCase()));
