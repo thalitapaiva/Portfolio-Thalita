@@ -7,7 +7,7 @@ export type Lang = "pt" | "en";
 export const LANG_STORAGE_KEY = "portfolio-lang";
 
 export type FocusAreaId = "operations" | "scrum" | "technology";
-export type SkillGroupId = "technology" | "operations" | "agility" | "tools";
+export type SkillGroupId = "technology" | "operations" | "agility";
 export type ExperienceCaseId =
   | "planning"
   | "agile"
@@ -41,6 +41,10 @@ export type Dictionary = {
   about: {
     title: string;
     paragraphs: string[];
+    education: {
+      title: string;
+      items: { period: string; label: string }[];
+    };
   };
   focus: {
     title: string;
@@ -54,6 +58,11 @@ export type Dictionary = {
     title: string;
     description: string;
     groups: Record<SkillGroupId, { title: string; items: string[] }>;
+    tools: {
+      title: string;
+      technology: { title: string; items: string[] };
+      management: { title: string; items: string[] };
+    };
   };
   experience: {
     title: string;
@@ -225,6 +234,23 @@ export const dictionaries: Record<Lang, Dictionary> = {
         "Atuo conectando estratégia, pessoas e tecnologia para transformar objetivos de negócio em processos claros, atividades priorizadas e entregas acompanháveis. Como Scrum Master, apoio times multidisciplinares na organização de sprints, remoção de impedimentos, melhoria da comunicação e evolução contínua da forma de trabalho.",
         "Minha formação técnica também me permite compreender o contexto dos times de desenvolvimento, contribuir com decisões mais consistentes e facilitar a comunicação entre áreas técnicas, operacionais e estratégicas.",
       ],
+      education: {
+        title: "Formação",
+        items: [
+          {
+            period: "2026",
+            label: "Gestão de Projetos — FGV",
+          },
+          {
+            period: "2018 — 2020",
+            label: "Técnico em Agroindústria — IFES Campus Alegre",
+          },
+          {
+            period: "2020 — 2022",
+            label: "Inglês intermediário ao avançado — Easy School",
+          },
+        ],
+      },
     },
     focus: {
       title: "Áreas de atuação",
@@ -326,9 +352,36 @@ export const dictionaries: Record<Lang, Dictionary> = {
             "Resolução de impedimentos",
           ],
         },
-        tools: {
-          title: "Ferramentas",
-          items: ["Figma", "VS Code"],
+      },
+      tools: {
+        title: "Ferramentas",
+        technology: {
+          title: "Tecnologia",
+          items: [
+            "VS Code",
+            "Figma",
+            "GitHub",
+            "Docker",
+            "Postman",
+            "npm / pnpm",
+            "Vercel",
+            "Chrome DevTools",
+          ],
+        },
+        management: {
+          title: "Gestão",
+          items: [
+            "Jira",
+            "Trello",
+            "Notion",
+            "Miro",
+            "Microsoft Excel",
+            "Google Workspace",
+            "Slack",
+            "Microsoft Teams",
+            "Azure DevOps",
+            "Power BI",
+          ],
         },
       },
     },
@@ -488,6 +541,23 @@ export const dictionaries: Record<Lang, Dictionary> = {
         "I connect strategy, people, and technology to turn business goals into clear processes, prioritized work, and trackable delivery. As a Scrum Master, I support multidisciplinary teams with sprint organization, impediment removal, clearer communication, and continuous improvement of how work gets done.",
         "My technical background also helps me understand development contexts, contribute to more consistent decisions, and bridge technical, operational, and strategic areas.",
       ],
+      education: {
+        title: "Education",
+        items: [
+          {
+            period: "2026",
+            label: "Project Management — FGV",
+          },
+          {
+            period: "2018 — 2020",
+            label: "Technical Degree in Agroindustry — IFES Campus Alegre",
+          },
+          {
+            period: "2020 — 2022",
+            label: "English, intermediate to advanced — Easy School",
+          },
+        ],
+      },
     },
     focus: {
       title: "Areas of focus",
@@ -589,9 +659,36 @@ export const dictionaries: Record<Lang, Dictionary> = {
             "Impediment resolution",
           ],
         },
-        tools: {
-          title: "Tools",
-          items: ["Figma", "VS Code"],
+      },
+      tools: {
+        title: "Tools",
+        technology: {
+          title: "Technology",
+          items: [
+            "VS Code",
+            "Figma",
+            "GitHub",
+            "Docker",
+            "Postman",
+            "npm / pnpm",
+            "Vercel",
+            "Chrome DevTools",
+          ],
+        },
+        management: {
+          title: "Management",
+          items: [
+            "Jira",
+            "Trello",
+            "Notion",
+            "Miro",
+            "Microsoft Excel",
+            "Google Workspace",
+            "Slack",
+            "Microsoft Teams",
+            "Azure DevOps",
+            "Power BI",
+          ],
         },
       },
     },

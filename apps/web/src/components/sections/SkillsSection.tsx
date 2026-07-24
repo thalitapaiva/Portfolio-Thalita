@@ -9,7 +9,7 @@ const PRIMARY_GROUPS: SkillGroupId[] = ["technology", "operations", "agility"];
 
 export function SkillsSection() {
   const { t } = useLang();
-  const tools = t.skills.groups.tools;
+  const { tools } = t.skills;
 
   return (
     <section id="competencias" aria-labelledby="skills-title" className="section-pad">
@@ -55,16 +55,26 @@ export function SkillsSection() {
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]">
               {tools.title}
             </p>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {tools.items.map((item) => (
-                <li
-                  key={item}
-                  className="inline-flex min-h-10 items-center border border-[var(--border)] px-4 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)]"
-                >
-                  {item}
-                </li>
+
+            <div className="mt-6 grid gap-8 sm:grid-cols-2">
+              {([tools.technology, tools.management] as const).map((group) => (
+                <div key={group.title}>
+                  <p className="text-[12px] font-semibold tracking-[-0.02em] text-[var(--blue-700)]">
+                    {group.title}
+                  </p>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {group.items.map((item) => (
+                      <li
+                        key={item}
+                        className="inline-flex min-h-10 items-center border border-[var(--border)] px-4 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)]"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </ScrollReveal>
       </div>

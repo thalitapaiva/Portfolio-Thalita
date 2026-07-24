@@ -31,6 +31,29 @@ export function AboutSection() {
                 </ScrollReveal>
               ))}
             </div>
+
+            <ScrollReveal delay={0.22}>
+              <div className="relative mt-10 border-t border-[var(--border)] pt-8">
+                <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--blue-700)]">
+                  {t.about.education.title}
+                </p>
+                <ul className="mt-5 space-y-4">
+                  {t.about.education.items.map((item) => (
+                    <li
+                      key={`${item.period}-${item.label}`}
+                      className="grid gap-1 sm:grid-cols-[minmax(0,8.5rem)_minmax(0,1fr)] sm:gap-6"
+                    >
+                      <span className="font-mono text-[12px] font-medium tabular-nums text-[var(--text-secondary)]">
+                        {item.period}
+                      </span>
+                      <span className="text-[0.98rem] font-semibold tracking-[-0.025em] text-[var(--text-primary)]">
+                        {item.label}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>
