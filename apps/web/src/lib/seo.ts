@@ -69,8 +69,11 @@ export function buildMetadata({
       },
     },
     icons: {
-      icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-      shortcut: "/icon.svg",
+      icon: [
+        { url: "/icon", type: "image/png", sizes: "32x32" },
+        { url: "/favicon.svg", type: "image/svg+xml" },
+      ],
+      shortcut: "/icon",
     },
   };
 }
