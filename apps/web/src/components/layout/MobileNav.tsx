@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
-import { NAV_SECTIONS } from "@/lib/constants";
+import { NAV_SECTIONS, type NavSectionId } from "@/lib/constants";
 import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 
@@ -26,10 +26,12 @@ export function MobileNav({ activeSection, ctaHref = "#contato" }: MobileNavProp
   const handleClick = React.useCallback(() => setOpen(false), []);
   const { t } = useLang();
 
-  const navLabels: Record<(typeof NAV_SECTIONS)[number]["id"], string> = {
+  const navLabels: Record<NavSectionId, string> = {
     inicio: t.nav.home,
     sobre: t.nav.about,
+    atuacao: t.nav.focus,
     competencias: t.nav.skills,
+    experiencia: t.nav.experience,
     projetos: t.nav.projects,
     contato: t.nav.contact,
   };
@@ -41,7 +43,7 @@ export function MobileNav({ activeSection, ctaHref = "#contato" }: MobileNavProp
           variant="ghost"
           size="icon"
           aria-label={t.nav.openMenu}
-          className="md:hidden"
+          className="lg:hidden"
         >
           <Menu className="h-5 w-5" aria-hidden="true" />
         </Button>
@@ -72,7 +74,10 @@ export function MobileNav({ activeSection, ctaHref = "#contato" }: MobileNavProp
                   >
                     <span>{navLabels[section.id]}</span>
                     {active ? (
-                      <span aria-hidden="true" className="size-1.5 rounded-full bg-[var(--blue-600)]" />
+                      <span
+                        aria-hidden="true"
+                        className="size-1.5 rounded-full bg-[var(--blue-600)]"
+                      />
                     ) : null}
                   </a>
                 </li>

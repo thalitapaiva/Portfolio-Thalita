@@ -11,15 +11,15 @@ export const FALLBACK_PROFILE: PortfolioProfileDto = {
   fullName: "Thalita Paiva",
   monogram: "TP",
   heroLabel: "SI · SOFTWARE · PROCESSOS",
-  headline: "Programação, processos e projetos.",
+  headline: "Tecnologia, operações e agilidade para transformar processos em resultados.",
   shortBio:
-    "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo (UFES) – Campus Alegre. Tenho grande interesse em Desenvolvimento Full Stack e na criação de softwares que sejam modernos, eficientes e capazes de solucionar problemas reais.",
+    "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo — UFES, com experiência em gestão de operações, organização de projetos, melhoria de processos e metodologias ágeis.",
   aboutContent:
-    "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo (UFES) – Campus Alegre. Tenho grande interesse em Desenvolvimento Full Stack e na criação de softwares que sejam modernos, eficientes e capazes de solucionar problemas reais.",
+    "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo — UFES, com experiência em gestão de operações, organização de projetos, melhoria de processos e metodologias ágeis.",
   education: "Sistemas de Informação — UFES (Campus Alegre)",
-  interests: "Desenvolvimento Full Stack, organização de entregas e produtos digitais.",
+  interests: "Business Operations, Scrum, gestão de projetos e desenvolvimento Full Stack.",
   workStyle: "Escopos claros, comunicação objetiva e entrega iterativa.",
-  goals: "Construir softwares modernos que resolvam problemas reais.",
+  goals: "Conectar estratégia, operação e tecnologia em processos e entregas acompanháveis.",
   email: "thfonp@gmail.com",
   location: "Espírito Santo, Brasil",
   workPrinciples: [
@@ -38,13 +38,13 @@ export const FALLBACK_PROFILE: PortfolioProfileDto = {
   ],
   seoTitle: "Thalita Paiva — Portfólio",
   seoDescription:
-    "Portfólio de Thalita Paiva — estudante de Sistemas de Informação com foco em programação, processos e projetos.",
+    "Portfólio de Thalita Paiva — Business Operations Manager, Scrum Master e profissional de tecnologia.",
   linkedIn: {
     name: "Thalita Paiva",
-    headline: "SI · UFES | Programação, processos e projetos",
+    headline: "Business Operations · Scrum Master · Tecnologia",
     summary:
-      "Estudante de Sistemas de Informação com foco em software e organização de entregas.",
-    skills: ["JavaScript", "TypeScript", "React", "Node.js", "Git"],
+      "Business Operations Manager, Scrum Master e profissional de tecnologia — processos, projetos e desenvolvimento.",
+    skills: ["Business Operations", "Scrum", "Gestão de projetos", "JavaScript", "React"],
     profileUrl: "https://www.linkedin.com/in/thalita-paiva-1301a122b/",
   },
   updatedAt: new Date().toISOString(),

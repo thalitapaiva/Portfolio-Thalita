@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
-import { NAV_SECTIONS, SITE } from "@/lib/constants";
+import { NAV_SECTIONS, SITE, type NavSectionId } from "@/lib/constants";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
@@ -24,10 +24,12 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
   const activeSection = useActiveSection(SECTION_IDS, 96);
   const { t } = useLang();
 
-  const navLabels: Record<(typeof NAV_SECTIONS)[number]["id"], string> = {
+  const navLabels: Record<NavSectionId, string> = {
     inicio: t.nav.home,
     sobre: t.nav.about,
+    atuacao: t.nav.focus,
     competencias: t.nav.skills,
+    experiencia: t.nav.experience,
     projetos: t.nav.projects,
     contato: t.nav.contact,
   };
@@ -49,10 +51,10 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
       )}
       aria-label={t.nav.headerAria}
     >
-      <div className="mx-auto flex h-14 max-w-wide items-center gap-6 px-5 sm:h-[4.25rem] sm:gap-8 sm:px-8 lg:px-12">
+      <div className="mx-auto flex h-14 max-w-wide items-center gap-4 px-5 sm:h-[4.25rem] sm:gap-6 sm:px-8 lg:gap-8 lg:px-12">
         <Link
           href="#inicio"
-          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+          className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
           aria-label={`${fullName} — ${t.nav.backHome}`}
         >
           <span className="text-[13px] font-bold tracking-[-0.03em] text-[var(--text-primary)] sm:text-[14px]">
@@ -62,7 +64,7 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
 
         <nav
           aria-label={t.nav.mainAria}
-          className="ml-auto hidden items-center gap-1 md:flex"
+          className="ml-auto hidden items-center gap-0.5 lg:flex"
         >
           {NAV_SECTIONS.filter((s) => s.id !== "inicio").map((section) => {
             const active = section.id === activeSection;
@@ -72,7 +74,7 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
                 href={`#${section.id}`}
                 aria-current={active ? "true" : undefined}
                 className={cn(
-                  "relative px-3 py-2 text-[12px] font-medium tracking-[-0.01em] transition-colors duration-300 ease-premium",
+                  "relative px-2.5 py-2 text-[12px] font-medium tracking-[-0.01em] transition-colors duration-300 ease-premium xl:px-3",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]",
                   active
                     ? "text-[var(--text-primary)]"
@@ -83,7 +85,7 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "absolute inset-x-3 bottom-1 h-px origin-left bg-[var(--blue-600)] transition-transform duration-350 ease-premium",
+                    "absolute inset-x-2.5 bottom-1 h-px origin-left bg-[var(--blue-600)] transition-transform duration-350 ease-premium xl:inset-x-3",
                     active ? "scale-x-100" : "scale-x-0",
                   )}
                 />
@@ -92,7 +94,7 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
           })}
         </nav>
 
-        <div className="flex items-center gap-1.5 md:ml-2">
+        <div className="flex items-center gap-1.5 lg:ml-2">
           <LanguageToggle />
           <ThemeToggle />
           <Button asChild variant="primary" size="sm" className="hidden md:inline-flex">

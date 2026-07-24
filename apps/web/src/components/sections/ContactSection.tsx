@@ -29,7 +29,12 @@ export function ContactSection({
       <div className="section-shell">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:items-start lg:gap-24">
           <ScrollReveal>
-            <SectionHeading id="contact-title" title={t.contact.title} />
+            <div className="space-y-6">
+              <SectionHeading id="contact-title" title={t.contact.title} />
+              <p className="max-w-md text-[1.02rem] font-medium leading-relaxed tracking-[-0.025em] text-[var(--text-secondary)]">
+                {t.contact.intro}
+              </p>
+            </div>
           </ScrollReveal>
 
           <ScrollReveal delay={0.08}>

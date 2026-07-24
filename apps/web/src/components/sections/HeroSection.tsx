@@ -23,7 +23,6 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
   const parts = fullName.trim().split(/\s+/);
   const first = parts[0] ?? "Thalita";
   const rest = parts.slice(1).join(" ") || "Paiva";
-  const headline = t.hero.headline;
   const linkedInUrl = profile?.linkedIn?.profileUrl;
   const githubUrl = github?.htmlUrl ?? "https://github.com/thalitapaiva";
 
@@ -63,10 +62,7 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
           </motion.div>
 
           <h1 id="hero-title" className="display-title text-[var(--text-primary)]">
-            <motion.span
-              className="block text-[clamp(3.5rem,14vw,8.75rem)]"
-              {...line(0.05)}
-            >
+            <motion.span className="block text-[clamp(3.5rem,14vw,8.75rem)]" {...line(0.05)}>
               {first}
             </motion.span>
             <motion.span
@@ -78,24 +74,46 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
           </h1>
 
           <motion.p
-            className="mt-8 max-w-[18rem] text-[1.05rem] font-medium leading-snug tracking-[-0.03em] text-[var(--text-secondary)] sm:mt-10 sm:max-w-xs sm:text-lg"
+            className="mt-8 max-w-xl text-[1.05rem] font-medium leading-snug tracking-[-0.03em] text-[var(--text-secondary)] sm:mt-10 sm:text-lg"
             {...line(0.22)}
           >
-            {headline}
+            {t.hero.headline}
+          </motion.p>
+
+          <motion.p
+            className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed tracking-[-0.02em] text-[var(--text-secondary)] sm:text-[1.02rem]"
+            {...line(0.28)}
+          >
+            {t.hero.intro}
           </motion.p>
 
           <motion.div
-            className="mt-10 flex flex-col gap-7 sm:mt-12 sm:flex-row sm:items-center sm:gap-10"
-            {...line(0.32)}
+            className="mt-10 flex flex-col gap-7 sm:mt-12 sm:flex-row sm:items-center sm:gap-8"
+            {...line(0.34)}
           >
-            <Magnetic>
-              <Button asChild variant="primary" size="lg" className="min-h-12 w-full touch-manipulation sm:w-auto">
-                <a href="#projetos">
-                  {t.hero.viewProjects}
-                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                </a>
+            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+              <Magnetic>
+                <Button
+                  asChild
+                  variant="primary"
+                  size="lg"
+                  className="min-h-12 w-full touch-manipulation sm:w-auto"
+                >
+                  <a href="#projetos">
+                    {t.hero.viewProjects}
+                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                </Button>
+              </Magnetic>
+              <Button
+                asChild
+                variant="secondary"
+                size="lg"
+                className="min-h-12 w-full touch-manipulation sm:w-auto"
+              >
+                <a href="#experiencia">{t.hero.viewExperience}</a>
               </Button>
-            </Magnetic>
+            </div>
 
             <div className="flex flex-wrap items-center gap-x-7 gap-y-3 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-secondary)]">
               <a
@@ -116,7 +134,10 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
                   LinkedIn
                 </a>
               ) : null}
-              <a href="#contato" className="link-underline touch-manipulation hover:text-[var(--text-primary)]">
+              <a
+                href="#contato"
+                className="link-underline touch-manipulation hover:text-[var(--text-primary)]"
+              >
                 {t.hero.contact}
               </a>
             </div>
