@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import type { GitHubProfileDto, PortfolioProfileDto } from "@portfolio/types";
 
 import { PageIllustration } from "@/components/shared/PageIllustration";
@@ -10,15 +9,6 @@ interface HeroSectionProps {
   profile: PortfolioProfileDto | null;
   github: GitHubProfileDto | null;
 }
-
-const AVATARS = [
-  "/images/avatar-01.jpg",
-  "/images/avatar-02.jpg",
-  "/images/avatar-03.jpg",
-  "/images/avatar-04.jpg",
-  "/images/avatar-05.jpg",
-  "/images/avatar-06.jpg",
-];
 
 export function HeroSection({ profile, github }: HeroSectionProps) {
   const { t } = useLang();
@@ -34,25 +24,6 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="pb-12 pt-32 md:pb-20 md:pt-40">
           <div className="pb-12 text-center md:pb-16">
-            <div
-              className="mb-6 border-y border-gray-200 hairline-y dark:border-gray-700"
-              data-aos="zoom-y-out"
-            >
-              <div className="-mx-0.5 flex justify-center -space-x-3 py-3">
-                {AVATARS.map((src, i) => (
-                  <Image
-                    key={src}
-                    className="box-content rounded-full border-2 border-gray-50 dark:border-gray-900"
-                    src={src}
-                    width={32}
-                    height={32}
-                    alt=""
-                    priority={i < 2}
-                  />
-                ))}
-              </div>
-            </div>
-
             <h1
               className="mb-6 border-y border-gray-200 text-5xl font-bold tracking-tight text-gray-900 hairline-y dark:border-gray-700 dark:text-gray-100 md:text-6xl"
               data-aos="zoom-y-out"

@@ -54,34 +54,6 @@ export function FocusAreasSection() {
                   height={755}
                   alt=""
                 />
-                <Image
-                  className="absolute -left-28 top-16 z-10 animate-float opacity-80"
-                  src="/images/planet-tag-01.png"
-                  width={253}
-                  height={56}
-                  alt=""
-                />
-                <Image
-                  className="absolute left-56 top-7 z-10 animate-float opacity-30 [animation-delay:1s]"
-                  src="/images/planet-tag-02.png"
-                  width={241}
-                  height={56}
-                  alt=""
-                />
-                <Image
-                  className="absolute -left-20 bottom-24 z-10 animate-float opacity-25 [animation-delay:2s]"
-                  src="/images/planet-tag-03.png"
-                  width={243}
-                  height={56}
-                  alt=""
-                />
-                <Image
-                  className="absolute bottom-32 left-64 z-10 animate-float opacity-80 [animation-delay:3s]"
-                  src="/images/planet-tag-04.png"
-                  width={251}
-                  height={56}
-                  alt=""
-                />
               </div>
             </div>
           </div>
