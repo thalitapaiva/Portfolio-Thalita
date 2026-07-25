@@ -68,7 +68,8 @@
     scroll-behavior: smooth;
     text-rendering: optimizeLegibility;
     background: var(--background);
-    overflow-x: clip;
+    /* hidden (not clip) — clip fights Radix/body scroll locks on some browsers */
+    overflow-x: hidden;
   }
 
   body {
@@ -78,17 +79,28 @@
     font-weight: 400;
     letter-spacing: -0.017em;
     min-height: 100svh;
-    overflow-x: clip;
+    overflow-x: hidden;
   }
 
   /*
-   * Radix RemoveScroll locks body, but overflow-x: clip on html/body makes the
-   * documentElement the scroll container — lock both so the blurred page stays put.
+   * Belt-and-suspenders with DialogContent's fixed-body lock: when Radix sets
+   * data-scroll-locked, keep both html and body from rubber-banding.
    */
   html:has(body[data-scroll-locked]),
   body[data-scroll-locked] {
     overflow: hidden !important;
-    overscroll-behavior: none;
+    overscroll-behavior: none !important;
+  }
+
+  /* Tint Devicon CDN imgs to brand blue when an inline glyph isn't available */
+  .icon-brand-tint {
+    filter: brightness(0) saturate(100%) invert(32%) sepia(98%) saturate(1782%)
+      hue-rotate(204deg) brightness(96%) contrast(96%);
+  }
+
+  html.dark .icon-brand-tint {
+    filter: brightness(0) saturate(100%) invert(58%) sepia(72%) saturate(2012%)
+      hue-rotate(199deg) brightness(102%) contrast(96%);
   }
 
   ::selection {

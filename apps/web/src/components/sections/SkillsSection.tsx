@@ -1,6 +1,15 @@
 "use client";
 
-import { DevIcon, resolveDevIcon } from "@/components/shared/DevIcon";
+import { DevIcon } from "@/components/shared/DevIcon";
+import {
+  AGILITY_SKILLS,
+  OPERATIONS_SKILLS,
+  TECHNOLOGY_SKILLS,
+  TOOL_MANAGEMENT,
+  TOOL_TECHNOLOGY,
+  chipLabel,
+  type SkillChipDef,
+} from "@/lib/skills-catalog";
 import { useLang, type SkillGroupId } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 
@@ -14,12 +23,15 @@ const SPEED_CLASS: Record<MarqueeSpeed, string> = {
   slow: "animate-infinite-scroll-slow",
 };
 
-function SkillChip({ label }: { label: string }) {
-  const icon = resolveDevIcon(label);
+function SkillChip({ item, lang }: { item: SkillChipDef; lang: "pt" | "en" }) {
+  const label = chipLabel(item, lang);
 
   return (
-    <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-gray-200 bg-white px-3.5 py-2 text-sm font-medium text-gray-800 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
-      {icon ? <DevIcon name={icon} size={18} title={label} /> : null}
+    <span
+      className="inline-flex shrink-0 items-center gap-2 rounded-full border border-gray-200 bg-white px-3.5 py-2 text-sm font-medium text-gray-800 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+      data-skill-icon={item.icon}
+    >
+      <DevIcon name={item.icon} size={18} title={label} />
       {label}
     </span>
   );
@@ -29,10 +41,12 @@ function SkillsMarquee({
   items,
   speed = "normal",
   label,
+  lang,
 }: {
-  items: string[];
+  items: SkillChipDef[];
   speed?: MarqueeSpeed;
   label: string;
+  lang: "pt" | "en";
 }) {
   const trackClass = cn(
     "flex w-max items-center gap-3 py-1 pr-3 group-hover:[animation-play-state:paused] sm:gap-4 sm:pr-4",
@@ -45,22 +59,21 @@ function SkillsMarquee({
       role="group"
       aria-label={label}
     >
-      {/* Static wrap for reduced-motion / accessibility fallback */}
       <div className="hidden flex-wrap justify-center gap-2 motion-reduce:flex sm:gap-3">
         {items.map((item) => (
-          <SkillChip key={`static-${item}`} label={item} />
+          <SkillChip key={`static-${item.icon}-${item.label.pt}`} item={item} lang={lang} />
         ))}
       </div>
 
       <div className="inline-flex w-max max-w-none flex-nowrap motion-reduce:hidden">
         <div className={trackClass}>
           {items.map((item) => (
-            <SkillChip key={`a-${item}`} label={item} />
+            <SkillChip key={`a-${item.icon}-${item.label.pt}`} item={item} lang={lang} />
           ))}
         </div>
         <div className={trackClass} aria-hidden="true">
           {items.map((item) => (
-            <SkillChip key={`b-${item}`} label={item} />
+            <SkillChip key={`b-${item.icon}-${item.label.pt}`} item={item} lang={lang} />
           ))}
         </div>
       </div>
@@ -69,15 +82,11 @@ function SkillsMarquee({
 }
 
 export function SkillsSection() {
-  const { t } = useLang();
-  const { tools } = t.skills;
+  const { t, lang } = useLang();
 
-  const technology = t.skills.groups.technology.items;
-  const operationsAndAgility = [
-    ...t.skills.groups.operations.items,
-    ...t.skills.groups.agility.items,
-  ];
-  const toolItems = [...tools.technology.items, ...tools.management.items];
+  const technology = TECHNOLOGY_SKILLS;
+  const operationsAndAgility = [...OPERATIONS_SKILLS, ...AGILITY_SKILLS];
+  const toolItems = [...TOOL_TECHNOLOGY, ...TOOL_MANAGEMENT];
 
   return (
     <section id="competencias" aria-labelledby="skills-title" className="section-pad">
@@ -99,16 +108,22 @@ export function SkillsSection() {
             items={technology}
             speed="normal"
             label={t.skills.groups.technology.title}
+            lang={lang}
           />
           <SkillsMarquee
             items={operationsAndAgility}
             speed="reverse"
             label={`${t.skills.groups.operations.title} · ${t.skills.groups.agility.title}`}
+            lang={lang}
           />
-          <SkillsMarquee items={toolItems} speed="slow" label={tools.title} />
+          <SkillsMarquee
+            items={toolItems}
+            speed="slow"
+            label={t.skills.tools.title}
+            lang={lang}
+          />
         </div>
 
-        {/* Visually hidden group titles for screen readers / nav context */}
         <ul className="sr-only">
           {PRIMARY_GROUPS.map((groupId) => {
             const group = t.skills.groups[groupId];
