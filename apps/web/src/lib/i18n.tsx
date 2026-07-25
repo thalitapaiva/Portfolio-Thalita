@@ -225,8 +225,8 @@ export const dictionaries: Record<Lang, Dictionary> = {
         title: "Formação",
         items: [
           {
-            period: "2026",
-            label: "Gestão de Projetos — FGV",
+            period: "2025",
+            label: "Gestão de Projetos e Processos — FGV",
           },
           {
             period: "2018 — 2020",
@@ -523,8 +523,8 @@ export const dictionaries: Record<Lang, Dictionary> = {
         title: "Education",
         items: [
           {
-            period: "2026",
-            label: "Project Management — FGV",
+            period: "2025",
+            label: "Project and Process Management — FGV",
           },
           {
             period: "2018 — 2020",
