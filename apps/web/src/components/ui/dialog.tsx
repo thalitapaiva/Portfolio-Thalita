@@ -19,6 +19,7 @@ export const DialogOverlay = React.forwardRef<
     ref={ref}
     className={cn(
       "fixed inset-0 z-50 bg-[color:rgb(28_43_62_/_0.55)] backdrop-blur-sm",
+      "overscroll-none touch-none",
       "data-[state=open]:animate-fade-in",
       "motion-reduce:animate-none",
       className,
@@ -39,18 +40,25 @@ export const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed left-1/2 top-1/2 z-50 grid w-[min(96vw,720px)] max-h-[92vh] -translate-x-1/2 -translate-y-1/2",
-        "gap-4 overflow-y-auto rounded-[16px] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-soft",
+        "fixed left-1/2 top-1/2 z-50 flex w-[min(96vw,720px)] max-h-[min(85vh,100dvh)] -translate-x-1/2 -translate-y-1/2 flex-col",
+        "overflow-hidden rounded-[16px] border border-[var(--border)] bg-[var(--surface)] shadow-soft",
         "data-[state=open]:animate-fade-up motion-reduce:animate-none",
         "focus:outline-none",
         className,
       )}
       {...props}
     >
-      {children}
+      <div
+        className={cn(
+          "flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-6",
+          "[-webkit-overflow-scrolling:touch]",
+        )}
+      >
+        {children}
+      </div>
       {!hideClose && (
         <DialogPrimitive.Close
-          className="absolute right-4 top-4 rounded-md p-1 text-[var(--text-secondary)] transition-colors hover:bg-[var(--background)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+          className="absolute right-4 top-4 z-10 rounded-md p-1 text-[var(--text-secondary)] transition-colors hover:bg-[var(--background)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
           aria-label="Fechar"
         >
           <X className="h-4 w-4" />
