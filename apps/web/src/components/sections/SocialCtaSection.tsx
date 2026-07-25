@@ -1,25 +1,17 @@
 "use client";
 
 import Image from "next/image";
-
-import { useLang } from "@/lib/i18n";
+import { Github, Linkedin } from "lucide-react";
 
 const LINKEDIN = "https://www.linkedin.com/in/thalita-paiva-1301a122b/";
 const GITHUB = "https://github.com/thalitapaiva";
 
 export function SocialCtaSection() {
-  const { t, lang } = useLang();
-  const title = lang === "pt" ? "Vamos conectar" : "Let’s connect";
-  const subtitle =
-    lang === "pt"
-      ? "LinkedIn e GitHub — operações, Scrum e tecnologia."
-      : "LinkedIn and GitHub — operations, Scrum, and technology.";
-
   return (
-    <section className="section-pad pt-0" aria-label={t.nav.about}>
+    <section className="section-pad pt-0" aria-label="Redes sociais">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div
-          className="relative overflow-hidden rounded-2xl text-center shadow-xl before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:bg-gray-900"
+          className="relative overflow-hidden rounded-2xl shadow-xl before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:bg-gray-900"
           data-aos="zoom-y-out"
         >
           <div
@@ -40,36 +32,25 @@ export function SocialCtaSection() {
               alt=""
             />
           </div>
-          <div className="px-4 py-10 md:px-12 md:py-20">
-            <h2 className="mb-3 border-y border-gray-700 text-2xl font-bold text-gray-200 sm:text-3xl md:mb-6 md:text-4xl">
-              {title}
-            </h2>
-            <p className="mx-auto mb-6 max-w-xl text-[15px] text-gray-400 sm:mb-8 sm:text-base">
-              {subtitle}
-            </p>
-            <div className="mx-auto flex max-w-xs flex-col sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
-              <a
-                className="btn btn-primary group mb-3 w-full sm:mb-0 sm:w-auto"
-                href={LINKEDIN}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="relative inline-flex items-center">
-                  LinkedIn{" "}
-                  <span className="ml-1 tracking-normal text-blue-200 transition-transform group-hover:translate-x-0.5">
-                    -&gt;
-                  </span>
-                </span>
-              </a>
-              <a
-                className="btn w-full bg-gray-800 text-gray-200 shadow-sm hover:bg-gray-700 sm:w-auto"
-                href={GITHUB}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-            </div>
+          <div className="flex items-center justify-center gap-4 px-4 py-10 sm:gap-5 md:py-14">
+            <a
+              className="inline-flex size-14 items-center justify-center rounded-2xl bg-blue-500 text-white shadow-lg transition hover:bg-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 sm:size-16"
+              href={LINKEDIN}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden="true" />
+            </a>
+            <a
+              className="inline-flex size-14 items-center justify-center rounded-2xl bg-gray-800 text-gray-100 shadow-lg transition hover:bg-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 sm:size-16"
+              href={GITHUB}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
+              <Github className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden="true" />
+            </a>
           </div>
         </div>
       </div>
