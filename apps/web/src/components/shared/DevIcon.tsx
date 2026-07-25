@@ -28,9 +28,19 @@ export type DevIconName =
   | "jira"
   | "trello"
   | "markdown"
-  | "projectmgmt";
+  | "projectmgmt"
+  | "postman"
+  | "vercel"
+  | "slack"
+  | "excel"
+  | "powerbi"
+  | "teams"
+  | "googleworkspace"
+  | "azuredevops";
 
 const DEVICON_SRC: Partial<Record<DevIconName, string>> = {
+  html5: "html5/html5-original.svg",
+  css3: "css3/css3-original.svg",
   react: "react/react-original.svg",
   nodejs: "nodejs/nodejs-original.svg",
   c: "c/c-original.svg",
@@ -51,6 +61,10 @@ const DEVICON_SRC: Partial<Record<DevIconName, string>> = {
   jira: "jira/jira-original.svg",
   trello: "trello/trello-original.svg",
   markdown: "markdown/markdown-original.svg",
+  postman: "postman/postman-original.svg",
+  vercel: "vercel/vercel-original.svg",
+  slack: "slack/slack-original.svg",
+  azuredevops: "azuredevops/azuredevops-original.svg",
 };
 
 const BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
@@ -70,7 +84,6 @@ export function resolveDevIcon(name?: string | null): DevIconName | null {
   const aliases: Record<string, DevIconName> = {
     html: "html5",
     html5: "html5",
-    htmlcss: "html5",
     css: "css3",
     css3: "css3",
     js: "javascript",
@@ -102,9 +115,22 @@ export function resolveDevIcon(name?: string | null): DevIconName | null {
     tailwindcss: "tailwindcss",
     prisma: "prisma",
     npm: "npm",
+    npmpnpm: "npm",
     jira: "jira",
     trello: "trello",
     markdown: "markdown",
+    postman: "postman",
+    vercel: "vercel",
+    slack: "slack",
+    excel: "excel",
+    microsoftexcel: "excel",
+    powerbi: "powerbi",
+    microsoftpowerbi: "powerbi",
+    teams: "teams",
+    microsoftteams: "teams",
+    googleworkspace: "googleworkspace",
+    google: "googleworkspace",
+    azuredevops: "azuredevops",
     gestaodeprojetos: "projectmgmt",
     gestodeprojetos: "projectmgmt",
     projectmanagement: "projectmgmt",
@@ -138,13 +164,8 @@ export function resolveDevIcon(name?: string | null): DevIconName | null {
     users: "jira",
     book: "markdown",
     dom: "javascript",
-    postman: "npm",
-    npmpnpm: "npm",
-    vercel: "nextjs",
     notion: "markdown",
     miro: "figma",
-    powerbi: "projectmgmt",
-    azuredevops: "git",
   };
   return aliases[key] ?? null;
 }
@@ -190,46 +211,6 @@ function BrandGlyph({
   className?: string;
 }) {
   switch (name) {
-    case "html5":
-      return (
-        <InlineGlyph size={size} title={title} className={className}>
-          <rect x="2" y="2" width="20" height="20" rx="4.5" fill="currentColor" />
-          {/* Bold </> strokes — unmistakable at 24–32px */}
-          <path
-            d="M8.2 8.4 5 12l3.2 3.6"
-            stroke="var(--background)"
-            strokeWidth="2.15"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M15.8 8.4 19 12l-3.2 3.6"
-            stroke="var(--background)"
-            strokeWidth="2.15"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M13.35 7.6 10.65 16.4"
-            stroke="var(--background)"
-            strokeWidth="2.15"
-            strokeLinecap="round"
-          />
-        </InlineGlyph>
-      );
-    case "css3":
-      return (
-        <InlineGlyph size={size} title={title} className={className}>
-          <rect x="2" y="2" width="20" height="20" rx="4.5" fill="currentColor" />
-          <path
-            d="M7.4 7.8h9.2l-.7 7.6L12 17.8l-3.9-2.4-.2-2.1h2l.1 1 1.9.9 2-.9.3-2.8H8.2L7.4 7.8Z"
-            fill="var(--background)"
-          />
-        </InlineGlyph>
-      );
-    case "nodejs":
-      // Use original Devicon mark (CDN) — user preferred the earlier look
-      return null;
     case "javascript":
       return (
         <InlineGlyph size={size} title={title} className={className}>
@@ -244,7 +225,6 @@ function BrandGlyph({
       return (
         <InlineGlyph size={size} title={title} className={className}>
           <rect x="2.5" y="2.5" width="19" height="19" rx="3.2" fill="currentColor" />
-          {/* Clean TS wordmark */}
           <path
             d="M6.4 10.15h5.05v1.35H9.95V17.7H8.4v-6.2H6.4v-1.35Z"
             fill="var(--background)"
@@ -262,6 +242,52 @@ function BrandGlyph({
           <path
             d="M9.15 7.85h1.45l4.15 6.25V7.85h1.5V16.3h-1.45L10.65 9.95V16.3H9.15V7.85Z"
             fill="var(--background)"
+          />
+        </InlineGlyph>
+      );
+    case "vercel":
+      return (
+        <InlineGlyph size={size} title={title} className={className}>
+          <path d="M12 2.5 22.5 20.5H1.5L12 2.5Z" fill="currentColor" />
+        </InlineGlyph>
+      );
+    case "excel":
+      // Microsoft Excel mark (simple-icons silhouette)
+      return (
+        <InlineGlyph size={size} title={title} className={className}>
+          <path
+            fill="currentColor"
+            d="M23 1.5q.41 0 .7.3.3.29.3.7v19q0 .41-.3.7-.29.3-.7.3H7q-.41 0-.7-.3-.3-.29-.3-.7V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h5V2.5q0-.41.3-.7.29-.3.7-.3zM6 13.28l1.42 2.66h2.14l-2.38-3.87 2.34-3.8H7.46l-1.3 2.4-.05.08-.04.09-.64-1.28-.66-1.29H2.59l2.27 3.82-2.48 3.85h2.16zM14.25 21v-3H7.5v3zm0-4.5v-3.75H12v3.75zm0-5.25V7.5H12v3.75zm0-5.25V3H7.5v3zm8.25 15v-3h-6.75v3zm0-4.5v-3.75h-6.75v3.75zm0-5.25V7.5h-6.75v3.75zm0-5.25V3h-6.75v3Z"
+          />
+        </InlineGlyph>
+      );
+    case "powerbi":
+      // Power BI stacked bars (simple-icons silhouette)
+      return (
+        <InlineGlyph size={size} title={title} className={className}>
+          <path
+            fill="currentColor"
+            d="M10 12a1 1 0 0 1 1 1v11H4a1 1 0 0 1-1-1V13a1 1 0 0 1 1-1h6Zm-2-.5V7a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v17h-4.5V13a1.5 1.5 0 0 0-1.5-1.5H8Zm5-6V1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1h-3.5V7A1.5 1.5 0 0 0 15 5.5h-2Z"
+          />
+        </InlineGlyph>
+      );
+    case "teams":
+      // Microsoft Teams mark (simple-icons silhouette)
+      return (
+        <InlineGlyph size={size} title={title} className={className}>
+          <path
+            fill="currentColor"
+            d="M20.625 8.127q-.55 0-1.025-.205-.475-.205-.832-.563-.358-.357-.563-.832Q18 6.053 18 5.502q0-.54.205-1.02t.563-.837q.357-.358.832-.563.474-.205 1.025-.205.54 0 1.02.205t.837.563q.358.357.563.837.205.48.205 1.02 0 .55-.205 1.025-.205.475-.563.832-.357.358-.837.563-.48.205-1.02.205zm0-3.75q-.469 0-.797.328-.328.328-.328.797 0 .469.328.797.328.328.797.328.469 0 .797-.328.328-.328.328-.797 0-.469-.328-.797-.328-.328-.797-.328zM24 10.002v5.578q0 .774-.293 1.46-.293.685-.803 1.194-.51.51-1.195.803-.686.293-1.459.293-.445 0-.908-.105-.463-.106-.85-.329-.293.95-.855 1.729-.563.78-1.319 1.336-.756.557-1.67.861-.914.305-1.898.305-1.148 0-2.162-.398-1.014-.399-1.805-1.102-.79-.703-1.312-1.664t-.674-2.086h-5.8q-.411 0-.704-.293T0 16.881V6.873q0-.41.293-.703t.703-.293h8.59q-.34-.715-.34-1.5 0-.727.275-1.365.276-.639.75-1.114.475-.474 1.114-.75.638-.275 1.365-.275t1.365.275q.639.276 1.114.75.474.475.75 1.114.275.638.275 1.365t-.275 1.365q-.276.639-.75 1.113-.475.475-1.114.75-.638.276-1.365.276-.188 0-.375-.024-.188-.023-.375-.058v1.078h10.875q.469 0 .797.328.328.328.328.797zM12.75 2.373q-.41 0-.78.158-.368.158-.638.434-.27.275-.428.639-.158.363-.158.773 0 .41.158.78.159.368.428.638.27.27.639.428.369.158.779.158.41 0 .773-.158.364-.159.64-.428.274-.27.433-.639.158-.369.158-.779 0-.41-.158-.773-.159-.364-.434-.64-.275-.275-.639-.433-.363-.158-.773-.158zM6.937 9.814h2.25V7.94H2.814v1.875h2.25v6h1.875zm10.313 7.313v-6.75H12v6.504q0 .41-.293.703t-.703.293H8.309q.152.809.556 1.5.405.691.985 1.19.58.497 1.318.779.738.281 1.582.281.926 0 1.746-.352.82-.351 1.436-.966.615-.616.966-1.43.352-.815.352-1.752zm5.25-1.547v-5.203h-3.75v6.855q.305.305.691.452.387.146.809.146.469 0 .879-.176.41-.175.715-.48.304-.305.48-.715t.176-.879Z"
+          />
+        </InlineGlyph>
+      );
+    case "googleworkspace":
+      // Google “G” mark — recognizable stand-in for Workspace
+      return (
+        <InlineGlyph size={size} title={title} className={className}>
+          <path
+            fill="currentColor"
+            d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
           />
         </InlineGlyph>
       );
