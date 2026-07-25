@@ -1,4 +1,24 @@
 import * as React from "react";
+import type { LucideIcon } from "lucide-react";
+import {
+  Ban,
+  BarChart3,
+  BriefcaseBusiness,
+  CalendarRange,
+  Chrome,
+  ClipboardList,
+  FileText,
+  FolderKanban,
+  GitBranch,
+  ListOrdered,
+  ListTodo,
+  MessagesSquare,
+  Presentation,
+  RefreshCw,
+  Repeat2,
+  ShieldAlert,
+  UsersRound,
+} from "lucide-react";
 
 import { cn } from "@/lib/cn";
 
@@ -27,8 +47,9 @@ export type DevIconName =
   | "npm"
   | "jira"
   | "trello"
+  | "notion"
+  | "miro"
   | "markdown"
-  | "projectmgmt"
   | "postman"
   | "vercel"
   | "slack"
@@ -36,7 +57,25 @@ export type DevIconName =
   | "powerbi"
   | "teams"
   | "googleworkspace"
-  | "azuredevops";
+  | "azuredevops"
+  | "chromedevtools"
+  /** Process / soft-skill glyphs (not brand logos). */
+  | "documentation"
+  | "projectmgmt"
+  | "businessops"
+  | "processmapping"
+  | "kpis"
+  | "prioritization"
+  | "riskmgmt"
+  | "continuousimprovement"
+  | "scrum"
+  | "kanban"
+  | "backlog"
+  | "sprintplanning"
+  | "facilitation"
+  | "stakeholders"
+  | "multidisciplinary"
+  | "impediments";
 
 const DEVICON_SRC: Partial<Record<DevIconName, string>> = {
   html5: "html5/html5-original.svg",
@@ -59,12 +98,31 @@ const DEVICON_SRC: Partial<Record<DevIconName, string>> = {
   prisma: "prisma/prisma-original.svg",
   npm: "npm/npm-original-wordmark.svg",
   jira: "jira/jira-original.svg",
-  trello: "trello/trello-original.svg",
   markdown: "markdown/markdown-original.svg",
   postman: "postman/postman-original.svg",
   vercel: "vercel/vercel-original.svg",
   slack: "slack/slack-original.svg",
   azuredevops: "azuredevops/azuredevops-original.svg",
+};
+
+const LUCIDE_ICONS: Partial<Record<DevIconName, LucideIcon>> = {
+  documentation: FileText,
+  projectmgmt: FolderKanban,
+  businessops: BriefcaseBusiness,
+  processmapping: GitBranch,
+  kpis: BarChart3,
+  prioritization: ListOrdered,
+  riskmgmt: ShieldAlert,
+  continuousimprovement: RefreshCw,
+  scrum: Repeat2,
+  kanban: ClipboardList,
+  backlog: ListTodo,
+  sprintplanning: CalendarRange,
+  facilitation: Presentation,
+  stakeholders: MessagesSquare,
+  multidisciplinary: UsersRound,
+  impediments: Ban,
+  chromedevtools: Chrome,
 };
 
 const BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
@@ -118,6 +176,8 @@ export function resolveDevIcon(name?: string | null): DevIconName | null {
     npmpnpm: "npm",
     jira: "jira",
     trello: "trello",
+    notion: "notion",
+    miro: "miro",
     markdown: "markdown",
     postman: "postman",
     vercel: "vercel",
@@ -131,41 +191,56 @@ export function resolveDevIcon(name?: string | null): DevIconName | null {
     googleworkspace: "googleworkspace",
     google: "googleworkspace",
     azuredevops: "azuredevops",
+    chromedevtools: "chromedevtools",
+    chrome: "chromedevtools",
+
+    // Operations & projects (meaning-matched lucide glyphs — never brand logos)
+    businessoperations: "businessops",
     gestaodeprojetos: "projectmgmt",
     gestodeprojetos: "projectmgmt",
     projectmanagement: "projectmgmt",
     projectmgmt: "projectmgmt",
-    businessoperations: "projectmgmt",
-    mapeamentodeprocessos: "projectmgmt",
-    processmapping: "projectmgmt",
-    gestaodeindicadores: "projectmgmt",
-    kpimanagement: "projectmgmt",
-    documentacao: "markdown",
-    documentation: "markdown",
-    priorizacao: "projectmgmt",
-    prioritization: "projectmgmt",
-    gestaoderiscos: "projectmgmt",
-    riskmanagement: "projectmgmt",
-    melhoriacontinua: "projectmgmt",
-    continuousimprovement: "projectmgmt",
-    gestaodebacklog: "jira",
-    backlogmanagement: "jira",
-    planejamentodesprints: "jira",
-    sprintplanning: "jira",
-    kanban: "projectmgmt",
-    agile: "projectmgmt",
-    scrum: "projectmgmt",
+    mapeamentodeprocessos: "processmapping",
+    processmapping: "processmapping",
+    gestaodeindicadores: "kpis",
+    kpimanagement: "kpis",
+    documentacao: "documentation",
+    documentation: "documentation",
+    priorizacao: "prioritization",
+    prioritization: "prioritization",
+    gestaoderiscos: "riskmgmt",
+    riskmanagement: "riskmgmt",
+    melhoriacontinua: "continuousimprovement",
+    continuousimprovement: "continuousimprovement",
+
+    // Agility (distinct process icons — never reuse Jira/Figma/etc.)
+    scrum: "scrum",
+    agile: "scrum",
+    kanban: "kanban",
+    gestaodebacklog: "backlog",
+    backlogmanagement: "backlog",
+    planejamentodesprints: "sprintplanning",
+    sprintplanning: "sprintplanning",
+    facilitacaodereunioes: "facilitation",
+    meetingfacilitation: "facilitation",
+    comunicacaocomstakeholders: "stakeholders",
+    stakeholdercommunication: "stakeholders",
+    timesmultidisciplinares: "multidisciplinary",
+    multidisciplinaryteams: "multidisciplinary",
+    crossfunctionalteams: "multidisciplinary",
+    resolucaodeimpedimentos: "impediments",
+    impedimentresolution: "impediments",
+
+    // Generic fallbacks used elsewhere
     layout: "figma",
     database: "postgresql",
     schema: "prisma",
     code: "vscode",
     check: "projectmgmt",
-    chat: "markdown",
-    users: "jira",
-    book: "markdown",
+    chat: "documentation",
+    users: "multidisciplinary",
+    book: "documentation",
     dom: "javascript",
-    notion: "markdown",
-    miro: "figma",
   };
   return aliases[key] ?? null;
 }
@@ -251,6 +326,36 @@ function BrandGlyph({
           <path d="M12 2.5 22.5 20.5H1.5L12 2.5Z" fill="currentColor" />
         </InlineGlyph>
       );
+    case "notion":
+      // Notion mark (simple-icons silhouette)
+      return (
+        <InlineGlyph size={size} title={title} className={className}>
+          <path
+            fill="currentColor"
+            d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"
+          />
+        </InlineGlyph>
+      );
+    case "miro":
+      // Miro mark (simple-icons silhouette) — never reuse Figma
+      return (
+        <InlineGlyph size={size} title={title} className={className}>
+          <path
+            fill="currentColor"
+            d="M17.392 0H13.9L17 4.808 10.444 0H6.949l3.102 6.3L3.494 0H0l3.05 8.131L0 24h3.494L10.05 6.985 6.949 24h3.494L17 5.494 13.899 24h3.493L24 3.672 17.392 0z"
+          />
+        </InlineGlyph>
+      );
+    case "trello":
+      // Trello mark (simple-icons silhouette)
+      return (
+        <InlineGlyph size={size} title={title} className={className}>
+          <path
+            fill="currentColor"
+            d="M21.147 0H2.853A2.86 2.86 0 000 2.853v18.294A2.86 2.86 0 002.853 24h18.294A2.86 2.86 0 0024 21.147V2.853A2.86 2.86 0 0021.147 0zM10.34 17.287a.953.953 0 01-.953.953h-4a.954.954 0 01-.954-.953V5.38a.953.953 0 01.954-.953h4a.954.954 0 01.953.953zm9.233-5.467a.944.944 0 01-.953.947h-4a.947.947 0 01-.953-.947V5.38a.953.953 0 01.953-.953h4a.954.954 0 01.953.953z"
+          />
+        </InlineGlyph>
+      );
     case "excel":
       // Microsoft Excel mark (simple-icons silhouette)
       return (
@@ -291,17 +396,6 @@ function BrandGlyph({
           />
         </InlineGlyph>
       );
-    case "projectmgmt":
-      return (
-        <InlineGlyph size={size} title={title} className={className}>
-          <rect x="3" y="4" width="5.5" height="16" rx="1.2" fill="currentColor" opacity="0.35" />
-          <rect x="9.25" y="4" width="5.5" height="16" rx="1.2" fill="currentColor" opacity="0.65" />
-          <rect x="15.5" y="4" width="5.5" height="16" rx="1.2" fill="currentColor" />
-          <rect x="4.2" y="6.2" width="3.1" height="2.2" rx="0.5" fill="var(--background)" />
-          <rect x="10.45" y="6.2" width="3.1" height="3.4" rx="0.5" fill="var(--background)" />
-          <rect x="16.7" y="6.2" width="3.1" height="4.6" rx="0.5" fill="var(--background)" />
-        </InlineGlyph>
-      );
     default:
       return null;
   }
@@ -309,7 +403,7 @@ function BrandGlyph({
 
 /**
  * Brand-blue icons. Critical stack glyphs are inline SVGs (always visible);
- * others use Devicon CDN with a blue color filter.
+ * process skills use lucide; others use Devicon CDN with a blue color filter.
  */
 export function DevIcon({
   name,
@@ -324,6 +418,19 @@ export function DevIcon({
 }) {
   const inline = BrandGlyph({ name, size, title, className });
   if (inline) return inline;
+
+  const Lucide = LUCIDE_ICONS[name];
+  if (Lucide) {
+    return (
+      <Lucide
+        size={size}
+        strokeWidth={2}
+        className={cn("select-none text-[var(--blue-600)]", className)}
+        aria-hidden="true"
+        {...(title ? { "aria-label": title } : {})}
+      />
+    );
+  }
 
   const srcPath = DEVICON_SRC[name];
   if (!srcPath) return null;
