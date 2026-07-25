@@ -39,7 +39,7 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
           <div className="flex flex-1 items-center">
             <Link
               href="#inicio"
-              className="inline-flex items-center px-2 text-sm font-bold tracking-tight text-gray-900 dark:text-gray-100"
+              className="inline-flex max-w-[9.5rem] items-center truncate px-1 text-sm font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:max-w-none sm:px-2"
               aria-label={`${fullName} — ${t.nav.backHome}`}
             >
               {fullName}

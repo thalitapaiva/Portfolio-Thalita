@@ -73,9 +73,9 @@ export function ProjectCard({
         </Link>
       )}
 
-      <div className="flex flex-1 flex-col gap-2 p-5">
+      <div className="flex flex-1 flex-col gap-2 p-4 sm:p-5">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="min-w-0 text-lg font-bold tracking-tight text-gray-900 dark:text-gray-100">
+          <h3 className="min-w-0 text-base font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-lg">
             {onOpen ? (
               <button
                 type="button"
@@ -96,7 +96,7 @@ export function ProjectCard({
         </div>
 
         {project.shortDescription ? (
-          <p className="line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+          <p className="line-clamp-2 hidden text-sm leading-relaxed text-gray-600 dark:text-gray-400 sm:block">
             {project.shortDescription}
           </p>
         ) : null}

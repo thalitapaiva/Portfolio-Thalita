@@ -138,65 +138,54 @@ export type Dictionary = {
 const projectContentPt: Dictionary["projectContent"] = {
   "page-batman": {
     title: "Página do Batman",
-    shortDescription:
-      "Landing page temática do Batman construída com HTML e CSS como exercício de layout e identidade visual.",
+    shortDescription: "Landing temática com HTML e CSS — layout e identidade visual.",
   },
   clocks: {
     title: "Clocks",
-    shortDescription:
-      "Relógio digital em JavaScript puro que atualiza horas, minutos e segundos em tempo real.",
+    shortDescription: "Relógio digital em JavaScript com atualização em tempo real.",
   },
   weather: {
     title: "Weather",
-    shortDescription:
-      "Interface de previsão do tempo construída como exercício de consumo de API e design de UI.",
+    shortDescription: "UI de previsão do tempo — API e design de interface.",
   },
   "sorteador-amigosecreto": {
     title: "Sorteador de Amigo Secreto",
-    shortDescription:
-      "Aplicativo web para sortear amigo secreto entre participantes, sem repetições.",
+    shortDescription: "Sorteio de amigo secreto sem repetições.",
   },
   "jogo-da-velha": {
     title: "Jogo da Velha",
-    shortDescription:
-      "Implementação do clássico jogo da velha com detecção de vitória e reinício de partida.",
+    shortDescription: "Clássico com detecção de vitória e reinício.",
   },
   projectgram: {
     title: "Projectgram",
-    shortDescription:
-      "Protótipo de rede social inspirado no Instagram para estudo de layout em CSS.",
+    shortDescription: "Protótipo de feed social para estudo de layout CSS.",
   },
 };
 
 const projectContentEn: Dictionary["projectContent"] = {
   "page-batman": {
     title: "Batman Page",
-    shortDescription:
-      "Batman-themed landing page built with HTML and CSS as a layout and visual identity exercise.",
+    shortDescription: "Themed landing with HTML and CSS — layout and visual identity.",
   },
   clocks: {
     title: "Clocks",
-    shortDescription:
-      "Digital clock in plain JavaScript that updates hours, minutes, and seconds in real time.",
+    shortDescription: "Digital clock in plain JavaScript, updating in real time.",
   },
   weather: {
     title: "Weather",
-    shortDescription:
-      "Weather forecast UI built as an exercise in API consumption and interface design.",
+    shortDescription: "Weather forecast UI — API consumption and interface design.",
   },
   "sorteador-amigosecreto": {
     title: "Secret Santa Draw",
-    shortDescription:
-      "Web app to draw Secret Santa names among participants, with no repeats.",
+    shortDescription: "Secret Santa draw with no repeats.",
   },
   "jogo-da-velha": {
     title: "Tic-Tac-Toe",
-    shortDescription: "Classic tic-tac-toe with win detection and match reset.",
+    shortDescription: "Classic game with win detection and reset.",
   },
   projectgram: {
     title: "Projectgram",
-    shortDescription:
-      "Instagram-inspired social feed prototype for practicing CSS layout.",
+    shortDescription: "Social feed prototype for CSS layout practice.",
   },
 };
 
@@ -218,21 +207,19 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     hero: {
       portfolioSr: "Portfólio",
-      headline:
-        "Tecnologia, operações e agilidade para transformar processos em resultados.",
+      headline: "Tecnologia, operações e agilidade.",
       intro:
-        "Business Operations Manager, Scrum Master e profissional de tecnologia, atuando na estruturação de processos, organização de projetos e conexão entre estratégia, negócio e times de desenvolvimento.",
+        "Business Operations · Scrum Master · tecnologia — processos claros e entregas acompanháveis.",
       viewProjects: "Ver projetos",
-      viewExperience: "Conheça minha atuação",
+      viewExperience: "Minha atuação",
       contact: "Contato",
       scrollAbout: "Rolar para sobre",
     },
     about: {
       title: "Sobre",
       paragraphs: [
-        "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo — UFES, com experiência em gestão de operações, organização de projetos, melhoria de processos e metodologias ágeis.",
-        "Atuo conectando estratégia, pessoas e tecnologia para transformar objetivos de negócio em processos claros, atividades priorizadas e entregas acompanháveis. Como Scrum Master, apoio times multidisciplinares na organização de sprints, remoção de impedimentos, melhoria da comunicação e evolução contínua da forma de trabalho.",
-        "Minha formação técnica também me permite compreender o contexto dos times de desenvolvimento, contribuir com decisões mais consistentes e facilitar a comunicação entre áreas técnicas, operacionais e estratégicas.",
+        "Estudante de Sistemas de Informação na UFES, com atuação em operações, projetos e métodos ágeis.",
+        "Conecto estratégia, pessoas e tecnologia para transformar objetivos em processos claros e entregas acompanháveis.",
       ],
       education: {
         title: "Formação",
@@ -254,13 +241,11 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     focus: {
       title: "Áreas de atuação",
-      description:
-        "Como conecto estratégia, operação, processos e tecnologia no dia a dia.",
+      description: "Estratégia, operação, processos e tecnologia no dia a dia.",
       areas: {
         operations: {
           title: "Business Operations",
-          description:
-            "Estruturação da operação, organização de processos internos e acompanhamento das atividades necessárias para transformar objetivos estratégicos em execução.",
+          description: "Processos internos e execução alinhada à estratégia.",
           skills: [
             "Estruturação de processos",
             "Gestão operacional",
@@ -274,8 +259,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
         },
         scrum: {
           title: "Scrum Master",
-          description:
-            "Facilitação do trabalho de times ágeis, promovendo organização, transparência, colaboração e evolução contínua das entregas.",
+          description: "Facilitação ágil com foco em entrega e colaboração.",
           skills: [
             "Sprint Planning",
             "Daily Scrum",
@@ -291,8 +275,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
         },
         technology: {
           title: "Tecnologia e Projetos",
-          description:
-            "Uso da visão técnica para compreender necessidades, apoiar decisões, organizar demandas e facilitar a comunicação entre negócio e desenvolvimento.",
+          description: "Ponte entre negócio e desenvolvimento.",
           skills: [
             "Gestão de projetos",
             "Levantamento de requisitos",
@@ -308,8 +291,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     skills: {
       title: "Competências",
-      description:
-        "Tecnologias, métodos e práticas que fazem parte da minha atuação.",
+      description: "Stack, métodos e práticas do dia a dia.",
       groups: {
         technology: {
           title: "Tecnologia",
@@ -387,39 +369,38 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     experience: {
       title: "Experiência na prática",
-      description:
-        "Iniciativas de operação, processos e agilidade que demonstram como organizo o trabalho e apoio equipes.",
+      description: "Como organizo o trabalho e apoio equipes.",
       cases: {
         planning: {
-          title: "Estruturação de planejamento e acompanhamento de projetos",
+          title: "Planejamento e acompanhamento",
           description:
-            "Organização de projetos em épicos, histórias, tarefas e subtarefas, criando maior visibilidade sobre responsáveis, prioridades, prazos e andamento das entregas.",
+            "Projetos em épicos, histórias e tarefas — com donos, prazos e progresso visíveis.",
           activities: [
             "Organização de backlog",
-            "Planejamento mensal e por sprint",
+            "Planejamento por sprint",
             "Definição de responsáveis",
             "Acompanhamento de progresso",
             "Registro de impedimentos",
-            "Consolidação de informações para tomada de decisão",
+            "Consolidação para decisão",
           ],
         },
         agile: {
-          title: "Implementação de processos ágeis",
+          title: "Processos ágeis",
           description:
-            "Estruturação de cerimônias e rotinas de acompanhamento para melhorar a comunicação, a previsibilidade e o alinhamento entre os integrantes do time.",
+            "Cerimônias e rotinas que melhoram comunicação, previsibilidade e alinhamento.",
           activities: [
             "Planejamento de sprint",
             "Acompanhamento das entregas",
             "Retrospectivas",
             "Refinamentos",
             "Identificação de gargalos",
-            "Melhoria contínua do fluxo de trabalho",
+            "Melhoria contínua do fluxo",
           ],
         },
         reports: {
-          title: "Relatórios operacionais e indicadores",
+          title: "Relatórios e indicadores",
           description:
-            "Criação de relatórios para acompanhar produtividade, horas planejadas e realizadas, andamento dos projetos, retrabalho, custos e qualidade das entregas.",
+            "Visão de produtividade, horas, progresso, retrabalho e qualidade.",
           activities: [
             "Definição de indicadores",
             "Consolidação de dados",
@@ -430,13 +411,13 @@ export const dictionaries: Record<Lang, Dictionary> = {
           ],
         },
         standardization: {
-          title: "Padronização de processos internos",
+          title: "Padronização de processos",
           description:
-            "Mapeamento e documentação de fluxos para reduzir informações dispersas, melhorar a organização e tornar os processos mais fáceis de acompanhar.",
+            "Fluxos documentados para menos dispersão e mais clareza operacional.",
           activities: [
             "Mapeamento de processos",
             "Documentação de fluxos",
-            "Definição de etapas e responsáveis",
+            "Etapas e responsáveis",
             "Centralização de informações",
             "Redução de retrabalho",
             "Organização da operação",
@@ -458,8 +439,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     projects: {
       title: "Projetos",
-      description:
-        "Projetos técnicos e iniciativas que representam minha evolução em tecnologia, organização de processos e resolução de problemas.",
+      description: "Seleção de trabalhos em tecnologia e resolução de problemas.",
       showAll: "Ver todos",
       showLess: "Ver menos",
       empty: "Projetos em breve.",
@@ -474,7 +454,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
     contact: {
       title: "Contato",
       intro:
-        "Estou aberta a conexões, projetos e oportunidades relacionadas a Business Operations, Scrum, gestão de projetos, processos e tecnologia.",
+        "Aberta a conexões em Operations, Scrum, projetos e tecnologia.",
       name: "Nome",
       namePlaceholder: "Nome",
       message: "Mensagem",
@@ -525,21 +505,19 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     hero: {
       portfolioSr: "Portfolio",
-      headline:
-        "Technology, operations, and agility to turn processes into results.",
+      headline: "Technology, operations, and agility.",
       intro:
-        "Business Operations Manager, Scrum Master, and technology professional — structuring processes, organizing projects, and connecting strategy, business, and development teams.",
+        "Business Operations · Scrum Master · technology — clear processes and trackable delivery.",
       viewProjects: "View projects",
-      viewExperience: "Explore my work",
+      viewExperience: "My work",
       contact: "Contact",
       scrollAbout: "Scroll to about",
     },
     about: {
       title: "About",
       paragraphs: [
-        "I'm an Information Systems student at the Federal University of Espírito Santo — UFES, with experience in operations management, project organization, process improvement, and agile practices.",
-        "I connect strategy, people, and technology to turn business goals into clear processes, prioritized work, and trackable delivery. As a Scrum Master, I support multidisciplinary teams with sprint organization, impediment removal, clearer communication, and continuous improvement of how work gets done.",
-        "My technical background also helps me understand development contexts, contribute to more consistent decisions, and bridge technical, operational, and strategic areas.",
+        "Information Systems student at UFES, working across operations, projects, and agile practices.",
+        "I connect strategy, people, and technology to turn goals into clear processes and trackable delivery.",
       ],
       education: {
         title: "Education",
@@ -561,13 +539,11 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     focus: {
       title: "Areas of focus",
-      description:
-        "How I connect strategy, operations, processes, and technology day to day.",
+      description: "Strategy, operations, processes, and technology day to day.",
       areas: {
         operations: {
           title: "Business Operations",
-          description:
-            "Structuring operations, organizing internal processes, and tracking the work needed to turn strategic goals into execution.",
+          description: "Internal processes and execution aligned to strategy.",
           skills: [
             "Process design",
             "Operational management",
@@ -581,8 +557,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
         },
         scrum: {
           title: "Scrum Master",
-          description:
-            "Facilitating agile teams with organization, transparency, collaboration, and continuous delivery improvement.",
+          description: "Agile facilitation focused on delivery and collaboration.",
           skills: [
             "Sprint Planning",
             "Daily Scrum",
@@ -598,8 +573,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
         },
         technology: {
           title: "Technology & Projects",
-          description:
-            "Using a technical lens to understand needs, support decisions, organize demand, and bridge business and development.",
+          description: "Bridging business and development.",
           skills: [
             "Project management",
             "Requirements gathering",
@@ -615,8 +589,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     skills: {
       title: "Skills",
-      description:
-        "Technologies, methods, and practices that shape how I work.",
+      description: "Stack, methods, and day-to-day practices.",
       groups: {
         technology: {
           title: "Technology",
@@ -694,26 +667,25 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     experience: {
       title: "Experience in practice",
-      description:
-        "Operations, process, and agility initiatives that show how I organize work and support teams.",
+      description: "How I organize work and support teams.",
       cases: {
         planning: {
-          title: "Project planning and delivery tracking",
+          title: "Planning and delivery tracking",
           description:
-            "Organizing projects into epics, stories, tasks, and subtasks to create clearer visibility of owners, priorities, deadlines, and delivery progress.",
+            "Projects broken into epics, stories, and tasks — with clear owners, deadlines, and progress.",
           activities: [
             "Backlog organization",
-            "Monthly and sprint planning",
+            "Sprint planning",
             "Owner assignment",
             "Progress tracking",
             "Impediment logging",
-            "Decision-ready information consolidation",
+            "Decision-ready consolidation",
           ],
         },
         agile: {
-          title: "Agile process implementation",
+          title: "Agile processes",
           description:
-            "Structuring ceremonies and follow-up routines to improve communication, predictability, and alignment across the team.",
+            "Ceremonies and routines that improve communication, predictability, and alignment.",
           activities: [
             "Sprint planning",
             "Delivery follow-up",
@@ -724,9 +696,9 @@ export const dictionaries: Record<Lang, Dictionary> = {
           ],
         },
         reports: {
-          title: "Operational reports and indicators",
+          title: "Reports and indicators",
           description:
-            "Building reports to track productivity, planned vs. actual hours, project progress, rework, costs, and delivery quality.",
+            "Visibility into productivity, hours, progress, rework, and quality.",
           activities: [
             "Indicator definition",
             "Data consolidation",
@@ -737,9 +709,9 @@ export const dictionaries: Record<Lang, Dictionary> = {
           ],
         },
         standardization: {
-          title: "Internal process standardization",
+          title: "Process standardization",
           description:
-            "Mapping and documenting flows to reduce scattered information, improve organization, and make processes easier to follow.",
+            "Documented flows for less scatter and clearer operations.",
           activities: [
             "Process mapping",
             "Flow documentation",
@@ -765,8 +737,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
     },
     projects: {
       title: "Projects",
-      description:
-        "Technical projects and initiatives that reflect my growth in technology, process organization, and problem-solving.",
+      description: "Selected work in technology and problem-solving.",
       showAll: "Show all",
       showLess: "Show less",
       empty: "Projects coming soon.",
@@ -781,7 +752,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
     contact: {
       title: "Contact",
       intro:
-        "I'm open to connections, projects, and opportunities related to Business Operations, Scrum, project management, processes, and technology.",
+        "Open to connections in Operations, Scrum, projects, and technology.",
       name: "Name",
       namePlaceholder: "Name",
       message: "Message",

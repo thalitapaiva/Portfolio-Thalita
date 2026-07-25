@@ -9,14 +9,11 @@ const GITHUB = "https://github.com/thalitapaiva";
 
 export function SocialCtaSection() {
   const { t, lang } = useLang();
-  const title =
-    lang === "pt"
-      ? "Vamos conectar no LinkedIn ou no GitHub"
-      : "Let’s connect on LinkedIn or GitHub";
+  const title = lang === "pt" ? "Vamos conectar" : "Let’s connect";
   const subtitle =
     lang === "pt"
-      ? "Acompanhe minha trajetória, projetos e atuação em operações, Scrum e tecnologia."
-      : "Follow my work across operations, Scrum, and technology.";
+      ? "LinkedIn e GitHub — operações, Scrum e tecnologia."
+      : "LinkedIn and GitHub — operations, Scrum, and technology.";
 
   return (
     <section className="section-pad pt-0" aria-label={t.nav.about}>
@@ -29,7 +26,7 @@ export function SocialCtaSection() {
             className="absolute bottom-0 left-1/2 -z-10 -translate-x-1/2 translate-y-1/2"
             aria-hidden="true"
           >
-            <div className="h-56 w-[480px] rounded-full border-[20px] border-blue-500 blur-3xl" />
+            <div className="h-40 w-[280px] rounded-full border-[16px] border-blue-500 blur-3xl sm:h-56 sm:w-[480px] sm:border-[20px]" />
           </div>
           <div
             className="pointer-events-none absolute left-1/2 top-0 -z-10 -translate-x-1/2 transform"
@@ -43,14 +40,16 @@ export function SocialCtaSection() {
               alt=""
             />
           </div>
-          <div className="px-4 py-12 md:px-12 md:py-20">
-            <h2 className="mb-4 border-y border-gray-700 text-3xl font-bold text-gray-200 md:mb-6 md:text-4xl">
+          <div className="px-4 py-10 md:px-12 md:py-20">
+            <h2 className="mb-3 border-y border-gray-700 text-2xl font-bold text-gray-200 sm:text-3xl md:mb-6 md:text-4xl">
               {title}
             </h2>
-            <p className="mx-auto mb-8 max-w-xl text-gray-400">{subtitle}</p>
+            <p className="mx-auto mb-6 max-w-xl text-[15px] text-gray-400 sm:mb-8 sm:text-base">
+              {subtitle}
+            </p>
             <div className="mx-auto flex max-w-xs flex-col sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
               <a
-                className="btn btn-primary group mb-4 w-full sm:mb-0 sm:w-auto"
+                className="btn btn-primary group mb-3 w-full sm:mb-0 sm:w-auto"
                 href={LINKEDIN}
                 target="_blank"
                 rel="noopener noreferrer"
