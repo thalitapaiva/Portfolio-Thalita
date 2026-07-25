@@ -14,6 +14,7 @@ import {
 
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
+import { NavigationMenuNav } from "@/components/layout/NavigationMenuNav";
 import { NAV_SECTIONS, SITE, type NavSectionId } from "@/lib/constants";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useLang } from "@/lib/i18n";
@@ -65,10 +66,10 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
             </Link>
           </div>
 
-          {/* Icon nav — always visible, including mobile */}
+          {/* Mobile / tablet: compact icon nav */}
           <nav
             aria-label={t.nav.mainAria}
-            className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
           >
             {links.map((section) => {
               const active = section.id === activeSection;
@@ -88,11 +89,16 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
                   )}
                 >
                   <Icon className="h-[18px] w-[18px]" aria-hidden="true" strokeWidth={2} />
-                  <span className="hidden lg:inline">{navLabels[section.id]}</span>
+                  <span className="hidden md:inline lg:hidden">{navLabels[section.id]}</span>
                 </a>
               );
             })}
           </nav>
+
+          {/* Desktop: ReUI Navigation Menu */}
+          <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
+            <NavigationMenuNav activeSection={activeSection} />
+          </div>
 
           <div className="flex shrink-0 items-center gap-0.5 sm:gap-1.5">
             <LanguageToggle />

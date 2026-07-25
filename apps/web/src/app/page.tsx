@@ -11,7 +11,6 @@ import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ResultsSection } from "@/components/sections/ResultsSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
-import { SocialCtaSection } from "@/components/sections/SocialCtaSection";
 
 export const revalidate = 900;
 
@@ -38,7 +37,6 @@ export default async function HomePage() {
         <AboutSection />
         <ResultsSection />
         <ProjectsSection projects={projects} />
-        <SocialCtaSection />
       </main>
       <SiteFooter fullName={profile?.fullName} socialLinks={socialLinks} />
     </>

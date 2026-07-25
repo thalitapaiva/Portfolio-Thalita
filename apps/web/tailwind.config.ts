@@ -24,14 +24,24 @@ const config: Config = {
         },
         accent: {
           DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
           soft: "var(--accent-soft)",
           muted: "var(--accent-muted)",
+          brand: "var(--accent-brand)",
         },
         background: "var(--background)",
         surface: "var(--surface)",
         border: "var(--border)",
-        foreground: "var(--text-primary)",
-        muted: "var(--text-secondary)",
+        foreground: "var(--foreground)",
+        muted: {
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
+        popover: {
+          DEFAULT: "var(--popover)",
+          foreground: "var(--popover-foreground)",
+        },
+        ring: "var(--ring)",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
