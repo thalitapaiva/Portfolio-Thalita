@@ -59,16 +59,13 @@ export function SkillsSection() {
                 className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-6"
               >
                 <p className="text-sm font-semibold text-blue-500">{group.title}</p>
-                <ul className="mt-3 flex flex-wrap gap-2 sm:mt-4 sm:block sm:space-y-2 sm:gap-0">
-                  {group.items.map((item, index) => (
+                <ul className="mt-3 space-y-2 sm:mt-4">
+                  {group.items.map((item) => (
                     <li
                       key={item}
-                      className={
-                        index >= 5
-                          ? "hidden text-sm font-medium text-gray-800 sm:list-item dark:text-gray-200"
-                          : "inline-flex rounded-full border border-gray-100 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 sm:block sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:text-sm"
-                      }
+                      className="flex items-start gap-2 text-sm font-medium text-gray-800 dark:text-gray-200"
                     >
+                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-blue-500" aria-hidden />
                       {item}
                     </li>
                   ))}
