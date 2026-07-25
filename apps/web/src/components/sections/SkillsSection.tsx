@@ -1,31 +1,88 @@
 "use client";
 
-import Image from "next/image";
-
+import { DevIcon, resolveDevIcon } from "@/components/shared/DevIcon";
 import { useLang, type SkillGroupId } from "@/lib/i18n";
+import { cn } from "@/lib/cn";
 
 const PRIMARY_GROUPS: SkillGroupId[] = ["technology", "operations", "agility"];
 
-const LOGOS = [
-  "/images/logo-01.svg",
-  "/images/logo-02.svg",
-  "/images/logo-03.svg",
-  "/images/logo-04.svg",
-  "/images/logo-05.svg",
-  "/images/logo-06.svg",
-  "/images/logo-07.svg",
-  "/images/logo-08.svg",
-  "/images/logo-09.svg",
-];
+type MarqueeSpeed = "normal" | "reverse" | "slow";
+
+const SPEED_CLASS: Record<MarqueeSpeed, string> = {
+  normal: "animate-infinite-scroll",
+  reverse: "animate-infinite-scroll-reverse",
+  slow: "animate-infinite-scroll-slow",
+};
+
+function SkillChip({ label }: { label: string }) {
+  const icon = resolveDevIcon(label);
+
+  return (
+    <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-gray-200 bg-white px-3.5 py-2 text-sm font-medium text-gray-800 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
+      {icon ? <DevIcon name={icon} size={18} title={label} /> : null}
+      {label}
+    </span>
+  );
+}
+
+function SkillsMarquee({
+  items,
+  speed = "normal",
+  label,
+}: {
+  items: string[];
+  speed?: MarqueeSpeed;
+  label: string;
+}) {
+  const trackClass = cn(
+    "flex w-max items-center gap-3 py-1 pr-3 group-hover:[animation-play-state:paused] sm:gap-4 sm:pr-4",
+    SPEED_CLASS[speed],
+  );
+
+  return (
+    <div
+      className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
+      role="group"
+      aria-label={label}
+    >
+      {/* Static wrap for reduced-motion / accessibility fallback */}
+      <div className="hidden flex-wrap justify-center gap-2 motion-reduce:flex sm:gap-3">
+        {items.map((item) => (
+          <SkillChip key={`static-${item}`} label={item} />
+        ))}
+      </div>
+
+      <div className="inline-flex w-max max-w-none flex-nowrap motion-reduce:hidden">
+        <div className={trackClass}>
+          {items.map((item) => (
+            <SkillChip key={`a-${item}`} label={item} />
+          ))}
+        </div>
+        <div className={trackClass} aria-hidden="true">
+          {items.map((item) => (
+            <SkillChip key={`b-${item}`} label={item} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function SkillsSection() {
   const { t } = useLang();
   const { tools } = t.skills;
 
+  const technology = t.skills.groups.technology.items;
+  const operationsAndAgility = [
+    ...t.skills.groups.operations.items,
+    ...t.skills.groups.agility.items,
+  ];
+  const toolItems = [...tools.technology.items, ...tools.management.items];
+
   return (
     <section id="competencias" aria-labelledby="skills-title" className="section-pad">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-3xl pb-8 text-center md:pb-14" data-aos="zoom-y-out">
+        <div className="mx-auto max-w-3xl pb-8 text-center md:pb-12" data-aos="zoom-y-out">
           <h2
             id="skills-title"
             className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl md:text-4xl"
@@ -37,61 +94,36 @@ export function SkillsSection() {
           </p>
         </div>
 
-        <div className="relative mb-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] sm:mb-14">
-          <div className="flex w-max animate-infinite-scroll gap-8 py-3 hover:[animation-play-state:paused] sm:gap-10 sm:py-4">
-            {[...LOGOS, ...LOGOS].map((src, i) => (
-              <div
-                key={`${src}-${i}`}
-                className="flex h-12 w-24 shrink-0 items-center justify-center opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 sm:h-16 sm:w-28 dark:opacity-80"
-              >
-                <Image src={src} alt="" width={88} height={32} className="max-h-7 w-auto sm:max-h-8" />
-              </div>
-            ))}
-          </div>
+        <div className="space-y-4 sm:space-y-5" data-aos="zoom-y-out">
+          <SkillsMarquee
+            items={technology}
+            speed="normal"
+            label={t.skills.groups.technology.title}
+          />
+          <SkillsMarquee
+            items={operationsAndAgility}
+            speed="reverse"
+            label={`${t.skills.groups.operations.title} · ${t.skills.groups.agility.title}`}
+          />
+          <SkillsMarquee items={toolItems} speed="slow" label={tools.title} />
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3 sm:gap-8" data-aos="zoom-y-out">
+        {/* Visually hidden group titles for screen readers / nav context */}
+        <ul className="sr-only">
           {PRIMARY_GROUPS.map((groupId) => {
             const group = t.skills.groups[groupId];
             return (
-              <div
-                key={groupId}
-                className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-6"
-              >
-                <p className="text-sm font-semibold text-blue-500">{group.title}</p>
-                <ul className="mt-3 space-y-2 sm:mt-4">
+              <li key={groupId}>
+                <p>{group.title}</p>
+                <ul>
                   {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2 text-sm font-medium text-gray-800 dark:text-gray-200"
-                    >
-                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-blue-500" aria-hidden />
-                      {item}
-                    </li>
+                    <li key={item}>{item}</li>
                   ))}
                 </ul>
-              </div>
+              </li>
             );
           })}
-        </div>
-
-        <div className="mt-8 rounded-2xl border border-gray-100 bg-gray-50 p-4 sm:mt-10 sm:p-6 dark:border-gray-800 dark:bg-gray-900/50">
-          <p className="text-sm font-semibold text-gray-500">{tools.title}</p>
-          <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
-            {[...tools.technology.items, ...tools.management.items].map((item, index) => (
-              <span
-                key={item}
-                className={
-                  index >= 10
-                    ? "hidden rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-700 sm:inline-flex dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                    : "inline-flex rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-                }
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
+        </ul>
       </div>
     </section>
   );
