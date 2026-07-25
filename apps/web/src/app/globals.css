@@ -8,25 +8,15 @@
     --blue-500: #3b82f6;
     --blue-300: #93c5fd;
     --blue-700: #1d4ed8;
-    /* Brand accent (kept for existing palette usage) */
-    --accent-brand: var(--blue-600);
+    --accent: var(--blue-600);
     --accent-soft: var(--blue-500);
     --accent-muted: rgb(37 99 235 / 0.1);
-    /* shadcn/ReUI semantic tokens mapped to Cruip/portfolio palette */
     --background: #ffffff;
-    --foreground: #111827;
     --surface: #f9fafb;
     --border: #e5e7eb;
     --text-primary: #111827;
     --text-secondary: #4b5563;
     --icon-contrast: #111827;
-    --popover: #ffffff;
-    --popover-foreground: #111827;
-    --muted: #f3f4f6;
-    --muted-foreground: #4b5563;
-    --accent: rgb(37 99 235 / 0.1);
-    --accent-foreground: #2563eb;
-    --ring: #2563eb;
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
     --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
     --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -38,23 +28,15 @@
     --blue-500: #60a5fa;
     --blue-300: #93c5fd;
     --blue-700: #93c5fd;
-    --accent-brand: var(--blue-600);
+    --accent: var(--blue-600);
     --accent-soft: var(--blue-500);
     --accent-muted: rgb(59 130 246 / 0.16);
     --background: #030712;
-    --foreground: #f3f4f6;
     --surface: #111827;
     --border: #1f2937;
     --text-primary: #f3f4f6;
     --text-secondary: #9ca3af;
     --icon-contrast: #f3f4f6;
-    --popover: #111827;
-    --popover-foreground: #f3f4f6;
-    --muted: #1f2937;
-    --muted-foreground: #9ca3af;
-    --accent: rgb(59 130 246 / 0.16);
-    --accent-foreground: #60a5fa;
-    --ring: #3b82f6;
     color-scheme: dark;
   }
 
@@ -68,8 +50,7 @@
     scroll-behavior: smooth;
     text-rendering: optimizeLegibility;
     background: var(--background);
-    /* hidden (not clip) — clip fights Radix/body scroll locks on some browsers */
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
@@ -79,28 +60,7 @@
     font-weight: 400;
     letter-spacing: -0.017em;
     min-height: 100svh;
-    overflow-x: hidden;
-  }
-
-  /*
-   * Belt-and-suspenders with DialogContent's fixed-body lock: when Radix sets
-   * data-scroll-locked, keep both html and body from rubber-banding.
-   */
-  html:has(body[data-scroll-locked]),
-  body[data-scroll-locked] {
-    overflow: hidden !important;
-    overscroll-behavior: none !important;
-  }
-
-  /* Tint Devicon CDN imgs to brand blue when an inline glyph isn't available */
-  .icon-brand-tint {
-    filter: brightness(0) saturate(100%) invert(32%) sepia(98%) saturate(1782%)
-      hue-rotate(204deg) brightness(96%) contrast(96%);
-  }
-
-  html.dark .icon-brand-tint {
-    filter: brightness(0) saturate(100%) invert(58%) sepia(72%) saturate(2012%)
-      hue-rotate(199deg) brightness(102%) contrast(96%);
+    overflow-x: clip;
   }
 
   ::selection {
