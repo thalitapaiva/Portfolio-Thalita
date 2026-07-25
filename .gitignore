@@ -27,3 +27,5 @@ packages/types/src/*.d.ts
 packages/types/src/*.d.ts.map
 .vercel
 .env*
+.tmp-cruip
+

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import "@fontsource-variable/mona-sans";
+import { Inter } from "next/font/google";
 
 import "./globals.css";
 
@@ -8,13 +8,19 @@ import { Providers } from "./providers";
 import { api } from "@/lib/api";
 import { buildMetadata } from "@/lib/seo";
 import { env } from "@/lib/env";
-import { SiteBackdrop } from "@/components/shared/TechIconsField";
+import { AosInit } from "@/components/shared/AosInit";
 import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f8fb" },
-    { media: "(prefers-color-scheme: dark)", color: "#060a12" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#030712" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -28,15 +34,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR" className={inter.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
-      <body>
+      <body className="font-sans antialiased">
         <a href="#inicio" className="skip-link">
           Pular para o conteúdo
         </a>
-        <SiteBackdrop />
+        <AosInit />
         <Providers>{children}</Providers>
         {env.turnstileSiteKey && (
           <Script

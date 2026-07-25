@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 import type { SocialLinkDto } from "@portfolio/types";
 
@@ -29,35 +30,70 @@ export function SiteFooter({
   );
 
   return (
-    <footer role="contentinfo" className="border-t border-[var(--border)] pb-[env(safe-area-inset-bottom)]">
-      <div className="section-shell flex flex-col gap-8 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-14">
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <p className="text-[14px] font-bold tracking-[-0.03em] text-[var(--text-primary)]">
-            {fullName}
-          </p>
-          <p className="text-[12px] font-medium tracking-[-0.015em] text-[var(--text-secondary)]">
-            {t.footer.phrase}
-          </p>
-        </div>
+    <footer role="contentinfo">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="grid gap-10 border-t border-gray-200 py-8 sm:grid-cols-12 md:py-12 dark:border-gray-800">
+          <div className="space-y-2 sm:col-span-12 lg:col-span-6">
+            <p className="text-sm font-bold tracking-tight text-gray-900 dark:text-gray-100">
+              {fullName}
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t.footer.phrase}</p>
+            <p className="text-sm text-gray-500">© {year}</p>
+          </div>
 
-        <div className="flex flex-wrap items-center gap-1 sm:gap-2">
-          {links.map((link) => {
-            const Icon = PLATFORM_ICON[link.platform.toLowerCase()] ?? Github;
-            return (
-              <a
-                key={link.id}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-10 min-w-10 items-center justify-center gap-2 px-2 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-secondary)] transition-colors duration-300 touch-manipulation hover:text-[var(--text-primary)]"
-                aria-label={link.label}
-              >
-                <Icon className="h-4 w-4" aria-hidden="true" />
-                <span className="sr-only sm:not-sr-only">{link.label}</span>
-              </a>
-            );
-          })}
-          <span className="ml-2 font-mono text-[11px] text-[var(--text-secondary)]">© {year}</span>
+          <div className="space-y-2 sm:col-span-6 lg:col-span-3">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+              {t.nav.projects}
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a className="text-gray-600 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" href="#projetos">
+                  {t.nav.projects}
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-600 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" href="#experiencia">
+                  {t.nav.experience}
+                </a>
+              </li>
+              <li>
+                <Link className="text-gray-600 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" href="/privacidade">
+                  Privacidade
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-2 sm:col-span-6 lg:col-span-3">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">Social</h3>
+            <ul className="flex gap-1">
+              {links.map((link) => {
+                const Icon = PLATFORM_ICON[link.platform.toLowerCase()] ?? Github;
+                return (
+                  <li key={link.id}>
+                    <a
+                      className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.label}
+                    >
+                      <Icon className="h-7 w-7" aria-hidden="true" />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative -mt-8 h-40 w-full overflow-hidden" aria-hidden="true">
+        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 -translate-x-1/2 bg-gradient-to-b from-gray-200 to-transparent bg-clip-text text-center text-[180px] font-bold leading-none text-transparent opacity-70 sm:text-[260px] dark:from-gray-800">
+          TP
+        </div>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
+          <div className="h-40 w-40 rounded-full border-[16px] border-blue-600 blur-[60px]" />
         </div>
       </div>
     </footer>

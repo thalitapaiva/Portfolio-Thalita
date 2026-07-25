@@ -20,7 +20,6 @@ interface SiteHeaderProps {
 const SECTION_IDS = NAV_SECTIONS.map((s) => s.id);
 
 export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
-  const [scrolled, setScrolled] = React.useState(false);
   const activeSection = useActiveSection(SECTION_IDS, 96);
   const { t } = useLang();
 
@@ -33,73 +32,52 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
     projetos: t.nav.projects,
   };
 
-  React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-40 pt-[env(safe-area-inset-top)] transition-[background,border-color,backdrop-filter] duration-400 ease-premium",
-        scrolled
-          ? "border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--background)_72%,transparent)] backdrop-blur-2xl"
-          : "border-b border-transparent bg-transparent",
-      )}
-      aria-label={t.nav.headerAria}
-    >
-      <div className="mx-auto flex h-14 max-w-wide items-center gap-4 px-5 sm:h-[4.25rem] sm:gap-6 sm:px-8 lg:gap-8 lg:px-12">
-        <Link
-          href="#inicio"
-          className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
-          aria-label={`${fullName} — ${t.nav.backHome}`}
-        >
-          <span className="text-[13px] font-bold tracking-[-0.03em] text-[var(--text-primary)] sm:text-[14px]">
-            {fullName}
-          </span>
-        </Link>
+    <header className="fixed top-2 z-30 w-full md:top-6" aria-label={t.nav.headerAria}>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-white/90 px-3 shadow-lg shadow-black/[0.03] backdrop-blur-sm before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(#f3f4f6,#e5e7eb)_border-box] before:[mask-composite:exclude] before:[mask:linear-gradient(#fff_0_0)_padding-box,_linear-gradient(#fff_0_0)] dark:bg-gray-900/90 dark:before:[background:linear-gradient(#1f2937,#111827)_border-box]">
+          <div className="flex flex-1 items-center">
+            <Link
+              href="#inicio"
+              className="inline-flex items-center px-2 text-sm font-bold tracking-tight text-gray-900 dark:text-gray-100"
+              aria-label={`${fullName} — ${t.nav.backHome}`}
+            >
+              {fullName}
+            </Link>
+          </div>
 
-        <nav
-          aria-label={t.nav.mainAria}
-          className="ml-auto hidden items-center gap-0.5 lg:flex"
-        >
-          {NAV_SECTIONS.filter((s) => s.id !== "inicio").map((section) => {
-            const active = section.id === activeSection;
-            return (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                aria-current={active ? "true" : undefined}
-                className={cn(
-                  "relative px-2.5 py-2 text-[12px] font-medium tracking-[-0.01em] transition-colors duration-300 ease-premium xl:px-3",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]",
-                  active
-                    ? "text-[var(--text-primary)]"
-                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]",
-                )}
-              >
-                {navLabels[section.id]}
-                <span
-                  aria-hidden="true"
+          <nav
+            aria-label={t.nav.mainAria}
+            className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 lg:flex"
+          >
+            {NAV_SECTIONS.filter((s) => s.id !== "inicio").map((section) => {
+              const active = section.id === activeSection;
+              return (
+                <a
+                  key={section.id}
+                  href={`#${section.id}`}
+                  aria-current={active ? "true" : undefined}
                   className={cn(
-                    "absolute inset-x-2.5 bottom-1 h-px origin-left bg-[var(--blue-600)] transition-transform duration-350 ease-premium xl:inset-x-3",
-                    active ? "scale-x-100" : "scale-x-0",
+                    "rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors",
+                    active
+                      ? "text-blue-500"
+                      : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100",
                   )}
-                />
-              </a>
-            );
-          })}
-        </nav>
+                >
+                  {navLabels[section.id]}
+                </a>
+              );
+            })}
+          </nav>
 
-        <div className="flex items-center gap-1.5 lg:ml-2">
-          <LanguageToggle />
-          <ThemeToggle />
-          <Button asChild variant="primary" size="sm" className="hidden md:inline-flex">
-            <a href="#projetos">{t.nav.projects}</a>
-          </Button>
-          <MobileNav activeSection={activeSection} />
+          <div className="flex flex-1 items-center justify-end gap-1.5">
+            <LanguageToggle />
+            <ThemeToggle />
+            <Button asChild variant="primary" size="sm" className="hidden shadow-sm md:inline-flex">
+              <a href="#projetos">{t.nav.projects}</a>
+            </Button>
+            <MobileNav activeSection={activeSection} />
+          </div>
         </div>
       </div>
     </header>

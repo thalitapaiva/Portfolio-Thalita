@@ -37,18 +37,13 @@ export function MobileNav({ activeSection }: MobileNavProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label={t.nav.openMenu}
-          className="lg:hidden"
-        >
+        <Button variant="ghost" size="icon" aria-label={t.nav.openMenu} className="lg:hidden">
           <Menu className="h-5 w-5" aria-hidden="true" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-sm border-[var(--border)] bg-[var(--background)] pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+      <DialogContent className="max-w-sm border-gray-200 bg-white pb-[max(1.5rem,env(safe-area-inset-bottom))] dark:border-gray-700 dark:bg-gray-900">
         <div className="flex items-center justify-between gap-3">
-          <DialogTitle className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--text-secondary)]">
+          <DialogTitle className="text-xs font-bold uppercase tracking-[0.18em] text-gray-500">
             {t.nav.menu}
           </DialogTitle>
           <LanguageToggle />
@@ -63,10 +58,10 @@ export function MobileNav({ activeSection }: MobileNavProps) {
                     href={`#${section.id}`}
                     onClick={handleClick}
                     className={cn(
-                      "flex min-h-12 items-center justify-between border-b border-[var(--border)] py-4 text-lg font-bold tracking-[-0.03em] transition-colors touch-manipulation",
+                      "flex min-h-12 items-center justify-between border-b border-gray-100 py-4 text-lg font-bold tracking-tight transition-colors dark:border-gray-800",
                       active
-                        ? "text-[var(--blue-600)]"
-                        : "text-[var(--text-primary)] hover:text-[var(--blue-600)]",
+                        ? "text-blue-500"
+                        : "text-gray-900 hover:text-blue-500 dark:text-gray-100",
                     )}
                     aria-current={active ? "true" : undefined}
                   >
@@ -74,7 +69,7 @@ export function MobileNav({ activeSection }: MobileNavProps) {
                     {active ? (
                       <span
                         aria-hidden="true"
-                        className="size-1.5 rounded-full bg-[var(--blue-600)]"
+                        className="size-1.5 rounded-full bg-blue-500"
                       />
                     ) : null}
                   </a>
@@ -85,7 +80,7 @@ export function MobileNav({ activeSection }: MobileNavProps) {
         </nav>
         <div className="mt-6">
           <DialogClose asChild>
-            <Button asChild variant="primary" size="lg" className="min-h-12 w-full touch-manipulation">
+            <Button asChild variant="primary" size="lg" className="min-h-12 w-full">
               <a href="#projetos" onClick={handleClick}>
                 {t.nav.projects}
               </a>

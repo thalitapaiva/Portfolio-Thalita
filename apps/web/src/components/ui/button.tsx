@@ -6,30 +6,29 @@ import { cn } from "@/lib/cn";
 
 const buttonVariants = cva(
   [
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold tracking-[-0.02em]",
-    "transition-all duration-300 ease-premium select-none",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium",
+    "transition-all select-none",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
     "disabled:pointer-events-none disabled:opacity-60",
-    "motion-reduce:transition-none",
   ].join(" "),
   {
     variants: {
       variant: {
         primary:
-          "rounded-md bg-[var(--blue-600)] text-white shadow-[0_10px_28px_-14px_color-mix(in_srgb,var(--blue-600)_70%,transparent)] hover:brightness-[1.06] hover:shadow-[0_14px_32px_-12px_color-mix(in_srgb,var(--blue-600)_80%,transparent)] active:scale-[0.98] dark:text-[#060a12]",
+          "rounded-lg bg-gradient-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-bottom text-white shadow-sm hover:bg-[length:100%_150%]",
         secondary:
-          "rounded-md bg-transparent text-[var(--text-primary)] border border-[var(--border)] hover:border-[var(--blue-400)] hover:bg-[color-mix(in_srgb,var(--surface)_50%,transparent)]",
+          "rounded-lg bg-white text-gray-800 shadow-sm hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700",
         ghost:
-          "rounded-md bg-transparent text-[var(--text-primary)] hover:bg-[color-mix(in_srgb,var(--surface)_55%,transparent)]",
+          "rounded-lg bg-transparent text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800",
         outline:
-          "rounded-md bg-transparent text-[var(--text-primary)] border border-[var(--border)] hover:border-[var(--blue-400)]",
-        link: "bg-transparent text-[var(--blue-600)] underline-offset-4 hover:underline p-0 h-auto rounded-none",
+          "rounded-lg border border-gray-200 bg-transparent text-gray-800 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-100",
+        link: "bg-transparent text-blue-500 underline-offset-4 hover:underline p-0 h-auto rounded-none shadow-none",
       },
       size: {
-        sm: "h-9 px-4 text-[13px]",
-        md: "h-10 px-5 text-sm",
-        lg: "h-12 px-7 text-[15px]",
-        icon: "h-9 w-9 rounded-md",
+        sm: "h-8 px-3 text-sm",
+        md: "h-10 px-4 text-sm",
+        lg: "h-11 px-5 text-sm",
+        icon: "h-9 w-9 rounded-lg",
       },
     },
     defaultVariants: {

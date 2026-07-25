@@ -1,11 +1,22 @@
 "use client";
 
-import { SectionHeading } from "@/components/shared/SectionHeading";
-import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import Image from "next/image";
+
 import { useLang, type SkillGroupId } from "@/lib/i18n";
-import { cn } from "@/lib/cn";
 
 const PRIMARY_GROUPS: SkillGroupId[] = ["technology", "operations", "agility"];
+
+const LOGOS = [
+  "/images/logo-01.svg",
+  "/images/logo-02.svg",
+  "/images/logo-03.svg",
+  "/images/logo-04.svg",
+  "/images/logo-05.svg",
+  "/images/logo-06.svg",
+  "/images/logo-07.svg",
+  "/images/logo-08.svg",
+  "/images/logo-09.svg",
+];
 
 export function SkillsSection() {
   const { t } = useLang();
@@ -13,70 +24,65 @@ export function SkillsSection() {
 
   return (
     <section id="competencias" aria-labelledby="skills-title" className="section-pad">
-      <div className="section-shell">
-        <ScrollReveal>
-          <SectionHeading
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-3xl pb-10 text-center md:pb-14" data-aos="zoom-y-out">
+          <h2
             id="skills-title"
-            title={t.skills.title}
-            description={t.skills.description}
-          />
-        </ScrollReveal>
+            className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 md:text-4xl"
+          >
+            {t.skills.title}
+          </h2>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">{t.skills.description}</p>
+        </div>
 
-        <div className="mt-12 grid gap-10 sm:mt-14 lg:grid-cols-3 lg:gap-8">
-          {PRIMARY_GROUPS.map((groupId, index) => {
+        {/* Infinite logo / skill strip — Simple style */}
+        <div className="relative mb-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+          <div className="flex w-max animate-infinite-scroll gap-10 py-4 hover:[animation-play-state:paused]">
+            {[...LOGOS, ...LOGOS].map((src, i) => (
+              <div
+                key={`${src}-${i}`}
+                className="flex h-16 w-28 shrink-0 items-center justify-center opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 dark:opacity-80"
+              >
+                <Image src={src} alt="" width={88} height={32} className="max-h-8 w-auto" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-8 sm:grid-cols-3" data-aos="zoom-y-out">
+          {PRIMARY_GROUPS.map((groupId) => {
             const group = t.skills.groups[groupId];
             return (
-              <ScrollReveal key={groupId} delay={index * 0.05} y={20}>
-                <div>
-                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--blue-700)]">
-                    {group.title}
-                  </p>
-                  <ul className="mt-5 border-t border-[var(--border)]">
-                    {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className={cn(
-                          "border-b border-[var(--border)] py-3.5 text-[0.98rem] font-bold tracking-[-0.035em] text-[var(--text-primary)]",
-                          "transition-colors duration-300 hover:text-[var(--blue-600)]",
-                        )}
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </ScrollReveal>
+              <div
+                key={groupId}
+                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+              >
+                <p className="text-sm font-semibold text-blue-500">{group.title}</p>
+                <ul className="mt-4 space-y-2">
+                  {group.items.map((item) => (
+                    <li key={item} className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             );
           })}
         </div>
 
-        <ScrollReveal delay={0.12}>
-          <div className="mt-12 border-t border-[var(--border)] pt-8 sm:mt-14">
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]">
-              {tools.title}
-            </p>
-
-            <div className="mt-6 grid gap-8 sm:grid-cols-2">
-              {([tools.technology, tools.management] as const).map((group) => (
-                <div key={group.title}>
-                  <p className="text-[12px] font-semibold tracking-[-0.02em] text-[var(--blue-700)]">
-                    {group.title}
-                  </p>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className="inline-flex min-h-10 items-center border border-[var(--border)] px-4 text-[13px] font-semibold tracking-[-0.02em] text-[var(--text-primary)]"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+        <div className="mt-10 rounded-2xl border border-gray-100 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-900/50">
+          <p className="text-sm font-semibold text-gray-500">{tools.title}</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {[...tools.technology.items, ...tools.management.items].map((item) => (
+                <span
+                  key={item}
+                  className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                >
+                  {item}
+                </span>
               ))}
-            </div>
           </div>
-        </ScrollReveal>
+        </div>
       </div>
     </section>
   );
