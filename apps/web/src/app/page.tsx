@@ -5,10 +5,10 @@ import { personJsonLd } from "@/lib/seo";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { AboutSection } from "@/components/sections/AboutSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { FocusAreasSection } from "@/components/sections/FocusAreasSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
-import { AboutSection } from "@/components/sections/AboutSection";
 import { ResultsSection } from "@/components/sections/ResultsSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 
@@ -31,10 +31,10 @@ export default async function HomePage() {
       <SiteHeader fullName={profile?.fullName} />
       <main id="main" className="relative">
         <HeroSection profile={profile} github={github} />
+        <AboutSection />
         <SkillsSection />
         <FocusAreasSection />
         <ExperienceSection />
-        <AboutSection />
         <ResultsSection />
         <ProjectsSection projects={projects} />
       </main>
