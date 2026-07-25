@@ -131,14 +131,6 @@ export default async function ProjectPage({
                   ))}
                 </ul>
               </div>
-              <div className="rounded-[16px] border border-dashed border-[var(--border)] p-5">
-                <p className="text-sm text-[var(--text-secondary)]">
-                  Quer conversar sobre este projeto?
-                </p>
-                <Button asChild variant="secondary" size="sm" className="mt-3">
-                  <Link href="/#contato">Entrar em contato</Link>
-                </Button>
-              </div>
             </aside>
           </div>
         </article>

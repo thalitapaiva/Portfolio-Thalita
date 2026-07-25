@@ -13,8 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     profile,
     title: "Privacidade",
-    description:
-      "Como os dados enviados pelo formulário de contato deste portfólio são tratados.",
+    description: "Como os dados deste portfólio são tratados.",
     path: "/privacidade",
   });
 }
@@ -39,23 +38,22 @@ export default async function PrivacyPage() {
 
         <div className="prose prose-slate mt-8 max-w-none text-[15px] leading-relaxed text-[var(--text-primary)]">
           <p>
-            Este site é um portfólio pessoal. Os únicos dados coletados diretamente são
-            aqueles enviados por você no formulário de contato: nome, email, empresa
-            (opcional), assunto e mensagem.
+            Este site é um portfólio pessoal. Não há formulário de contato nem coleta
+            direta de dados pessoais dos visitantes.
           </p>
           <p>
-            Esses dados são armazenados apenas para viabilizar a resposta ao seu contato.
-            Não são compartilhados com terceiros, não alimentam newsletters e não são
-            usados para fins de marketing.
+            Podem existir apenas dados técnicos anônimos de hospedagem (como logs de
+            acesso do provedor) para funcionamento e segurança do site. Não há
+            newsletters nem uso de dados para marketing.
           </p>
           <p>
-            Para solicitar remoção dos seus dados, entre em contato pelo mesmo email
-            informado nas seções{" "}
-            <Link href="/#contato" className="underline underline-offset-4">
-              Contato
-            </Link>{" "}
-            e{" "}
-            <Link href="/#linkedin" className="underline underline-offset-4">
+            Para falar comigo, use o{" "}
+            <Link
+              href="https://www.linkedin.com/in/thalita-paiva-1301a122b/"
+              className="underline underline-offset-4"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               LinkedIn
             </Link>
             .

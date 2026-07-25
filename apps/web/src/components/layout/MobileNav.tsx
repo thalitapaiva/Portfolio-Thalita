@@ -18,10 +18,9 @@ import { cn } from "@/lib/cn";
 
 interface MobileNavProps {
   activeSection: string;
-  ctaHref?: string;
 }
 
-export function MobileNav({ activeSection, ctaHref = "#contato" }: MobileNavProps) {
+export function MobileNav({ activeSection }: MobileNavProps) {
   const [open, setOpen] = React.useState(false);
   const handleClick = React.useCallback(() => setOpen(false), []);
   const { t } = useLang();
@@ -33,7 +32,6 @@ export function MobileNav({ activeSection, ctaHref = "#contato" }: MobileNavProp
     competencias: t.nav.skills,
     experiencia: t.nav.experience,
     projetos: t.nav.projects,
-    contato: t.nav.contact,
   };
 
   return (
@@ -88,7 +86,9 @@ export function MobileNav({ activeSection, ctaHref = "#contato" }: MobileNavProp
         <div className="mt-6">
           <DialogClose asChild>
             <Button asChild variant="primary" size="lg" className="min-h-12 w-full touch-manipulation">
-              <a href={ctaHref}>{t.nav.contact}</a>
+              <a href="#projetos" onClick={handleClick}>
+                {t.nav.projects}
+              </a>
             </Button>
           </DialogClose>
         </div>

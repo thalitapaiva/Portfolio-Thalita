@@ -5,7 +5,6 @@ export const NAV_SECTIONS = [
   { id: "competencias", label: "Competências" },
   { id: "experiencia", label: "Experiência" },
   { id: "projetos", label: "Projetos" },
-  { id: "contato", label: "Contato" },
 ] as const;
 
 export type NavSectionId = (typeof NAV_SECTIONS)[number]["id"];

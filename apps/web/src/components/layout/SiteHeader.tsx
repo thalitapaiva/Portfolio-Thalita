@@ -31,7 +31,6 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
     competencias: t.nav.skills,
     experiencia: t.nav.experience,
     projetos: t.nav.projects,
-    contato: t.nav.contact,
   };
 
   React.useEffect(() => {
@@ -98,7 +97,7 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
           <LanguageToggle />
           <ThemeToggle />
           <Button asChild variant="primary" size="sm" className="hidden md:inline-flex">
-            <a href="#contato">{t.nav.contact}</a>
+            <a href="#projetos">{t.nav.projects}</a>
           </Button>
           <MobileNav activeSection={activeSection} />
         </div>

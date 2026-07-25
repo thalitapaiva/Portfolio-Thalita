@@ -22,7 +22,7 @@ export default function GlobalError({
     <main className="mx-auto grid min-h-[60vh] max-w-content place-items-center px-5 py-24">
       <ErrorState
         title="Algo deu errado"
-        description="Tente novamente. Se o problema continuar, envie uma mensagem pelo formulário de contato."
+        description="Tente novamente em instantes. Se o problema continuar, volte mais tarde."
         action={
           <Button variant="primary" size="md" onClick={() => reset()}>
             Tentar novamente

@@ -134,12 +134,6 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
                   LinkedIn
                 </a>
               ) : null}
-              <a
-                href="#contato"
-                className="link-underline touch-manipulation hover:text-[var(--text-primary)]"
-              >
-                {t.hero.contact}
-              </a>
             </div>
           </motion.div>
         </div>
