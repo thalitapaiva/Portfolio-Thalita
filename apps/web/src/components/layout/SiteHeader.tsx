@@ -54,8 +54,9 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
   return (
     <header className="fixed top-2 z-30 w-full md:top-6" aria-label={t.nav.headerAria}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="relative flex h-14 items-center justify-between gap-2 rounded-2xl bg-white/90 px-2 shadow-lg shadow-black/[0.03] backdrop-blur-sm before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(#f3f4f6,#e5e7eb)_border-box] before:[mask-composite:exclude] before:[mask:linear-gradient(#fff_0_0)_padding-box,_linear-gradient(#fff_0_0)] dark:bg-gray-900/90 dark:before:[background:linear-gradient(#1f2937,#111827)_border-box] sm:gap-3 sm:px-3">
-          <div className="flex shrink-0 items-center">
+        {/* Simple border: mask-composite gradient borders paint opaque on Instagram/WebKit */}
+        <div className="relative flex h-12 items-center justify-between gap-1.5 rounded-2xl border border-gray-200/80 bg-white/90 px-2 shadow-lg shadow-black/[0.03] backdrop-blur-sm dark:border-gray-700/80 dark:bg-gray-900/90 sm:h-14 sm:gap-3 sm:px-3">
+          <div className="relative z-10 flex shrink-0 items-center">
             <Link
               href="#inicio"
               className="inline-flex items-center px-1.5 text-sm font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:px-2"
@@ -66,10 +67,10 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
             </Link>
           </div>
 
-          {/* Mobile / tablet: compact icon nav */}
+          {/* Mobile / tablet: compact icon nav (hidden on lg+; desktop menu below) */}
           <nav
             aria-label={t.nav.mainAria}
-            className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
+            className="relative z-10 flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
           >
             {links.map((section) => {
               const active = section.id === activeSection;
@@ -82,7 +83,7 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
                   aria-current={active ? "true" : undefined}
                   title={navLabels[section.id]}
                   className={cn(
-                    "inline-flex min-h-10 min-w-10 shrink-0 items-center justify-center gap-1.5 rounded-xl px-2 text-sm font-medium transition-colors touch-manipulation sm:min-w-0 sm:px-2.5",
+                    "inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center gap-1.5 rounded-xl px-1.5 text-sm font-medium transition-colors touch-manipulation sm:min-h-10 sm:min-w-0 sm:px-2.5",
                     active
                       ? "bg-blue-500/10 text-blue-500"
                       : "text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100",
@@ -95,14 +96,14 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
             })}
           </nav>
 
-          {/* Desktop: ReUI Navigation Menu */}
-          <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
+          {/* Desktop: ReUI Navigation Menu — display:none below lg so no empty shell on mobile */}
+          <div className="relative z-10 hidden min-w-0 flex-1 items-center justify-center lg:flex">
             <NavigationMenuNav activeSection={activeSection} />
           </div>
 
-          <div className="flex shrink-0 items-center gap-0.5 sm:gap-1.5">
-            <LanguageToggle />
-            <ThemeToggle />
+          <div className="relative z-10 flex shrink-0 items-center gap-0.5 sm:gap-1.5">
+            <LanguageToggle className="h-9 border-gray-200 dark:border-gray-700 [&_button]:h-8 [&_button]:min-w-8 [&_button]:px-2" />
+            <ThemeToggle className="h-9 w-9" />
           </div>
         </div>
       </div>
