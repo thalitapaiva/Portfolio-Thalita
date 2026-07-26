@@ -13,9 +13,10 @@ export const DialogClose = DialogPrimitive.Close;
 
 /**
  * Radix RemoveScroll is unreliable when html/body use overflow-x clipping —
- * pin the body while this content is mounted (DialogContent only mounts when open).
+ * pin the body while the dialog content is actually open (Presence-mounted).
+ * Must live *inside* DialogPrimitive.Content so it does not run when closed.
  */
-function useSupplementalScrollLock() {
+function SupplementalScrollLock() {
   React.useEffect(() => {
     const html = document.documentElement;
     const body = document.body;
@@ -62,6 +63,8 @@ function useSupplementalScrollLock() {
       window.scrollTo(0, scrollY);
     };
   }, []);
+
+  return null;
 }
 
 export const DialogOverlay = React.forwardRef<
@@ -87,47 +90,44 @@ export const DialogContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
     hideClose?: boolean;
   }
->(({ className, children, hideClose, onWheel, onTouchMove, ...props }, ref) => {
-  useSupplementalScrollLock();
-
-  return (
-    <DialogPortal>
-      <DialogOverlay />
-      <DialogPrimitive.Content
-        ref={ref}
-        className={cn(
-          // Single scrollport: max-height + overflow-y on the same node (avoids
-          // flex/max-height nested-scroll failures where the page scrolls instead).
-          "fixed left-1/2 top-1/2 z-50 w-[min(96vw,720px)] max-h-[min(85dvh,85vh)] -translate-x-1/2 -translate-y-1/2",
-          "overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch]",
-          "rounded-[16px] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-soft",
-          "data-[state=open]:animate-fade-up motion-reduce:animate-none",
-          "focus:outline-none",
-          className,
-        )}
-        {...props}
-        onWheel={(event) => {
-          onWheel?.(event);
-          event.stopPropagation();
-        }}
-        onTouchMove={(event) => {
-          onTouchMove?.(event);
-          event.stopPropagation();
-        }}
-      >
-        <div className="flex flex-col gap-4">{children}</div>
-        {!hideClose && (
-          <DialogPrimitive.Close
-            className="absolute right-4 top-4 z-10 rounded-md p-1 text-[var(--text-secondary)] transition-colors hover:bg-[var(--background)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
-            aria-label="Fechar"
-          >
-            <X className="h-4 w-4" />
-          </DialogPrimitive.Close>
-        )}
-      </DialogPrimitive.Content>
-    </DialogPortal>
-  );
-});
+>(({ className, children, hideClose, onWheel, onTouchMove, ...props }, ref) => (
+  <DialogPortal>
+    <DialogOverlay />
+    <DialogPrimitive.Content
+      ref={ref}
+      className={cn(
+        // Single scrollport: max-height + overflow-y on the same node (avoids
+        // flex/max-height nested-scroll failures where the page scrolls instead).
+        "fixed left-1/2 top-1/2 z-50 w-[min(96vw,720px)] max-h-[min(85dvh,85vh)] -translate-x-1/2 -translate-y-1/2",
+        "overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch]",
+        "rounded-[16px] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-soft",
+        "data-[state=open]:animate-fade-up motion-reduce:animate-none",
+        "focus:outline-none",
+        className,
+      )}
+      {...props}
+      onWheel={(event) => {
+        onWheel?.(event);
+        event.stopPropagation();
+      }}
+      onTouchMove={(event) => {
+        onTouchMove?.(event);
+        event.stopPropagation();
+      }}
+    >
+      <SupplementalScrollLock />
+      <div className="flex flex-col gap-4">{children}</div>
+      {!hideClose && (
+        <DialogPrimitive.Close
+          className="absolute right-4 top-4 z-10 rounded-md p-1 text-[var(--text-secondary)] transition-colors hover:bg-[var(--background)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+          aria-label="Fechar"
+        >
+          <X className="h-4 w-4" />
+        </DialogPrimitive.Close>
+      )}
+    </DialogPrimitive.Content>
+  </DialogPortal>
+));
 DialogContent.displayName = "DialogContent";
 
 export const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
