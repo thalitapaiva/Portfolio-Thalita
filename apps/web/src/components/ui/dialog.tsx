@@ -12,15 +12,13 @@ export const DialogPortal = DialogPrimitive.Portal;
 export const DialogClose = DialogPrimitive.Close;
 
 /**
- * Radix RemoveScroll is unreliable when html/body use overflow-x clipping —
- * pin the body while the dialog content is actually open (Presence-mounted).
- * Must live *inside* DialogPrimitive.Content so it does not run when closed.
+ * Lock page scroll while dialog content is mounted (Presence).
+ * Avoid body `position: fixed` — it breaks centered dialogs on mobile WebKit.
  */
 function SupplementalScrollLock() {
   React.useEffect(() => {
     const html = document.documentElement;
     const body = document.body;
-    const scrollY = window.scrollY;
     const scrollbarGap = window.innerWidth - html.clientWidth;
 
     const prev = {
@@ -28,11 +26,6 @@ function SupplementalScrollLock() {
       htmlOverscroll: html.style.overscrollBehavior,
       bodyOverflow: body.style.overflow,
       bodyOverscroll: body.style.overscrollBehavior,
-      bodyPosition: body.style.position,
-      bodyTop: body.style.top,
-      bodyLeft: body.style.left,
-      bodyRight: body.style.right,
-      bodyWidth: body.style.width,
       bodyPaddingRight: body.style.paddingRight,
     };
 
@@ -40,11 +33,6 @@ function SupplementalScrollLock() {
     html.style.overscrollBehavior = "none";
     body.style.overflow = "hidden";
     body.style.overscrollBehavior = "none";
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.left = "0";
-    body.style.right = "0";
-    body.style.width = "100%";
     if (scrollbarGap > 0) {
       body.style.paddingRight = `${scrollbarGap}px`;
     }
@@ -54,13 +42,7 @@ function SupplementalScrollLock() {
       html.style.overscrollBehavior = prev.htmlOverscroll;
       body.style.overflow = prev.bodyOverflow;
       body.style.overscrollBehavior = prev.bodyOverscroll;
-      body.style.position = prev.bodyPosition;
-      body.style.top = prev.bodyTop;
-      body.style.left = prev.bodyLeft;
-      body.style.right = prev.bodyRight;
-      body.style.width = prev.bodyWidth;
       body.style.paddingRight = prev.bodyPaddingRight;
-      window.scrollTo(0, scrollY);
     };
   }, []);
 
@@ -75,7 +57,6 @@ export const DialogOverlay = React.forwardRef<
     ref={ref}
     className={cn(
       "fixed inset-0 z-50 bg-[color:rgb(28_43_62_/_0.55)] backdrop-blur-sm",
-      "overscroll-none touch-none",
       "data-[state=open]:animate-fade-in",
       "motion-reduce:animate-none",
       className,
@@ -96,12 +77,11 @@ export const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        // Single scrollport: max-height + overflow-y on the same node (avoids
-        // flex/max-height nested-scroll failures where the page scrolls instead).
-        "fixed left-1/2 top-1/2 z-50 w-[min(96vw,720px)] max-h-[min(85dvh,85vh)] -translate-x-1/2 -translate-y-1/2",
+        // Center with inset + margin (no translate) so fade animations can't knock it off-screen.
+        "fixed inset-3 z-50 m-auto flex h-fit max-h-[min(calc(100dvh-1.5rem),85vh)] w-auto max-w-[min(calc(100vw-1.5rem),720px)] flex-col",
         "overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch]",
-        "rounded-[16px] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-soft",
-        "data-[state=open]:animate-fade-up motion-reduce:animate-none",
+        "rounded-[16px] border border-[var(--border)] bg-[var(--surface)] p-5 shadow-soft sm:inset-4 sm:p-6",
+        "data-[state=open]:animate-fade-in motion-reduce:animate-none",
         "focus:outline-none",
         className,
       )}
@@ -119,7 +99,7 @@ export const DialogContent = React.forwardRef<
       <div className="flex flex-col gap-4">{children}</div>
       {!hideClose && (
         <DialogPrimitive.Close
-          className="absolute right-4 top-4 z-10 rounded-md p-1 text-[var(--text-secondary)] transition-colors hover:bg-[var(--background)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)]"
+          className="absolute right-3 top-3 z-10 rounded-md p-1 text-[var(--text-secondary)] transition-colors hover:bg-[var(--background)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue-600)] sm:right-4 sm:top-4"
           aria-label="Fechar"
         >
           <X className="h-4 w-4" />
