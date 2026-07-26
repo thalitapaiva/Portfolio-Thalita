@@ -50,7 +50,8 @@
     scroll-behavior: smooth;
     text-rendering: optimizeLegibility;
     background: var(--background);
-    overflow-x: clip;
+    /* hidden (not clip) — clip fights Radix/body scroll locks on some browsers */
+    overflow-x: hidden;
   }
 
   body {
@@ -60,7 +61,17 @@
     font-weight: 400;
     letter-spacing: -0.017em;
     min-height: 100svh;
-    overflow-x: clip;
+    overflow-x: hidden;
+  }
+
+  /*
+   * Belt-and-suspenders with DialogContent's fixed-body lock: when Radix sets
+   * data-scroll-locked, keep both html and body from rubber-banding.
+   */
+  html:has(body[data-scroll-locked]),
+  body[data-scroll-locked] {
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
   }
 
   ::selection {
