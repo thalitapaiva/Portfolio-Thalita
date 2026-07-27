@@ -94,8 +94,8 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
           </div>
 
           <div className="mx-auto max-w-3xl" data-aos="zoom-y-out" data-aos-delay={600}>
-            <div className="relative aspect-[16/11] overflow-hidden rounded-xl bg-gray-900 px-4 py-3 shadow-xl before:pointer-events-none before:absolute before:-inset-3 before:border-y before:border-gray-200 after:absolute after:-inset-3 after:-z-10 after:border-x after:border-gray-200 sm:aspect-video sm:rounded-2xl sm:px-5 sm:before:-inset-5 sm:after:-inset-5 dark:before:border-gray-700 dark:after:border-gray-700">
-              <div className="relative mb-6 flex items-center justify-between before:block before:h-[9px] before:w-[41px] before:bg-[length:16px_9px] before:[background-image:radial-gradient(circle_at_4.5px_4.5px,#4b5563_4.5px,transparent_0)] after:w-[41px] sm:mb-8">
+            <div className="relative overflow-hidden rounded-xl bg-gray-900 px-4 py-4 shadow-xl before:pointer-events-none before:absolute before:-inset-3 before:border-y before:border-gray-200 after:absolute after:-inset-3 after:-z-10 after:border-x after:border-gray-200 sm:rounded-2xl sm:px-5 sm:py-5 sm:before:-inset-5 sm:after:-inset-5 dark:before:border-gray-700 dark:after:border-gray-700">
+              <div className="relative mb-5 flex items-center justify-between before:block before:h-[9px] before:w-[41px] before:bg-[length:16px_9px] before:[background-image:radial-gradient(circle_at_4.5px_4.5px,#4b5563_4.5px,transparent_0)] after:w-[41px] sm:mb-6">
                 <span className="truncate text-[12px] font-medium text-white sm:text-[13px]">
                   thalitapaiva.com.br
                 </span>
@@ -110,7 +110,13 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
                 <br />
                 <span className="animate-code-5 text-gray-200">open projects</span>
                 <br />
-                <span className="animate-code-6">Portfolio published.</span>
+                <span className="animate-code-6 text-blue-300">→ stack · agile · delivery</span>
+                <br />
+                <span className="animate-code-6 text-emerald-400">Portfolio published.</span>
+                <span
+                  className="ml-1 inline-block h-3.5 w-1.5 translate-y-0.5 animate-pulse bg-blue-400 align-middle opacity-100"
+                  aria-hidden="true"
+                />
               </div>
             </div>
           </div>
