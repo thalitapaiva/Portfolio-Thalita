@@ -19,15 +19,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PrivacyPage() {
-  const [profile, github, socialLinks] = await Promise.all([
+  const [profile, socialLinks] = await Promise.all([
     api.getProfile(),
-    api.getGithub(),
     api.getSocialLinks(),
   ]);
 
   return (
     <>
-      <SiteHeader fullName={profile?.fullName} githubUrl={github?.htmlUrl} />
+      <SiteHeader />
       <main className="mx-auto max-w-content px-5 pt-28 pb-16 sm:px-8 sm:pt-32">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--blue-700)]">
           Privacidade

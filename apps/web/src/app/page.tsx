@@ -28,7 +28,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(profile)) }}
       />
-      <SiteHeader fullName={profile?.fullName} />
+      <SiteHeader />
       <main id="main" className="relative">
         <HeroSection profile={profile} github={github} />
         <SkillsSection />

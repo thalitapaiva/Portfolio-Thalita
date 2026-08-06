@@ -1,7 +1,5 @@
 "use client";
 
-import * as React from "react";
-import Link from "next/link";
 import {
   BriefcaseBusiness,
   Code2,
@@ -14,15 +12,10 @@ import {
 
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
-import { NAV_SECTIONS, SITE, type NavSectionId } from "@/lib/constants";
+import { NAV_SECTIONS, type NavSectionId } from "@/lib/constants";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
-
-interface SiteHeaderProps {
-  fullName?: string;
-  githubUrl?: string;
-}
 
 const SECTION_IDS = NAV_SECTIONS.map((s) => s.id);
 
@@ -35,7 +28,7 @@ export const NAV_ICONS: Record<NavSectionId, LucideIcon> = {
   projetos: FolderKanban,
 };
 
-export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
+export function SiteHeader() {
   const activeSection = useActiveSection(SECTION_IDS, 96);
   const { t } = useLang();
 
@@ -55,17 +48,6 @@ export function SiteHeader({ fullName = SITE.name }: SiteHeaderProps) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Simple border — mask-composite gradient borders paint opaque on Instagram/WebKit */}
         <div className="relative flex h-12 items-center justify-between gap-1.5 rounded-2xl border border-gray-200/80 bg-white/90 px-2 shadow-lg shadow-black/[0.03] backdrop-blur-sm dark:border-gray-700/80 dark:bg-gray-900/90 sm:h-14 sm:gap-3 sm:px-3">
-          <div className="relative z-10 flex shrink-0 items-center">
-            <Link
-              href="#inicio"
-              className="inline-flex items-center px-1.5 text-sm font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:px-2"
-              aria-label={`${fullName} — ${t.nav.backHome}`}
-            >
-              <span className="sm:hidden">TP</span>
-              <span className="hidden sm:inline">{fullName}</span>
-            </Link>
-          </div>
-
           <nav
             aria-label={t.nav.mainAria}
             className="relative z-10 flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"

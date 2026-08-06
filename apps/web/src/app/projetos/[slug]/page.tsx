@@ -46,10 +46,9 @@ export default async function ProjectPage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const [profile, project, github, socialLinks] = await Promise.all([
+  const [profile, project, socialLinks] = await Promise.all([
     api.getProfile(),
     api.getProject(slug),
-    api.getGithub(),
     api.getSocialLinks(),
   ]);
 
@@ -57,7 +56,7 @@ export default async function ProjectPage({
 
   return (
     <>
-      <SiteHeader fullName={profile?.fullName} githubUrl={github?.htmlUrl} />
+      <SiteHeader />
       <main className="pt-28 pb-16 sm:pt-32">
         <article className="mx-auto max-w-content px-5 sm:px-8">
           <nav aria-label="Trilha de navegação" className="mb-6">
