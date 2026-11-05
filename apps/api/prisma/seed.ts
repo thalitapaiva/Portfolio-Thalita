@@ -100,7 +100,6 @@ const linkedIn: LinkedInSeed = {
   skills: [
     "JavaScript",
     "TypeScript",
-    "React",
     "Node.js",
     "Git",
     "Gestão de projetos",
@@ -128,8 +127,6 @@ const technologies: TechnologySeed[] = [
 const skills: SkillSeed[] = [
   { name: "JavaScript", category: SkillCategory.FRONTEND, icon: "javascript", level: SkillLevel.WORKING, displayOrder: 1 },
   { name: "TypeScript", category: SkillCategory.FRONTEND, icon: "typescript", level: SkillLevel.FAMILIAR, displayOrder: 2 },
-  { name: "React", category: SkillCategory.FRONTEND, icon: "react", level: SkillLevel.FAMILIAR, displayOrder: 3 },
-  { name: "HTML/CSS", category: SkillCategory.FRONTEND, icon: "html5", level: SkillLevel.WORKING, displayOrder: 4 },
   { name: "Node.js", category: SkillCategory.BACKEND, icon: "nodejs", level: SkillLevel.FAMILIAR, displayOrder: 5 },
   { name: "C", category: SkillCategory.BACKEND, icon: "c", level: SkillLevel.WORKING, displayOrder: 6 },
   { name: "PostgreSQL", category: SkillCategory.DATABASE, icon: "postgresql", level: SkillLevel.FAMILIAR, displayOrder: 7 },

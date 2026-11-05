@@ -44,7 +44,7 @@ export const FALLBACK_PROFILE: PortfolioProfileDto = {
     headline: "Business Operations · Scrum Master · Tecnologia",
     summary:
       "Business Operations Manager, Scrum Master e profissional de tecnologia — processos, projetos e desenvolvimento.",
-    skills: ["Business Operations", "Scrum", "Gestão de projetos", "JavaScript", "React"],
+    skills: ["Business Operations", "Scrum", "Gestão de projetos", "JavaScript"],
     profileUrl: "https://www.linkedin.com/in/thalita-paiva-1301a122b/",
   },
   updatedAt: new Date().toISOString(),
@@ -66,22 +66,6 @@ export const FALLBACK_SKILLS: SkillDto[] = [
     icon: "typescript",
     level: "FAMILIAR",
     displayOrder: 2,
-  },
-  {
-    id: "3",
-    name: "React",
-    category: "FRONTEND",
-    icon: "react",
-    level: "FAMILIAR",
-    displayOrder: 3,
-  },
-  {
-    id: "4",
-    name: "HTML/CSS",
-    category: "FRONTEND",
-    icon: "html5",
-    level: "WORKING",
-    displayOrder: 4,
   },
   {
     id: "5",

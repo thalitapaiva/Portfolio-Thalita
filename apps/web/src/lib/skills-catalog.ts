@@ -13,11 +13,7 @@ export type SkillChipDef = {
 export const TECHNOLOGY_SKILLS: SkillChipDef[] = [
   { icon: "javascript", label: { pt: "JavaScript", en: "JavaScript" } },
   { icon: "typescript", label: { pt: "TypeScript", en: "TypeScript" } },
-  { icon: "react", label: { pt: "React", en: "React" } },
-  { icon: "nextjs", label: { pt: "Next.js", en: "Next.js" } },
   { icon: "nodejs", label: { pt: "Node.js", en: "Node.js" } },
-  { icon: "html5", label: { pt: "HTML", en: "HTML" } },
-  { icon: "css3", label: { pt: "CSS", en: "CSS" } },
   { icon: "postgresql", label: { pt: "PostgreSQL", en: "PostgreSQL" } },
   { icon: "git", label: { pt: "Git", en: "Git" } },
   { icon: "github", label: { pt: "GitHub", en: "GitHub" } },
@@ -78,8 +74,6 @@ export const TOOL_MANAGEMENT: SkillChipDef[] = [
   { icon: "googleworkspace", label: { pt: "Google Workspace", en: "Google Workspace" } },
   { icon: "slack", label: { pt: "Slack", en: "Slack" } },
   { icon: "teams", label: { pt: "Microsoft Teams", en: "Microsoft Teams" } },
-  { icon: "azuredevops", label: { pt: "Azure DevOps", en: "Azure DevOps" } },
-  { icon: "powerbi", label: { pt: "Power BI", en: "Power BI" } },
 ];
 
 export function chipLabel(def: SkillChipDef, lang: Lang): string {
