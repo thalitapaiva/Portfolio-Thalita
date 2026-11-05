@@ -3,7 +3,6 @@
 import {
   BriefcaseBusiness,
   Code2,
-  FolderKanban,
   Home,
   Layers,
   UserRound,
@@ -25,7 +24,6 @@ export const NAV_ICONS: Record<NavSectionId, LucideIcon> = {
   atuacao: BriefcaseBusiness,
   competencias: Layers,
   experiencia: Code2,
-  projetos: FolderKanban,
 };
 
 export function SiteHeader() {
@@ -38,7 +36,6 @@ export function SiteHeader() {
     atuacao: t.nav.focus,
     competencias: t.nav.skills,
     experiencia: t.nav.experience,
-    projetos: t.nav.projects,
   };
 
   const links = NAV_SECTIONS.filter((s) => s.id !== "inicio");

@@ -4,7 +4,6 @@ export const NAV_SECTIONS = [
   { id: "atuacao", label: "Atuação" },
   { id: "competencias", label: "Competências" },
   { id: "experiencia", label: "Experiência" },
-  { id: "projetos", label: "Projetos" },
 ] as const;
 
 export type NavSectionId = (typeof NAV_SECTIONS)[number]["id"];
@@ -27,7 +26,7 @@ export const SITE = {
     "processos",
     "agilidade",
     "Sistemas de Informação",
-    "UFES",
+    "UNIFECAF",
     "JavaScript",
     "TypeScript",
     "GitHub",

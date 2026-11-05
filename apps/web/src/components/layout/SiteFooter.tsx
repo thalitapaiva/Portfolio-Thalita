@@ -44,14 +44,9 @@ export function SiteFooter({
           <div className="flex flex-wrap items-start justify-between gap-8 sm:col-span-12 sm:contents">
             <div className="space-y-2 sm:col-span-6 lg:col-span-3">
               <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {t.nav.projects}
+                {t.nav.experience}
               </h3>
               <ul className="space-y-2 text-sm">
-                <li>
-                  <a className="text-gray-600 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" href="#projetos">
-                    {t.nav.projects}
-                  </a>
-                </li>
                 <li>
                   <a className="text-gray-600 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" href="#experiencia">
                     {t.nav.experience}

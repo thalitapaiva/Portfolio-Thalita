@@ -54,16 +54,16 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
                   data-aos="zoom-y-out"
                   data-aos-delay={450}
                 >
-                  <a className="btn btn-primary group mb-3 w-full sm:mb-0 sm:w-auto" href="#projetos">
+                  <a className="btn btn-primary group mb-3 w-full sm:mb-0 sm:w-auto" href="#experiencia">
                     <span className="relative inline-flex items-center">
-                      {t.hero.viewProjects}{" "}
+                      {t.hero.viewExperience}{" "}
                       <span className="ml-1 tracking-normal text-blue-200 transition-transform group-hover:translate-x-0.5">
                         -&gt;
                       </span>
                     </span>
                   </a>
-                  <a className="btn btn-secondary w-full sm:w-auto" href="#experiencia">
-                    {t.hero.viewExperience}
+                  <a className="btn btn-secondary w-full sm:w-auto" href="#sobre">
+                    {t.nav.about}
                   </a>
                 </div>
               </div>
@@ -108,7 +108,7 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
                 <span className="animate-code-4 text-emerald-400">ready.</span>
                 <br />
                 <br />
-                <span className="animate-code-5 text-gray-200">open projects</span>
+                <span className="animate-code-5 text-gray-200">open experience</span>
                 <br />
                 <span className="animate-code-6 text-blue-300">→ stack · agile · delivery</span>
                 <br />

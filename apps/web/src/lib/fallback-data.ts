@@ -13,10 +13,10 @@ export const FALLBACK_PROFILE: PortfolioProfileDto = {
   heroLabel: "SI · SOFTWARE · PROCESSOS",
   headline: "Tecnologia, operações e agilidade para transformar processos em resultados.",
   shortBio:
-    "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo — UFES, com experiência em gestão de operações, organização de projetos, melhoria de processos e metodologias ágeis.",
+    "Sou estudante de Sistemas de Informação na UNIFECAF (2023 a 2027), com experiência em gestão de operações, organização de projetos, melhoria de processos e metodologias ágeis.",
   aboutContent:
-    "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo — UFES, com experiência em gestão de operações, organização de projetos, melhoria de processos e metodologias ágeis.",
-  education: "Sistemas de Informação — UFES (Campus Alegre)",
+    "Sou estudante de Sistemas de Informação na UNIFECAF (2023 a 2027), com experiência em gestão de operações, organização de projetos, melhoria de processos e metodologias ágeis.",
+  education: "Sistemas de Informação — UNIFECAF (2023 a 2027)",
   interests: "Business Operations, Scrum, gestão de projetos e desenvolvimento Full Stack.",
   workStyle: "Escopos claros, comunicação objetiva e entrega iterativa.",
   goals: "Conectar estratégia, operação e tecnologia em processos e entregas acompanháveis.",

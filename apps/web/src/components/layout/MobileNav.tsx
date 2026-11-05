@@ -31,7 +31,6 @@ export function MobileNav({ activeSection }: MobileNavProps) {
     atuacao: t.nav.focus,
     competencias: t.nav.skills,
     experiencia: t.nav.experience,
-    projetos: t.nav.projects,
   };
 
   return (
@@ -81,8 +80,8 @@ export function MobileNav({ activeSection }: MobileNavProps) {
         <div className="mt-6">
           <DialogClose asChild>
             <Button asChild variant="primary" size="lg" className="min-h-12 w-full">
-              <a href="#projetos" onClick={handleClick}>
-                {t.nav.projects}
+              <a href="#experiencia" onClick={handleClick}>
+                {t.nav.experience}
               </a>
             </Button>
           </DialogClose>

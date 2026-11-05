@@ -218,12 +218,16 @@ export const dictionaries: Record<Lang, Dictionary> = {
     about: {
       title: "Sobre",
       paragraphs: [
-        "Estudante de Sistemas de Informação na UFES, com atuação em operações, projetos e métodos ágeis.",
+        "Estudante de Sistemas de Informação na UNIFECAF (2023 a 2027), com atuação em operações, projetos e métodos ágeis.",
         "Conecto estratégia, pessoas e tecnologia para transformar objetivos em processos claros e entregas acompanháveis.",
       ],
       education: {
         title: "Formação",
         items: [
+          {
+            period: "2023 — 2027",
+            label: "Sistemas de Informação — UNIFECAF",
+          },
           {
             period: "2025",
             label: "Gestão de Projetos e Processos — FGV",
@@ -517,12 +521,16 @@ export const dictionaries: Record<Lang, Dictionary> = {
     about: {
       title: "About",
       paragraphs: [
-        "Information Systems student at UFES, working across operations, projects, and agile practices.",
+        "Information Systems student at UNIFECAF (2023–2027), working across operations, projects, and agile practices.",
         "I connect strategy, people, and technology to turn goals into clear processes and trackable delivery.",
       ],
       education: {
         title: "Education",
         items: [
+          {
+            period: "2023 — 2027",
+            label: "Information Systems — UNIFECAF",
+          },
           {
             period: "2025",
             label: "Project and Process Management — FGV",

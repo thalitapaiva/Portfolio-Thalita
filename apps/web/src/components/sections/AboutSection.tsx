@@ -4,7 +4,7 @@ import { GraduationCap, Languages, School } from "lucide-react";
 
 import { useLang } from "@/lib/i18n";
 
-const EDU_ICONS = [GraduationCap, School, Languages] as const;
+const EDU_ICONS = [GraduationCap, GraduationCap, School, Languages] as const;
 
 export function AboutSection() {
   const { t } = useLang();

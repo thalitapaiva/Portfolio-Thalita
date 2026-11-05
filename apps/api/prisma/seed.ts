@@ -5,7 +5,7 @@
  *   - GitHub bio:            "Information Systems Student"
  *   - GitHub handle:         @thalitapaiva
  *   - LinkedIn URL:          https://www.linkedin.com/in/thalita-paiva-1301a122b/
- *   - Education (public):    Sistemas de Informação — UFES
+ *   - Education (public):    Sistemas de Informação — UNIFECAF
  *   - Public repositories:   page-batman, clocks, weather,
  *                            sorteador-amigosecreto, jogo-da-velha, projectgram
  *
@@ -94,7 +94,7 @@ const workPrinciples: WorkPrincipleSeed[] = [
 
 const linkedIn: LinkedInSeed = {
   name: "Thalita Paiva",
-  headline: "SI · UFES | Programação, processos e projetos",
+  headline: "SI · UNIFECAF | Programação, processos e projetos",
   summary:
     "Estudante de Sistemas de Informação com foco em software e organização de entregas.",
   skills: [
@@ -316,11 +316,11 @@ async function seedProfile() {
     heroLabel: "SI · SOFTWARE · PROCESSOS",
     headline: "Programação, processos e projetos.",
     shortBio:
-      "Estudante de Sistemas de Informação na UFES – Campus Alegre, com foco em desenvolvimento Full Stack.",
+      "Estudante de Sistemas de Informação na UNIFECAF (2023 a 2027), com foco em desenvolvimento Full Stack.",
     aboutContent:
-      "Sou estudante de Sistemas de Informação na Universidade Federal do Espírito Santo (UFES) – Campus Alegre. Tenho grande interesse em Desenvolvimento Full Stack e na criação de softwares que sejam modernos, eficientes e capazes de solucionar problemas reais.",
+      "Sou estudante de Sistemas de Informação na UNIFECAF (2023 a 2027). Tenho grande interesse em Desenvolvimento Full Stack e na criação de softwares que sejam modernos, eficientes e capazes de solucionar problemas reais.",
     education:
-      "Sistemas de Informação — UFES (Campus Alegre)",
+      "Sistemas de Informação — UNIFECAF (2023 a 2027)",
     interests:
       "Desenvolvimento Full Stack, softwares modernos e soluções para problemas reais.",
     workStyle:
@@ -333,7 +333,7 @@ async function seedProfile() {
     linkedIn: linkedIn as unknown as Prisma.InputJsonValue,
     seoTitle: "Thalita Paiva — Programação, processos e projetos",
     seoDescription:
-      "Portfólio de Thalita Paiva, estudante de Sistemas de Informação na UFES. Projetos de programação sincronizados com o GitHub, com interesse em processos e gestão de projetos.",
+      "Portfólio de Thalita Paiva, estudante de Sistemas de Informação na UNIFECAF. Atuação em tecnologia, processos e gestão de projetos.",
   };
 
   const existing = await prisma.portfolioProfile.findFirst();
