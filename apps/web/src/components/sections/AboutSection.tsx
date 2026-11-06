@@ -1,63 +1,110 @@
 "use client";
 
-import { GraduationCap, Languages, School } from "lucide-react";
-
+import { ArrowUpRight, GraduationCap, Languages, School } from "lucide-react";
 import { useLang } from "@/lib/i18n";
+import styles from "./AboutSection.module.css";
 
-const EDU_ICONS = [GraduationCap, GraduationCap, School, Languages] as const;
+const COURSE_ICONS = [GraduationCap, School, Languages] as const;
 
 export function AboutSection() {
-  const { t } = useLang();
-  const lead = t.about.paragraphs[0];
-  const support = t.about.paragraphs[1];
-
+  const { t, lang } = useLang();
+  const [degree, ...courses] = t.about.education.items;
   return (
-    <section id="sobre" aria-labelledby="about-title" className="section-pad">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div
-          className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16"
-          data-aos="zoom-y-out"
-        >
-          <div>
-            <div className="mb-4 h-1 w-12 rounded-full bg-blue-500" aria-hidden="true" />
-            <h2
-              id="about-title"
-              className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 md:text-4xl"
-            >
-              {t.about.title}
+    <section
+      id="sobre"
+      aria-labelledby="about-title"
+      className={styles.section}
+    >
+      <div className={styles.shell}>
+        <div className={styles.sectionHeader}>
+          <span>
+            {lang === "pt" ? "UM POUCO SOBRE MIM" : "A LITTLE ABOUT ME"}
+          </span>
+          <span>THALITA PAIVA</span>
+        </div>
+        <div className={styles.layout}>
+          <div className={styles.story}>
+            <h2 id="about-title">
+              {lang === "pt" ? (
+                <>
+                  Conectando pessoas,
+                  <br />
+                  processos e <em>tecnologia.</em>
+                </>
+              ) : (
+                <>
+                  Connecting people,
+                  <br />
+                  processes, and <em>technology.</em>
+                </>
+              )}
             </h2>
-            <p className="mt-5 max-w-md text-lg font-medium leading-snug tracking-tight text-gray-800 dark:text-gray-200">
-              {lead}
-            </p>
-            {support ? (
-              <p className="mt-3 hidden max-w-md text-[15px] leading-relaxed text-gray-500 dark:text-gray-400 sm:block">
-                {support}
+            {t.about.paragraphs.map((paragraph, index) => (
+              <p
+                key={paragraph}
+                className={index === 0 ? styles.lead : styles.support}
+              >
+                {paragraph}
               </p>
-            ) : null}
+            ))}
+            <div className={styles.interests}>
+              <span>Business Operations</span>
+              <span>Scrum Master</span>
+              <span>
+                {lang === "pt" ? "Gestão de projetos" : "Project management"}
+              </span>
+            </div>
           </div>
-
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-blue-500">
+          <div className={styles.education}>
+            <h3>
               {t.about.education.title}
-            </p>
-            <ol className="relative space-y-0 border-l border-gray-200 dark:border-gray-800">
-              {t.about.education.items.map((item, index) => {
-                const Icon = EDU_ICONS[index] ?? GraduationCap;
+              <GraduationCap size={20} aria-hidden="true" />
+            </h3>
+            {degree && (
+              <div className={styles.degree}>
+                <div className={styles.degreeTop}>
+                  <span className={styles.degreeIcon}>
+                    <GraduationCap
+                      size={25}
+                      strokeWidth={1.6}
+                      aria-hidden="true"
+                    />
+                  </span>
+                  <span>{degree.period}</span>
+                </div>
+                <h4>{degree.label}</h4>
+                <p>
+                  {lang === "pt"
+                    ? "Graduação em andamento"
+                    : "Undergraduate studies in progress"}
+                </p>
+              </div>
+            )}
+            <div className={styles.courseList}>
+              {courses.map((item, index) => {
+                const Icon = COURSE_ICONS[index] ?? GraduationCap;
                 return (
-                  <li key={`${item.period}-${item.label}`} className="relative pl-10 pb-8 last:pb-0">
-                    <span className="absolute -left-4 top-0 flex size-8 items-center justify-center rounded-full border border-gray-200 bg-white text-blue-500 shadow-sm dark:border-gray-700 dark:bg-gray-900">
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                    </span>
-                    <p className="font-mono text-[11px] font-semibold tracking-wide text-blue-500">
-                      {item.period}
-                    </p>
-                    <p className="mt-1 text-[15px] font-semibold leading-snug text-gray-900 dark:text-gray-100">
-                      {item.label}
-                    </p>
-                  </li>
+                  <div className={styles.course} key={item.label}>
+                    <Icon size={20} strokeWidth={1.5} aria-hidden="true" />
+                    <div>
+                      <span>{item.period}</span>
+                      <h4>{item.label}</h4>
+                    </div>
+                  </div>
                 );
               })}
-            </ol>
+            </div>
+            <a
+              className={styles.profileLink}
+              href="https://www.linkedin.com/in/thalita-paiva-1301a122b/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {lang === "pt"
+                ? "Conheça minha trajetória no LinkedIn"
+                : "Explore my background on LinkedIn"}
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
           </div>
         </div>
       </div>
