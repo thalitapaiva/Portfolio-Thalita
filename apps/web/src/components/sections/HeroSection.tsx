@@ -20,6 +20,28 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
     "https://www.linkedin.com/in/thalita-paiva-1301a122b/";
   return (
     <section id="inicio" aria-labelledby="hero-name" className={styles.hero}>
+      <div className={styles.ambient} aria-hidden="true">
+        <svg
+          viewBox="0 0 1200 600"
+          fill="none"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <g className={styles.signalLeft}>
+            <path d="M0 210h100l65 65h90M55 420h100l50-50h55" />
+            <circle cx="255" cy="275" r="4" />
+            <circle cx="260" cy="370" r="4" />
+            <circle cx="80" cy="140" r="2" />
+            <circle cx="190" cy="475" r="2" />
+          </g>
+          <g className={styles.signalRight}>
+            <path d="M1200 180h-125l-55 55h-75M1200 400h-90l-60-60h-90" />
+            <circle cx="945" cy="235" r="4" />
+            <circle cx="960" cy="340" r="4" />
+            <circle cx="1100" cy="110" r="2" />
+            <circle cx="1035" cy="465" r="2" />
+          </g>
+        </svg>
+      </div>
       <div className={styles.shell}>
         <div className={styles.identity}>
           <div className={styles.portrait}>

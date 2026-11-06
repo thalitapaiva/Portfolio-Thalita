@@ -1,10 +1,15 @@
 .hero {
-  padding: 152px 24px 72px;
+  padding: 152px 24px 24px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   scroll-margin-top: 90px;
   background: var(--background);
   color: var(--text-primary);
 }
 .shell {
+  position: relative;
+  z-index: 1;
   max-width: 760px;
   margin: 0 auto;
   text-align: center;
@@ -124,7 +129,7 @@
 }
 @media (max-width: 700px) {
   .hero {
-    padding: 115px 22px 48px;
+    padding: 115px 22px 20px;
   }
   .identity {
     gap: 18px;
@@ -188,5 +193,50 @@
   }
   .primary:hover {
     transform: none;
+  }
+}
+
+.ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: var(--blue-600);
+  opacity: 0.2;
+}
+.ambient svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 1;
+}
+.ambient circle {
+  fill: currentColor;
+}
+.signalLeft {
+  animation: signalDrift 24s ease-in-out infinite alternate;
+}
+.signalRight {
+  animation: signalDrift 30s ease-in-out -12s infinite alternate-reverse;
+}
+@keyframes signalDrift {
+  from {
+    transform: translateY(-8px);
+    opacity: 0.45;
+  }
+  to {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+}
+@media (max-width: 700px) {
+  .ambient {
+    opacity: 0.13;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signalLeft,
+  .signalRight {
+    animation: none;
+    opacity: 0.5;
   }
 }

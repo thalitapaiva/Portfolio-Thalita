@@ -61,19 +61,31 @@ function SkillsMarquee({
     >
       <div className="hidden flex-wrap justify-center gap-2 motion-reduce:flex sm:gap-3">
         {items.map((item) => (
-          <SkillChip key={`static-${item.icon}-${item.label.pt}`} item={item} lang={lang} />
+          <SkillChip
+            key={`static-${item.icon}-${item.label.pt}`}
+            item={item}
+            lang={lang}
+          />
         ))}
       </div>
 
       <div className="inline-flex w-max max-w-none flex-nowrap motion-reduce:hidden">
         <div className={trackClass}>
           {items.map((item) => (
-            <SkillChip key={`a-${item.icon}-${item.label.pt}`} item={item} lang={lang} />
+            <SkillChip
+              key={`a-${item.icon}-${item.label.pt}`}
+              item={item}
+              lang={lang}
+            />
           ))}
         </div>
         <div className={trackClass} aria-hidden="true">
           {items.map((item) => (
-            <SkillChip key={`b-${item.icon}-${item.label.pt}`} item={item} lang={lang} />
+            <SkillChip
+              key={`b-${item.icon}-${item.label.pt}`}
+              item={item}
+              lang={lang}
+            />
           ))}
         </div>
       </div>
@@ -89,9 +101,16 @@ export function SkillsSection() {
   const toolItems = [...TOOL_TECHNOLOGY, ...TOOL_MANAGEMENT];
 
   return (
-    <section id="competencias" aria-labelledby="skills-title" className="section-pad">
+    <section
+      id="competencias"
+      aria-labelledby="skills-title"
+      className="section-pad pt-5 sm:pt-6 md:pt-6"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-3xl pb-8 text-center md:pb-12" data-aos="zoom-y-out">
+        <div
+          className="mx-auto max-w-3xl pb-8 text-center md:pb-12"
+          data-aos="zoom-y-out"
+        >
           <h2
             id="skills-title"
             className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl md:text-4xl"

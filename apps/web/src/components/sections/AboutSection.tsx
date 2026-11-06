@@ -3,6 +3,9 @@
 import {
   ArrowUpRight,
   ClipboardList,
+  GraduationCap,
+  BookOpen,
+  Languages,
   MessagesSquare,
   Workflow,
 } from "lucide-react";
@@ -88,12 +91,20 @@ export function AboutSection() {
         <div className={styles.education}>
           <h3>{en ? "Education & courses" : "Formação e cursos"}</h3>
           <ul>
-            {t.about.education.items.map((item) => (
-              <li key={item.label}>
-                <span>{item.period}</span>
-                <p>{item.label}</p>
-              </li>
-            ))}
+            {t.about.education.items.map((item, index) => {
+              const Icon =
+                [GraduationCap, BookOpen, GraduationCap, Languages][index] ??
+                BookOpen;
+              return (
+                <li key={item.label}>
+                  <Icon size={22} strokeWidth={1.6} aria-hidden="true" />
+                  <div>
+                    <p>{item.label}</p>
+                    <span>{item.period}</span>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
