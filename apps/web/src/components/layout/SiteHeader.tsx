@@ -41,13 +41,16 @@ export function SiteHeader() {
   const links = NAV_SECTIONS.filter((s) => s.id !== "inicio");
 
   return (
-    <header className="fixed top-2 z-30 w-full md:top-6" aria-label={t.nav.headerAria}>
+    <header
+      className="fixed top-2 z-30 w-full md:top-6"
+      aria-label={t.nav.headerAria}
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Simple border — mask-composite gradient borders paint opaque on Instagram/WebKit */}
-        <div className="relative flex h-12 items-center justify-between gap-1.5 rounded-2xl border border-gray-200/80 bg-white/90 px-2 shadow-lg shadow-black/[0.03] backdrop-blur-sm dark:border-gray-700/80 dark:bg-gray-900/90 sm:h-14 sm:gap-3 sm:px-3">
+        <div className="relative flex h-12 items-center justify-between gap-1.5 rounded-2xl border border-gray-200/80 bg-white/90 px-2 shadow-lg shadow-black/[0.03] backdrop-blur-sm dark:border-gray-700/80 dark:bg-gray-900/90 sm:h-14 sm:gap-3 sm:px-3 lg:grid lg:grid-cols-[1fr_auto_1fr]">
           <nav
             aria-label={t.nav.mainAria}
-            className="relative z-10 flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="relative z-10 flex min-w-0 flex-1 items-center justify-center lg:col-start-2 gap-0.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {links.map((section) => {
               const active = section.id === activeSection;
@@ -66,14 +69,20 @@ export function SiteHeader() {
                       : "text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100",
                   )}
                 >
-                  <Icon className="h-[18px] w-[18px]" aria-hidden="true" strokeWidth={2} />
-                  <span className="hidden lg:inline">{navLabels[section.id]}</span>
+                  <Icon
+                    className="h-[18px] w-[18px]"
+                    aria-hidden="true"
+                    strokeWidth={2}
+                  />
+                  <span className="hidden lg:inline">
+                    {navLabels[section.id]}
+                  </span>
                 </a>
               );
             })}
           </nav>
 
-          <div className="relative z-10 flex shrink-0 items-center gap-0.5 sm:gap-1.5">
+          <div className="relative z-10 flex shrink-0 items-center gap-0.5 sm:gap-1.5 lg:justify-self-end">
             <LanguageToggle className="h-9 border-gray-200 dark:border-gray-700 [&_button]:h-8 [&_button]:min-w-8 [&_button]:px-2" />
             <ThemeToggle className="h-9 w-9" />
           </div>

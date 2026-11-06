@@ -50,7 +50,7 @@ export function HeroSection({ profile, github }: HeroSectionProps) {
               alt={`Retrato de ${name}`}
               width={640}
               height={801}
-              sizes="(max-width: 700px) 76px, 112px"
+              sizes="(max-width: 700px) 76px, 80px"
               priority
             />
           </div>

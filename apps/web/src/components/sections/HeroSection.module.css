@@ -1,5 +1,5 @@
 .hero {
-  padding: 152px 24px 24px;
+  padding: 120px 24px 24px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -18,13 +18,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 28px;
+  flex-direction: column;
+  gap: 14px;
   max-width: 100%;
   margin: 0 auto 28px;
 }
 .portrait {
-  width: 112px;
-  height: 112px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 50%;
@@ -40,7 +41,7 @@
   display: block;
 }
 .identityText {
-  text-align: left;
+  text-align: center;
   min-width: 0;
 }
 .greeting {
@@ -129,10 +130,10 @@
 }
 @media (max-width: 700px) {
   .hero {
-    padding: 115px 22px 20px;
+    padding: 88px 22px 20px;
   }
   .identity {
-    gap: 18px;
+    gap: 12px;
     margin-bottom: 24px;
   }
   .portrait {
@@ -177,7 +178,7 @@
 }
 @media (max-width: 360px) {
   .identity {
-    gap: 14px;
+    gap: 12px;
   }
   .portrait {
     width: 64px;
