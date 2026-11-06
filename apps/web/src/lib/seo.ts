@@ -70,10 +70,10 @@ export function buildMetadata({
     },
     icons: {
       icon: [
-        { url: "/icon", type: "image/png", sizes: "32x32" },
-        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/icon?v=management-1", type: "image/png", sizes: "32x32" },
+        { url: "/favicon.svg?v=management-1", type: "image/svg+xml" },
       ],
-      shortcut: "/icon",
+      shortcut: "/icon?v=management-1",
     },
   };
 }

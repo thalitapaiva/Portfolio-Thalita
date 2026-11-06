@@ -1,13 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="8" fill="#0b1524"/>
-  <rect x="1.5" y="1.5" width="29" height="29" rx="6.5" stroke="#2181bd" stroke-width="1.5"/>
-  <text
-    x="16"
-    y="21.5"
-    text-anchor="middle"
-    fill="#80cbf3"
-    font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
-    font-size="13"
-    font-weight="700"
-  >{ }</text>
+  <rect width="32" height="32" rx="8" fill="#2563eb"/>
+  <rect x="8" y="8" width="16" height="18" rx="3" stroke="white" stroke-width="1.8"/>
+  <rect x="12" y="5.5" width="8" height="5" rx="1.6" fill="#2563eb" stroke="white" stroke-width="1.8"/>
+  <path d="M12 18L15 21L20.5 15.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

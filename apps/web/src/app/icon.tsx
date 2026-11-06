@@ -3,39 +3,38 @@ import { ImageResponse } from "next/og";
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
-/** Blue tech mark for browser tab favicon. */
+/** Project-management clipboard, readable at browser-tab sizes. */
 export default function Icon() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#0b1524",
-          borderRadius: 8,
-          border: "1.5px solid #2181bd",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#80cbf3",
-            fontSize: 18,
-            fontWeight: 700,
-            fontFamily: "ui-monospace, monospace",
-            letterSpacing: -1,
-            lineHeight: 1,
-          }}
-        >
-          {"{ }"}
-        </div>
-      </div>
-    ),
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <rect width="32" height="32" rx="8" fill="#2563eb" />
+      <rect
+        x="8"
+        y="8"
+        width="16"
+        height="18"
+        rx="3"
+        stroke="white"
+        strokeWidth="1.8"
+      />
+      <rect
+        x="12"
+        y="5.5"
+        width="8"
+        height="5"
+        rx="1.6"
+        fill="#2563eb"
+        stroke="white"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M12 18L15 21L20.5 15.5"
+        stroke="white"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>,
     { ...size },
   );
 }
